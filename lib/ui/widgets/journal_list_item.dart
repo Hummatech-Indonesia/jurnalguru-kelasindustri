@@ -1,0 +1,99 @@
+import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
+import '../../utilities/extensions.dart';
+import '../screens/journal_detail/journal_detail_screen.dart';
+import '../theme/theme.dart';
+import 'ui_card.dart';
+
+class JournalListItem extends StatelessWidget {
+  const JournalListItem({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return UICard(
+      padding: ThemeConstants.defaultPadding / 2,
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => const JournalDetailScreen(),
+          ),
+        );
+      },
+      child: Row(
+        children: [
+          FaIcon(
+            FontAwesomeIcons.clipboardCheck,
+            size: 54,
+            color: context.color.primary,
+          ),
+          16.widthBox,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Jurnal Harian 2",
+                  style: context.text.titleMedium?.weight(Weight.bold),
+                ),
+                8.heightBox,
+                Text(
+                  DateTime.now().asDate,
+                  style: context.text.bodyMedium,
+                ),
+                4.heightBox,
+                Text(
+                  "XII Multimedia A",
+                  style: context.text.bodyMedium?.withColor(
+                    context.color.onSurface.withOpacity(0.5),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Column(
+            children: [
+              Row(
+                children: [
+                  _buildAttendance(context, "10", "Sakit", Colors.blue),
+                  8.widthBox,
+                  _buildAttendance(context, "10", "Alfa", Colors.red),
+                  8.widthBox,
+                  _buildAttendance(context, "10", "Izin", Colors.yellow),
+                ],
+              ),
+              24.heightBox,
+              Text(
+                "Click untuk detail",
+                style: context.text.labelMedium
+                    ?.withColor(context.color.onSurface.withOpacity(0.5)),
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAttendance(
+    BuildContext context,
+    String value,
+    String label,
+    Color color,
+  ) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style:
+              context.text.bodyLarge?.weight(Weight.semiBold).withColor(color),
+        ),
+        4.heightBox,
+        Text(
+          label,
+          style: context.text.bodyMedium?.weight(Weight.semiBold),
+        ),
+      ],
+    );
+  }
+}
