@@ -1,16 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../utilities/extensions.dart';
+import '../../notifiers/auth/auth_notifier.dart';
+import '../../routes/routes.dart';
 import '../../theme/theme_constants.dart';
 import '../../widgets/ui_screen.dart';
 import '../../widgets/ui_text_form_field.dart';
-import '../main/main_screen.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
 
   @override
+  ConsumerState<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends ConsumerState<LoginScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  bool _isPasswordVisible = false;
+
+  @override
+  void initState() {
+    super.initState();
+
+    ref.read(authNotifierProvider.notifier).checkLogin();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _emailController.dispose();
+    _passwordController.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    ref.listen(authNotifierProvider, (previous, next) {
+      if (next.isLoggedIn) {
+        Navigator.of(context).pushReplacementNamed(Routes.main);
+      }
+      if (next.failure != null) {
+        next.failure!.snackbar(context);
+      }
+    });
+
     return UIScreen(
       body: CustomScrollView(
         slivers: [
@@ -55,61 +93,114 @@ class LoginScreen extends StatelessWidget {
                 ),
               ),
               padding: ThemeConstants.defaultPadding,
-              child: Column(
-                children: [
-                  Text(
-                    "Login",
-                    style: context.text.headlineLarge?.weight(Weight.bold),
-                  ),
-                  24.heightBox,
-                  const UITextFormField(
-                    label: "Nama",
-                    hint: "Masukkan nama",
-                  ),
-                  12.heightBox,
-                  const UITextFormField(
-                    label: "Kata Sandi",
-                    hint: "Masukkan kata sandi",
-                  ),
-                  24.heightBox,
-                  FilledButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MainScreen(),
-                        ),
-                      );
-                    },
-                    style: FilledButton.styleFrom(
-                      textStyle:
-                          context.text.titleMedium!.weight(Weight.semiBold),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    Text(
+                      "Login",
+                      style: context.text.headlineLarge?.weight(Weight.bold),
                     ),
-                    child: const Text("Login"),
-                  ),
-                  const Spacer(),
-                  RichText(
-                    text: TextSpan(
-                      children: [
-                        TextSpan(
-                          text: "Developed by ",
-                          style: context.text.bodyMedium?.weight(Weight.medium),
-                        ),
-                        TextSpan(
-                          text: "Hummatech",
-                          style: context.text.bodyMedium
-                              ?.weight(Weight.medium)
-                              .primaryColor(),
-                        ),
-                      ],
+                    24.heightBox,
+                    UITextFormField(
+                      label: "Email",
+                      hint: "Masukkan email",
+                      controller: _emailController,
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return "Email tidak boleh kosong";
+                        }
+
+                        if (!RegExp(
+                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                            .hasMatch(value)) {
+                          return "Email tidak valid";
+                        }
+
+                        return null;
+                      },
                     ),
-                  ),
-                ],
+                    12.heightBox,
+                    UITextFormField(
+                      label: "Kata Sandi",
+                      hint: "Masukkan kata sandi",
+                      controller: _passwordController,
+                      decoration: InputDecoration(
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordVisible = !_isPasswordVisible;
+                            });
+                          },
+                          icon: Icon(
+                            _isPasswordVisible
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                        ),
+                      ),
+                      obscureText: !_isPasswordVisible,
+                      validator: (String? value) {
+                        if (value == null || value.isEmpty) {
+                          return "Kata sandi tidak boleh kosong";
+                        }
+                        return null;
+                      },
+                    ),
+                    24.heightBox,
+                    FilledButton(
+                      onPressed: _submit,
+                      style: FilledButton.styleFrom(
+                        textStyle:
+                            context.text.titleMedium!.weight(Weight.semiBold),
+                      ),
+                      child: Consumer(
+                        builder: (context, ref, child) {
+                          final isLading = ref.watch(authNotifierProvider
+                              .select((state) => state.isLoading));
+
+                          if (isLading) {
+                            return const CircularProgressIndicator();
+                          }
+
+                          return const Text("Login");
+                        },
+                      ),
+                    ),
+                    const Spacer(),
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Developed by ",
+                            style:
+                                context.text.bodyMedium?.weight(Weight.medium),
+                          ),
+                          TextSpan(
+                            text: "Hummatech",
+                            style: context.text.bodyMedium
+                                ?.weight(Weight.medium)
+                                .primaryColor(),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
         ],
       ),
     );
+  }
+
+  void _submit() async {
+    if (_formKey.currentState!.validate()) {
+      ref.read(authNotifierProvider.notifier).login(
+            _emailController.text,
+            _passwordController.text,
+          );
+    }
   }
 }

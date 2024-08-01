@@ -13,6 +13,7 @@ class UITextFormField extends StatefulWidget {
   final int? minLines;
   final int? maxLines;
   final Widget Function(BuildContext context)? formBuilder;
+  final String? Function(String?)? validator;
 
   const UITextFormField({
     super.key,
@@ -23,8 +24,9 @@ class UITextFormField extends StatefulWidget {
     this.decoration,
     this.readOnly = false,
     this.minLines,
-    this.maxLines,
+    this.maxLines = 1,
     this.formBuilder,
+    this.validator,
   });
 
   @override
@@ -55,6 +57,8 @@ class _UITextFormFieldState extends State<UITextFormField> {
             readOnly: widget.readOnly,
             minLines: widget.minLines,
             maxLines: widget.maxLines,
+            validator: widget.validator,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: (widget.decoration ?? const InputDecoration()).copyWith(
               labelText: widget.hint,
               alignLabelWithHint: true,

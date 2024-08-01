@@ -23,6 +23,6 @@ class Journal with _$Journal {
     @JsonKey(name: 'classroom') Classroom? classroom,
   }) = _Journal;
 
-  factory Journal.fromJson(Map<String, dynamic> json) =>
-      _$JournalFromJson(json);
+  factory Journal.fromJson(Object? json) =>
+      _$JournalFromJson(json as Map<String, dynamic>);
 }

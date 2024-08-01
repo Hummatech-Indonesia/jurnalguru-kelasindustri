@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../utilities/extensions.dart';
+import '../../../notifiers/auth/auth_notifier.dart';
+import '../../../routes/routes.dart';
 import '../../../theme/theme.dart';
 import '../../../theme/theme_constants.dart';
 import '../../profile/edit_password_screen.dart';
@@ -102,12 +105,22 @@ class ProfileView extends StatelessWidget {
               },
             ),
             8.widthBox,
-            _buildSettingItem(
-              context,
-              2,
-              FontAwesomeIcons.rightFromBracket,
-              "Logout",
-            ),
+            Consumer(builder: (context, ref, child) {
+              return _buildSettingItem(
+                context,
+                2,
+                FontAwesomeIcons.rightFromBracket,
+                "Logout",
+                () async {
+                  await ref.read(authNotifierProvider.notifier).logout();
+
+                  if (context.mounted) {
+                    Navigator.of(context).popUntil((route) => route.isFirst);
+                    Navigator.of(context).pushReplacementNamed(Routes.login);
+                  }
+                },
+              );
+            }),
           ],
         ),
       ),

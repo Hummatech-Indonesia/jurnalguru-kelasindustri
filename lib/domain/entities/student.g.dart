@@ -13,11 +13,10 @@ _$StudentImpl _$$StudentImplFromJson(Map<String, dynamic> json) =>
       studentId: json['studentId'] as String?,
       studentClassroom: json['student_classroom'] == null
           ? null
-          : StudentClassroom.fromJson(
-              json['student_classroom'] as Map<String, dynamic>),
+          : StudentClassroom.fromJson(json['student_classroom']),
       student: json['student'] == null
           ? null
-          : StudentDetail.fromJson(json['student'] as Map<String, dynamic>),
+          : StudentDetail.fromJson(json['student']),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),

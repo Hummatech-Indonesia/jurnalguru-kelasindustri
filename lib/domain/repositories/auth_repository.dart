@@ -1,4 +1,18 @@
+import 'package:either_dart/either.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
+import '../../data/datasources/api_service.dart';
+import '../../data/repositories/auth_repository.dart';
+import '../entities/failure/failure.dart';
+
+part 'auth_repository.g.dart';
+
 abstract class AuthRepository {
-  Future<void> signIn(String email, String password);
-  Future<void> signOut();
+  Future<Either<Failure, String>> signIn(String email, String password);
+  Future<Either<Failure, void>> signOut();
+}
+
+@riverpod
+AuthRepository authRepository(AuthRepositoryRef ref) {
+  return AuthRepositoryImpl(ref.read(apiServiceProvider));
 }

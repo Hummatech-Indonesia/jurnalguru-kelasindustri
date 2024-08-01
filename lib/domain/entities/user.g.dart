@@ -10,9 +10,8 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       id: (json['id'] as num?)?.toInt(),
       teacherId: json['teacher_id'] as String?,
       schoolId: json['school_id'] as String?,
-      detail: json['teacher'] == null
-          ? null
-          : UserDetail.fromJson(json['teacher'] as Map<String, dynamic>),
+      detail:
+          json['teacher'] == null ? null : UserDetail.fromJson(json['teacher']),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -33,7 +32,7 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
 
 _$UserDetailImpl _$$UserDetailImplFromJson(Map<String, dynamic> json) =>
     _$UserDetailImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       name: json['name'] as String?,
       email: json['email'] as String?,
       emailVerifiedAt: json['email_verified_at'] == null
@@ -53,7 +52,7 @@ _$UserDetailImpl _$$UserDetailImplFromJson(Map<String, dynamic> json) =>
       accountNumber: json['account_number'] as String?,
       headmaster: json['headmaster'] == null
           ? null
-          : UserDetail.fromJson(json['headmaster'] as Map<String, dynamic>),
+          : UserDetail.fromJson(json['headmaster']),
       point: (json['point'] as num?)?.toInt(),
       createdAt: json['created_at'] == null
           ? null

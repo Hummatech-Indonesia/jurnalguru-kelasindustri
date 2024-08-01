@@ -15,8 +15,8 @@ class Student with _$Student {
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _Student;
 
-  factory Student.fromJson(Map<String, dynamic> json) =>
-      _$StudentFromJson(json);
+  factory Student.fromJson(Object? json) =>
+      _$StudentFromJson(json as Map<String, dynamic>);
 }
 
 @freezed
@@ -42,8 +42,8 @@ class StudentDetail with _$StudentDetail {
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _StudentDetail;
 
-  factory StudentDetail.fromJson(Map<String, dynamic> json) =>
-      _$StudentDetailFromJson(json);
+  factory StudentDetail.fromJson(Object? json) =>
+      _$StudentDetailFromJson(json as Map<String, dynamic>);
 }
 
 @freezed
@@ -56,6 +56,6 @@ class StudentClassroom with _$StudentClassroom {
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _StudentClassroom;
 
-  factory StudentClassroom.fromJson(Map<String, dynamic> json) =>
-      _$StudentClassroomFromJson(json);
+  factory StudentClassroom.fromJson(Object? json) =>
+      _$StudentClassroomFromJson(json as Map<String, dynamic>);
 }

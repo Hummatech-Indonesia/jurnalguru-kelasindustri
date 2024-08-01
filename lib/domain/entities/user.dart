@@ -14,13 +14,14 @@ class User with _$User {
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _User;
 
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromJson(Object? json) =>
+      _$UserFromJson(json as Map<String, dynamic>);
 }
 
 @freezed
 class UserDetail with _$UserDetail {
   factory UserDetail({
-    @JsonKey(name: 'id') int? id,
+    @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'email') String? email,
     @JsonKey(name: 'email_verified_at') DateTime? emailVerifiedAt,
@@ -40,6 +41,6 @@ class UserDetail with _$UserDetail {
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _UserDetail;
 
-  factory UserDetail.fromJson(Map<String, dynamic> json) =>
-      _$UserDetailFromJson(json);
+  factory UserDetail.fromJson(Object? json) =>
+      _$UserDetailFromJson(json as Map<String, dynamic>);
 }

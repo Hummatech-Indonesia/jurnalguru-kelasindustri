@@ -27,7 +27,7 @@ _$JournalImpl _$$JournalImplFromJson(Map<String, dynamic> json) =>
       absents: (json['absents'] as num?)?.toInt(),
       classroom: json['classroom'] == null
           ? null
-          : Classroom.fromJson(json['classroom'] as Map<String, dynamic>),
+          : Classroom.fromJson(json['classroom']),
     );
 
 Map<String, dynamic> _$$JournalImplToJson(_$JournalImpl instance) =>

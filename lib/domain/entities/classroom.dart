@@ -16,6 +16,6 @@ class Classroom with _$Classroom {
     @JsonKey(name: 'students') int? students,
   }) = _Classroom;
 
-  factory Classroom.fromJson(Map<String, dynamic> json) =>
-      _$ClassroomFromJson(json);
+  factory Classroom.fromJson(Object? json) =>
+      _$ClassroomFromJson(json as Map<String, dynamic>);
 }

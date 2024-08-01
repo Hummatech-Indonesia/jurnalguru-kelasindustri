@@ -296,7 +296,7 @@ UserDetail _$UserDetailFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserDetail {
   @JsonKey(name: 'id')
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'name')
   String? get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'email')
@@ -345,7 +345,7 @@ abstract class $UserDetailCopyWith<$Res> {
       _$UserDetailCopyWithImpl<$Res, UserDetail>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
+      {@JsonKey(name: 'id') String? id,
       @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'email') String? email,
       @JsonKey(name: 'email_verified_at') DateTime? emailVerifiedAt,
@@ -403,7 +403,7 @@ class _$UserDetailCopyWithImpl<$Res, $Val extends UserDetail>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -497,7 +497,7 @@ abstract class _$$UserDetailImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
+      {@JsonKey(name: 'id') String? id,
       @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'email') String? email,
       @JsonKey(name: 'email_verified_at') DateTime? emailVerifiedAt,
@@ -554,7 +554,7 @@ class __$$UserDetailImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
@@ -655,7 +655,7 @@ class _$UserDetailImpl implements _UserDetail {
 
   @override
   @JsonKey(name: 'id')
-  final int? id;
+  final String? id;
   @override
   @JsonKey(name: 'name')
   final String? name;
@@ -786,7 +786,7 @@ class _$UserDetailImpl implements _UserDetail {
 
 abstract class _UserDetail implements UserDetail {
   factory _UserDetail(
-          {@JsonKey(name: 'id') final int? id,
+          {@JsonKey(name: 'id') final String? id,
           @JsonKey(name: 'name') final String? name,
           @JsonKey(name: 'email') final String? email,
           @JsonKey(name: 'email_verified_at') final DateTime? emailVerifiedAt,
@@ -811,7 +811,7 @@ abstract class _UserDetail implements UserDetail {
 
   @override
   @JsonKey(name: 'id')
-  int? get id;
+  String? get id;
   @override
   @JsonKey(name: 'name')
   String? get name;

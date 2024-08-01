@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import '../domain/entities/failure/failure.dart';
 import '../ui/theme/theme.dart';
 import 'formatter.dart';
 
@@ -113,4 +114,15 @@ extension TextStyleX on TextStyle {
   TextStyle onPrimaryColor() => copyWith(color: ColorPallete.onPrimary);
   TextStyle onErrorColor() => copyWith(color: ColorPallete.onError);
   TextStyle errorColor() => copyWith(color: ColorPallete.error);
+}
+
+extension FailureX on Failure {
+  Future<void> snackbar(BuildContext context) async {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: context.color.error,
+      ),
+    );
+  }
 }
