@@ -186,7 +186,6 @@ class HomeView extends ConsumerWidget {
                 itemCount: journals.length,
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                // padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
                   return JournalListItem(
                     journal: journals[index],

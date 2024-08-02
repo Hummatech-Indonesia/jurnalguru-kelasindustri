@@ -22,7 +22,9 @@ class JournalListItem extends StatelessWidget {
       onTap: () {
         Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const JournalDetailScreen(),
+            builder: (context) => JournalDetailScreen(
+              journal: journal,
+            ),
           ),
         );
       },

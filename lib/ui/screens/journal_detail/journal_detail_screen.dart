@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../utilities/extensions.dart';
+import '../../../domain/entities/journal.dart';
 import '../../theme/theme_constants.dart';
 import '../../widgets/section_title.dart';
 import '../../widgets/ui_card.dart';
 import '../../widgets/ui_screen.dart';
 
 class JournalDetailScreen extends StatefulWidget {
-  const JournalDetailScreen({super.key});
+  final Journal journal;
+
+  const JournalDetailScreen({
+    super.key,
+    required this.journal,
+  });
 
   @override
   State<JournalDetailScreen> createState() => _JournalDetailScreenState();
@@ -91,12 +97,12 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
             ),
             24.heightBox,
             Text(
-              "XII Multimedia A",
+              widget.journal.classroom?.name ?? '',
               style: context.text.bodyMedium?.onPrimaryColor(),
             ),
             4.heightBox,
             Text(
-              "Jurnal 1",
+              widget.journal.title ?? '',
               style: context.text.titleLarge
                   ?.weight(Weight.semiBold)
                   .onPrimaryColor(),
@@ -130,21 +136,20 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Jurnal 1",
+                    widget.journal.title ?? '',
                     style: context.text.titleLarge?.weight(Weight.semiBold),
                   ),
                   8.heightBox,
-                  Text(DateTime.now().asDate),
+                  Text(widget.journal.date?.asDate ?? ''),
                   4.heightBox,
-                  const Text("XII Multimedia A"),
+                  Text(widget.journal.classroom?.name ?? ''),
                   12.heightBox,
                   Text(
                     "Deskripsi",
                     style: context.text.titleLarge?.weight(Weight.semiBold),
                   ),
                   4.heightBox,
-                  const Text(
-                      "Tugas ini bertujuan untuk melakukan analisis dampak perubahan iklim di wilayah pantai yang terletak di sekitar daerah Wilayah ini telah mengalami perubahan signifikan dalam kondisi iklim, termasuk peningkatan suhu air laut,......"),
+                  Text(widget.journal.description ?? ''),
                 ],
               ),
             ),
@@ -159,13 +164,17 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildStatisticItem(context, "30", "Siswa", Colors.green),
+          _buildStatisticItem(context, widget.journal.classroom?.students ?? 0,
+              "Siswa", Colors.green),
           8.widthBox,
-          _buildStatisticItem(context, "2", "Sakit", Colors.blue),
+          _buildStatisticItem(
+              context, widget.journal.sicks ?? 0, "Sakit", Colors.blue),
           8.widthBox,
-          _buildStatisticItem(context, "1", "Alpa", Colors.red),
+          _buildStatisticItem(
+              context, widget.journal.absents ?? 0, "Alpa", Colors.red),
           8.widthBox,
-          _buildStatisticItem(context, "03", "Izin", Colors.yellow),
+          _buildStatisticItem(
+              context, widget.journal.permits ?? 0, "Izin", Colors.yellow),
         ],
       ),
     );
@@ -173,7 +182,7 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
 
   Widget _buildStatisticItem(
     BuildContext context,
-    String value,
+    num value,
     String label,
     Color color,
   ) {
@@ -190,7 +199,7 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
               padding: ThemeConstants.defaultPadding / 2,
               alignment: Alignment.center,
               child: Text(
-                value,
+                value.toString(),
                 style: context.text.headlineLarge
                     ?.weight(Weight.semiBold)
                     .withColor(color),
