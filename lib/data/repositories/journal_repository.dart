@@ -30,9 +30,16 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Either<Failure, void>> deleteJournal(Journal journal) {
-    // TODO: implement deleteJournal
-    throw UnimplementedError();
+  Future<Either<Failure, void>> deleteJournal(Journal journal) async {
+    final result = await _api.delete<void>(
+      '/journals/${journal.id}',
+      (_) {},
+    );
+
+    return result.fold(
+      (failure) => Left(failure),
+      (_) => const Right(null),
+    );
   }
 
   @override

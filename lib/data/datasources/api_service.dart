@@ -62,15 +62,26 @@ class ApiService {
     return ResponseModel.fromJson(response.data!, fromJsonT);
   }
 
-  Future<ResponseModel> delete<T>(
-      String path, T Function(Object? json) fromJsonT) async {
-    final response = await _dio.delete<Map<String, dynamic>>(path);
+  Future<Either<Failure, ResponseModel<T>>> delete<T>(
+    String path,
+    T Function(Object? json) fromJsonT,
+  ) async {
+    try {
+      final response = await _dio.delete<Map<String, dynamic>>(path);
 
-    if (response.data == null) {
-      return ResponseModel();
+      if (response.data == null) {
+        return Left(EmptyResponseFailure('Data is null'));
+      }
+
+      return Right(ResponseModel.fromJson(response.data!, fromJsonT));
+    } on DioException catch (e) {
+      if (e.response?.data != null) {
+        final response = ResponseModel.fromJson(e.response!.data!, fromJsonT);
+        return Left(ValidationFailure(response.message ?? '-'));
+      }
+
+      return Left(Failure(e.toString()));
     }
-
-    return ResponseModel.fromJson(response.data!, fromJsonT);
   }
 }
 

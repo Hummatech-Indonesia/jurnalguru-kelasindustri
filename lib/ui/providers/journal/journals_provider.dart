@@ -19,4 +19,12 @@ class Journals extends _$Journals {
       (success) => success,
     );
   }
+
+  Future<void> delete(Journal journal) async {
+    final repository = ref.read(journalRepositoryProvider);
+
+    await repository.deleteJournal(journal);
+
+    ref.invalidateSelf();
+  }
 }

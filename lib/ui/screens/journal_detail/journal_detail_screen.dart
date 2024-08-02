@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../utilities/extensions.dart';
+import '../../../domain/entities/failure/failure.dart';
 import '../../../domain/entities/journal.dart';
+import '../../providers/journal/journals_provider.dart';
 import '../../theme/theme_constants.dart';
 import '../../widgets/section_title.dart';
 import '../../widgets/ui_card.dart';
 import '../../widgets/ui_screen.dart';
+import 'widgets/delete_journal_modal.dart';
 
-class JournalDetailScreen extends StatefulWidget {
+class JournalDetailScreen extends ConsumerStatefulWidget {
   final Journal journal;
 
   const JournalDetailScreen({
@@ -16,10 +20,34 @@ class JournalDetailScreen extends StatefulWidget {
   });
 
   @override
-  State<JournalDetailScreen> createState() => _JournalDetailScreenState();
+  ConsumerState<JournalDetailScreen> createState() =>
+      _JournalDetailScreenState();
 }
 
-class _JournalDetailScreenState extends State<JournalDetailScreen> {
+class _JournalDetailScreenState extends ConsumerState<JournalDetailScreen> {
+  bool _isLoading = false;
+
+  Future<void> _deleteJournal() async {
+    final confirmed = await DeleteJournalModal.show(context);
+    if (confirmed ?? false) {
+      setState(() => _isLoading = true);
+
+      try {
+        await ref.read(journalsProvider.notifier).delete(widget.journal);
+
+        if (mounted) {
+          Navigator.of(context).pop();
+        }
+      } on Failure catch (e) {
+        if (mounted) {
+          e.snackbar(context);
+        }
+      } finally {
+        setState(() => _isLoading = false);
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return UIScreen(
@@ -27,8 +55,8 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
         children: [
           Column(
             children: [
-              _buildHeader(context),
-              Expanded(child: _buildBody(context)),
+              buildHeader(context),
+              Expanded(child: buildBody(context)),
             ],
           ),
           Positioned(
@@ -37,7 +65,7 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
             child: Row(
               children: [
                 FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: _deleteJournal,
                   heroTag: "delete",
                   backgroundColor: context.color.error,
                   child: const Icon(Icons.delete),
@@ -52,12 +80,21 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
               ],
             ),
           ),
+          if (_isLoading)
+            AbsorbPointer(
+              absorbing: true,
+              child: Container(
+                color: Colors.black.withOpacity(0.1),
+                alignment: Alignment.center,
+                child: const CircularProgressIndicator(),
+              ),
+            ),
         ],
       ),
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget buildHeader(BuildContext context) {
     return SafeArea(
       child: Padding(
         padding: ThemeConstants.defaultPadding,
@@ -113,7 +150,7 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: context.color.surface,
@@ -129,7 +166,7 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
           children: [
             const SectionTitle(title: "Statistik"),
             16.heightBox,
-            _buildStatistic(context),
+            buildStatistic(context),
             16.heightBox,
             UICard(
               child: Column(
@@ -159,28 +196,28 @@ class _JournalDetailScreenState extends State<JournalDetailScreen> {
     );
   }
 
-  Widget _buildStatistic(BuildContext context) {
+  Widget buildStatistic(BuildContext context) {
     return UICard(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildStatisticItem(context, widget.journal.classroom?.students ?? 0,
+          buildStatisticItem(context, widget.journal.classroom?.students ?? 0,
               "Siswa", Colors.green),
           8.widthBox,
-          _buildStatisticItem(
+          buildStatisticItem(
               context, widget.journal.sicks ?? 0, "Sakit", Colors.blue),
           8.widthBox,
-          _buildStatisticItem(
+          buildStatisticItem(
               context, widget.journal.absents ?? 0, "Alpa", Colors.red),
           8.widthBox,
-          _buildStatisticItem(
+          buildStatisticItem(
               context, widget.journal.permits ?? 0, "Izin", Colors.yellow),
         ],
       ),
     );
   }
 
-  Widget _buildStatisticItem(
+  Widget buildStatisticItem(
     BuildContext context,
     num value,
     String label,
