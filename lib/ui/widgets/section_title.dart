@@ -5,11 +5,13 @@ import '../../utilities/extensions.dart';
 class SectionTitle extends StatelessWidget {
   final String title;
   final String? more;
+  final VoidCallback? onMorePressed;
 
   const SectionTitle({
     super.key,
     required this.title,
     this.more,
+    this.onMorePressed,
   });
 
   @override
@@ -34,7 +36,7 @@ class SectionTitle extends StatelessWidget {
         const Spacer(),
         if (more != null)
           TextButton(
-            onPressed: () {},
+            onPressed: onMorePressed,
             child: Text(more!),
           ),
       ],

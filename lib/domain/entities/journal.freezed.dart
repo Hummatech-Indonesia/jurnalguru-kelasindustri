@@ -21,7 +21,7 @@ Journal _$JournalFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Journal {
   @JsonKey(name: 'id')
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'title')
   String? get title => throw _privateConstructorUsedError;
   @JsonKey(name: 'photo')
@@ -58,7 +58,7 @@ abstract class $JournalCopyWith<$Res> {
       _$JournalCopyWithImpl<$Res, Journal>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
+      {@JsonKey(name: 'id') String? id,
       @JsonKey(name: 'title') String? title,
       @JsonKey(name: 'photo') String? photo,
       @JsonKey(name: 'date') DateTime? date,
@@ -106,7 +106,7 @@ class _$JournalCopyWithImpl<$Res, $Val extends Journal>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -179,7 +179,7 @@ abstract class _$$JournalImplCopyWith<$Res> implements $JournalCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
+      {@JsonKey(name: 'id') String? id,
       @JsonKey(name: 'title') String? title,
       @JsonKey(name: 'photo') String? photo,
       @JsonKey(name: 'date') DateTime? date,
@@ -226,7 +226,7 @@ class __$$JournalImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       title: freezed == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -302,7 +302,7 @@ class _$JournalImpl implements _Journal {
 
   @override
   @JsonKey(name: 'id')
-  final int? id;
+  final String? id;
   @override
   @JsonKey(name: 'title')
   final String? title;
@@ -405,7 +405,7 @@ class _$JournalImpl implements _Journal {
 
 abstract class _Journal implements Journal {
   factory _Journal(
-      {@JsonKey(name: 'id') final int? id,
+      {@JsonKey(name: 'id') final String? id,
       @JsonKey(name: 'title') final String? title,
       @JsonKey(name: 'photo') final String? photo,
       @JsonKey(name: 'date') final DateTime? date,
@@ -423,7 +423,7 @@ abstract class _Journal implements Journal {
 
   @override
   @JsonKey(name: 'id')
-  int? get id;
+  String? get id;
   @override
   @JsonKey(name: 'title')
   String? get title;

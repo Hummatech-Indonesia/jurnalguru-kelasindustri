@@ -8,7 +8,7 @@ part 'journal.g.dart';
 @freezed
 class Journal with _$Journal {
   factory Journal({
-    @JsonKey(name: 'id') int? id,
+    @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'title') String? title,
     @JsonKey(name: 'photo') String? photo,
     @JsonKey(name: 'date') DateTime? date,
@@ -25,4 +25,12 @@ class Journal with _$Journal {
 
   factory Journal.fromJson(Object? json) =>
       _$JournalFromJson(json as Map<String, dynamic>);
+
+  static List<Journal> fromJsonList(Object? json) {
+    if (json == null) {
+      return [];
+    }
+
+    return (json as List<dynamic>).map((e) => Journal.fromJson(e)).toList();
+  }
 }

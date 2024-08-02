@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../utilities/extensions.dart';
-import '../../../notifiers/auth/auth_notifier.dart';
+import '../../../providers/auth/auth_notifier.dart';
 import '../../../routes/routes.dart';
 import '../../../theme/theme.dart';
 import '../../../theme/theme_constants.dart';

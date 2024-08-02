@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../theme/theme_constants.dart';
@@ -8,15 +9,19 @@ import 'journal/journal_view.dart';
 import 'profile/profile_view.dart';
 import 'widgets/custom_navigation_bar.dart';
 
-class MainScreen extends StatefulWidget {
+class MainScreen extends ConsumerStatefulWidget {
   const MainScreen({super.key});
 
+  static final pageController = Provider((ref) => PageController(
+        initialPage: 1,
+      ));
+
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  ConsumerState<MainScreen> createState() => _MainScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
-  int _currentIndex = 1;
+class _MainScreenState extends ConsumerState<MainScreen> {
+  int _currentIndex = 0;
 
   final _screens = [
     const JournalView(),
@@ -24,9 +29,12 @@ class _MainScreenState extends State<MainScreen> {
     const ProfileView(),
   ];
 
-  late final _pageController = PageController(
-    initialPage: _currentIndex,
-  );
+  @override
+  void initState() {
+    super.initState();
+
+    _currentIndex = ref.read(MainScreen.pageController).initialPage;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +44,12 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   Widget _buildBody() {
+    final controller = ref.watch(MainScreen.pageController);
     return Stack(
       children: [
         Positioned.fill(
           child: PageView(
-            controller: _pageController,
+            controller: controller,
             children: _screens,
             onPageChanged: (value) => setState(() {
               _currentIndex = value;
@@ -54,7 +63,7 @@ class _MainScreenState extends State<MainScreen> {
           child: CustomNavigationBar(
             currentIndex: _currentIndex,
             onTap: (index) {
-              _pageController.animateToPage(
+              controller.animateToPage(
                 index,
                 duration: ThemeConstants.navigationBarAnimationDuration,
                 curve: ThemeConstants.navigationBarAnimationCurve,

@@ -8,7 +8,7 @@ part of 'classroom.dart';
 
 _$ClassroomImpl _$$ClassroomImplFromJson(Map<String, dynamic> json) =>
     _$ClassroomImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       generationId: (json['generation_id'] as num?)?.toInt(),
       schoolId: json['school_id'] as String?,
       name: json['name'] as String?,

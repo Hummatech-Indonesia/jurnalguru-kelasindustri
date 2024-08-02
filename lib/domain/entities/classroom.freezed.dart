@@ -21,7 +21,7 @@ Classroom _$ClassroomFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$Classroom {
   @JsonKey(name: 'id')
-  int? get id => throw _privateConstructorUsedError;
+  String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'generation_id')
   int? get generationId => throw _privateConstructorUsedError;
   @JsonKey(name: 'school_id')
@@ -49,7 +49,7 @@ abstract class $ClassroomCopyWith<$Res> {
       _$ClassroomCopyWithImpl<$Res, Classroom>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
+      {@JsonKey(name: 'id') String? id,
       @JsonKey(name: 'generation_id') int? generationId,
       @JsonKey(name: 'school_id') String? schoolId,
       @JsonKey(name: 'name') String? name,
@@ -85,7 +85,7 @@ class _$ClassroomCopyWithImpl<$Res, $Val extends Classroom>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       generationId: freezed == generationId
           ? _value.generationId
           : generationId // ignore: cast_nullable_to_non_nullable
@@ -127,7 +127,7 @@ abstract class _$$ClassroomImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
+      {@JsonKey(name: 'id') String? id,
       @JsonKey(name: 'generation_id') int? generationId,
       @JsonKey(name: 'school_id') String? schoolId,
       @JsonKey(name: 'name') String? name,
@@ -161,7 +161,7 @@ class __$$ClassroomImplCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       generationId: freezed == generationId
           ? _value.generationId
           : generationId // ignore: cast_nullable_to_non_nullable
@@ -212,7 +212,7 @@ class _$ClassroomImpl implements _Classroom {
 
   @override
   @JsonKey(name: 'id')
-  final int? id;
+  final String? id;
   @override
   @JsonKey(name: 'generation_id')
   final int? generationId;
@@ -282,7 +282,7 @@ class _$ClassroomImpl implements _Classroom {
 
 abstract class _Classroom implements Classroom {
   factory _Classroom(
-      {@JsonKey(name: 'id') final int? id,
+      {@JsonKey(name: 'id') final String? id,
       @JsonKey(name: 'generation_id') final int? generationId,
       @JsonKey(name: 'school_id') final String? schoolId,
       @JsonKey(name: 'name') final String? name,
@@ -296,7 +296,7 @@ abstract class _Classroom implements Classroom {
 
   @override
   @JsonKey(name: 'id')
-  int? get id;
+  String? get id;
   @override
   @JsonKey(name: 'generation_id')
   int? get generationId;

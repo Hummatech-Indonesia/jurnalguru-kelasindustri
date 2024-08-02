@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../notifiers/auth/auth_notifier.dart';
+import '../providers/auth/auth_notifier.dart';
 import '../routes/routes.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {

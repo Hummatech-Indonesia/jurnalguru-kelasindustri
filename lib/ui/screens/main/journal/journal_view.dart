@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/extensions.dart';
+import '../../../providers/journal/journals_provider.dart';
 import '../../../theme/theme.dart';
 import '../../../theme/theme_constants.dart';
 import '../../../widgets/journal_list_item.dart';
@@ -111,15 +113,27 @@ class JournalView extends StatelessWidget {
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: ListView.separated(
-        itemCount: 3,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        // padding: EdgeInsets.zero,
-        itemBuilder: (context, index) {
-          return const JournalListItem();
+      child: Consumer(
+        builder: (context, ref, child) {
+          final journals = ref.watch(journalsProvider);
+
+          return journals.when(
+            data: (journals) => ListView.separated(
+              itemCount: journals.length,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              // padding: EdgeInsets.zero,
+              itemBuilder: (context, index) {
+                return JournalListItem(
+                  journal: journals[index],
+                );
+              },
+              separatorBuilder: (context, index) => 12.heightBox,
+            ),
+            error: (failure, stackTrace) => Text(failure.toString()),
+            loading: () => const Center(child: CircularProgressIndicator()),
+          );
         },
-        separatorBuilder: (context, index) => 12.heightBox,
       ),
     );
   }

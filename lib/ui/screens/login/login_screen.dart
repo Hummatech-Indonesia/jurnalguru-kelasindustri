@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../utilities/extensions.dart';
-import '../../notifiers/auth/auth_notifier.dart';
+import '../../providers/auth/auth_notifier.dart';
 import '../../routes/routes.dart';
 import '../../theme/theme_constants.dart';
 import '../../widgets/ui_screen.dart';
@@ -160,7 +160,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                               .select((state) => state.isLoading));
 
                           if (isLading) {
-                            return const CircularProgressIndicator();
+                            return CircularProgressIndicator(
+                              color: context.color.onPrimary,
+                            );
                           }
 
                           return const Text("Login");

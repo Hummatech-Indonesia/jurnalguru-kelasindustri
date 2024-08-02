@@ -79,10 +79,6 @@ final dividerTheme = DividerThemeData(
   thickness: ThemeConstants.dividerThickness,
 );
 
-final progressIndicatorTheme = ProgressIndicatorThemeData(
-  color: ColorPallete.onPrimary,
-);
-
 final theme = ThemeData.from(
   textTheme: textTheme,
   colorScheme: colorScheme,
@@ -90,5 +86,4 @@ final theme = ThemeData.from(
   inputDecorationTheme: inputDecorationTheme,
   filledButtonTheme: filledButtonTheme,
   dividerTheme: dividerTheme,
-  progressIndicatorTheme: progressIndicatorTheme,
 );

@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/extensions.dart';
+import '../../../providers/journal/journals_provider.dart';
 import '../../../theme/theme_constants.dart';
 import '../../../widgets/journal_list_item.dart';
 import '../../../widgets/section_title.dart';
 import '../../../widgets/ui_card.dart';
+import '../main_screen.dart';
 import '../widgets/custom_navigation_bar.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends ConsumerWidget {
   const HomeView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
         _buildHeader(context),
-        Expanded(child: _buildBody(context)),
+        Expanded(child: _buildBody(context, ref)),
       ],
     );
   }
@@ -84,7 +87,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBody(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
         color: context.color.surface,
@@ -103,7 +106,17 @@ class HomeView extends StatelessWidget {
             16.heightBox,
             _buildStatistic(context),
             24.heightBox,
-            const SectionTitle(title: "Jurnal Harian", more: "Lihat Semua"),
+            SectionTitle(
+              title: "Jurnal Harian",
+              more: "Lihat Semua",
+              onMorePressed: () {
+                ref.read(MainScreen.pageController).animateToPage(
+                      0,
+                      duration: ThemeConstants.navigationBarAnimationDuration,
+                      curve: ThemeConstants.navigationBarAnimationCurve,
+                    );
+              },
+            ),
             24.heightBox,
             _buildJournalList(context),
           ],
@@ -161,15 +174,31 @@ class HomeView extends StatelessWidget {
     return MediaQuery.removePadding(
       context: context,
       removeTop: true,
-      child: ListView.separated(
-        itemCount: 3,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        // padding: EdgeInsets.zero,
-        itemBuilder: (context, index) {
-          return const JournalListItem();
+      child: Consumer(
+        builder: (context, ref, child) {
+          final journals = ref.watch(journalsProvider);
+
+          return journals.when(
+            data: (journals) {
+              journals = journals.take(5).toList();
+
+              return ListView.separated(
+                itemCount: journals.length,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                // padding: EdgeInsets.zero,
+                itemBuilder: (context, index) {
+                  return JournalListItem(
+                    journal: journals[index],
+                  );
+                },
+                separatorBuilder: (context, index) => 12.heightBox,
+              );
+            },
+            error: (failure, stackTrace) => Text(failure.toString()),
+            loading: () => const Center(child: CircularProgressIndicator()),
+          );
         },
-        separatorBuilder: (context, index) => 12.heightBox,
       ),
     );
   }

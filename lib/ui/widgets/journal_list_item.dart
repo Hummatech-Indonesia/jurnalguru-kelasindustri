@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+import '../../domain/entities/journal.dart';
 import '../../utilities/extensions.dart';
 import '../screens/journal_detail/journal_detail_screen.dart';
 import '../theme/theme.dart';
 import 'ui_card.dart';
 
 class JournalListItem extends StatelessWidget {
-  const JournalListItem({super.key});
+  final Journal journal;
+
+  const JournalListItem({
+    super.key,
+    required this.journal,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,17 +39,17 @@ class JournalListItem extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Jurnal Harian 2",
+                  journal.title ?? '',
                   style: context.text.titleMedium?.weight(Weight.bold),
                 ),
                 8.heightBox,
                 Text(
-                  DateTime.now().asDate,
+                  journal.date?.asDate ?? '',
                   style: context.text.bodyMedium,
                 ),
                 4.heightBox,
                 Text(
-                  "XII Multimedia A",
+                  journal.classroom?.name ?? '',
                   style: context.text.bodyMedium?.withColor(
                     context.color.onSurface.withOpacity(0.5),
                   ),
@@ -55,11 +61,18 @@ class JournalListItem extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  _buildAttendance(context, "10", "Sakit", Colors.blue),
+                  _buildAttendance(
+                    context,
+                    "${journal.sicks ?? 0}",
+                    "Sakit",
+                    Colors.blue,
+                  ),
                   8.widthBox,
-                  _buildAttendance(context, "10", "Alfa", Colors.red),
+                  _buildAttendance(
+                      context, "${journal.absents}", "Alfa", Colors.red),
                   8.widthBox,
-                  _buildAttendance(context, "10", "Izin", Colors.yellow),
+                  _buildAttendance(
+                      context, "${journal.permits}", "Izin", Colors.yellow),
                 ],
               ),
               24.heightBox,
