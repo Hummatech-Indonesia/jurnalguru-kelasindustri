@@ -7,31 +7,6 @@ part of 'user.dart';
 // **************************************************************************
 
 _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
-      id: (json['id'] as num?)?.toInt(),
-      teacherId: json['teacher_id'] as String?,
-      schoolId: json['school_id'] as String?,
-      detail:
-          json['teacher'] == null ? null : UserDetail.fromJson(json['teacher']),
-      createdAt: json['created_at'] == null
-          ? null
-          : DateTime.parse(json['created_at'] as String),
-      updatedAt: json['updated_at'] == null
-          ? null
-          : DateTime.parse(json['updated_at'] as String),
-    );
-
-Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'teacher_id': instance.teacherId,
-      'school_id': instance.schoolId,
-      'teacher': instance.detail,
-      'created_at': instance.createdAt?.toIso8601String(),
-      'updated_at': instance.updatedAt?.toIso8601String(),
-    };
-
-_$UserDetailImpl _$$UserDetailImplFromJson(Map<String, dynamic> json) =>
-    _$UserDetailImpl(
       id: json['id'] as String?,
       name: json['name'] as String?,
       email: json['email'] as String?,
@@ -50,9 +25,8 @@ _$UserDetailImpl _$$UserDetailImplFromJson(Map<String, dynamic> json) =>
       photo: json['photo'] as String?,
       bank: json['bank'] as String?,
       accountNumber: json['account_number'] as String?,
-      headmaster: json['headmaster'] == null
-          ? null
-          : UserDetail.fromJson(json['headmaster']),
+      headmaster:
+          json['headmaster'] == null ? null : User.fromJson(json['headmaster']),
       point: (json['point'] as num?)?.toInt(),
       createdAt: json['created_at'] == null
           ? null
@@ -62,7 +36,7 @@ _$UserDetailImpl _$$UserDetailImplFromJson(Map<String, dynamic> json) =>
           : DateTime.parse(json['updated_at'] as String),
     );
 
-Map<String, dynamic> _$$UserDetailImplToJson(_$UserDetailImpl instance) =>
+Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'name': instance.name,

@@ -12,9 +12,9 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Future<Either<Failure, String>> signIn(String email, String password) async {
-    final result = await _api.post<UserDetail>(
+    final result = await _api.post<User>(
       '/login',
-      UserDetail.fromJson,
+      User.fromJson,
       data: {
         'email': email,
         'password': password,
@@ -30,5 +30,18 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, void>> signOut() async {
     return const Right(null);
+  }
+
+  @override
+  Future<Either<Failure, User>> getUser() async {
+    final result = await _api.get(
+      '/teacher',
+      User.fromJson,
+    );
+
+    return result.fold(
+      (failure) => Left(failure),
+      (success) => Right(success.data!),
+    );
   }
 }

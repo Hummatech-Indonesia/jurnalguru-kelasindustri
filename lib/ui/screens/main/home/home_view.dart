@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../utilities/extensions.dart';
+import '../../../providers/auth/auth_notifier.dart';
 import '../../../providers/journal/journals_provider.dart';
 import '../../../theme/theme_constants.dart';
 import '../../../widgets/journal_list_item.dart';
@@ -17,13 +18,15 @@ class HomeView extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Column(
       children: [
-        _buildHeader(context),
+        _buildHeader(context, ref),
         Expanded(child: _buildBody(context, ref)),
       ],
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget _buildHeader(BuildContext context, WidgetRef ref) {
+    final user = ref.watch(authNotifierProvider.select((state) => state.user));
+
     return SafeArea(
       child: Padding(
         padding: ThemeConstants.defaultPadding,
@@ -39,7 +42,7 @@ class HomeView extends ConsumerWidget {
                 8.widthBox,
                 Column(
                   children: [
-                    Text("Nathasya",
+                    Text(user?.name ?? '-',
                         style: context.text.titleMedium
                             ?.weight(Weight.bold)
                             .onPrimaryColor()),
@@ -77,7 +80,7 @@ class HomeView extends ConsumerWidget {
             ),
             8.heightBox,
             Text(
-              "Selamat Datang, Nathasya",
+              "Selamat Datang, ${user?.name ?? '-'}",
               style:
                   context.text.titleLarge?.weight(Weight.bold).onPrimaryColor(),
             )

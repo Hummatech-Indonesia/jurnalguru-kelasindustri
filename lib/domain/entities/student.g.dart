@@ -38,7 +38,7 @@ Map<String, dynamic> _$$StudentImplToJson(_$StudentImpl instance) =>
 
 _$StudentDetailImpl _$$StudentDetailImplFromJson(Map<String, dynamic> json) =>
     _$StudentDetailImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: json['id'] as String?,
       name: json['name'] as String?,
       email: json['email'] as String?,
       emailVerifiedAt: json['email_verified_at'] == null

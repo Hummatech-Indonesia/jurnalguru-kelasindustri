@@ -13,6 +13,8 @@ class ApiService {
 
   ApiService(this._dio);
 
+  Dio get dio => _dio;
+
   Future<Either<Failure, ResponseModel<T>>> get<T>(
       String path, T Function(Object? json) fromJsonT) async {
     try {

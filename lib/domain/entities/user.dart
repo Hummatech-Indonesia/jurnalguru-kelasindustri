@@ -6,21 +6,6 @@ part 'user.g.dart';
 @freezed
 class User with _$User {
   factory User({
-    @JsonKey(name: 'id') int? id,
-    @JsonKey(name: 'teacher_id') String? teacherId,
-    @JsonKey(name: 'school_id') String? schoolId,
-    @JsonKey(name: 'teacher') UserDetail? detail,
-    @JsonKey(name: 'created_at') DateTime? createdAt,
-    @JsonKey(name: 'updated_at') DateTime? updatedAt,
-  }) = _User;
-
-  factory User.fromJson(Object? json) =>
-      _$UserFromJson(json as Map<String, dynamic>);
-}
-
-@freezed
-class UserDetail with _$UserDetail {
-  factory UserDetail({
     @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'email') String? email,
@@ -35,12 +20,12 @@ class UserDetail with _$UserDetail {
     @JsonKey(name: 'photo') String? photo,
     @JsonKey(name: 'bank') String? bank,
     @JsonKey(name: 'account_number') String? accountNumber,
-    @JsonKey(name: 'headmaster') UserDetail? headmaster,
+    @JsonKey(name: 'headmaster') User? headmaster,
     @JsonKey(name: 'point') int? point,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
-  }) = _UserDetail;
+  }) = _User;
 
-  factory UserDetail.fromJson(Object? json) =>
-      _$UserDetailFromJson(json as Map<String, dynamic>);
+  factory User.fromJson(Object? json) =>
+      _$UserFromJson(json as Map<String, dynamic>);
 }

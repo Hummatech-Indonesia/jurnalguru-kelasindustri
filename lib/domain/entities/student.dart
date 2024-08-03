@@ -17,12 +17,20 @@ class Student with _$Student {
 
   factory Student.fromJson(Object? json) =>
       _$StudentFromJson(json as Map<String, dynamic>);
+
+  static List<Student> fromJsonList(Object? json) {
+    if (json == null) {
+      return [];
+    }
+
+    return (json as List<dynamic>).map((e) => Student.fromJson(e)).toList();
+  }
 }
 
 @freezed
 class StudentDetail with _$StudentDetail {
   factory StudentDetail({
-    @JsonKey(name: 'id') int? id,
+    @JsonKey(name: 'id') String? id,
     @JsonKey(name: 'name') String? name,
     @JsonKey(name: 'email') String? email,
     @JsonKey(name: 'email_verified_at') DateTime? emailVerifiedAt,

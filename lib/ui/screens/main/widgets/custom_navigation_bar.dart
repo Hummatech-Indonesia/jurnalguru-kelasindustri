@@ -36,7 +36,7 @@ class CustomNavigationBar extends StatefulWidget {
 }
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
-  late int _currentIndex = widget.currentIndex ?? 0;
+  late int _currentIndex = widget.currentIndex;
 
   @override
   void didUpdateWidget(covariant CustomNavigationBar oldWidget) {

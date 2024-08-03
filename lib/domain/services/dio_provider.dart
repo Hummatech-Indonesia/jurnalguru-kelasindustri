@@ -1,12 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import 'alice_provider.dart';
 import 'shared_preferences_provider.dart';
 
 part 'dio_provider.g.dart';
 
 @riverpod
 Dio dio(DioRef ref) {
+  final alice = ref.watch(aliceProvider);
+
   final dio = Dio(
     BaseOptions(
       baseUrl: 'https://classhummatech.mijurnal.com/api',
@@ -29,6 +32,8 @@ Dio dio(DioRef ref) {
       return handler.next(options);
     },
   ));
+
+  dio.interceptors.add(alice.getDioInterceptor());
 
   return dio;
 }

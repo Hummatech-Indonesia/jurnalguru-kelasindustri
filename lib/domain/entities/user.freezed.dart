@@ -21,281 +21,6 @@ User _$UserFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$User {
   @JsonKey(name: 'id')
-  int? get id => throw _privateConstructorUsedError;
-  @JsonKey(name: 'teacher_id')
-  String? get teacherId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'school_id')
-  String? get schoolId => throw _privateConstructorUsedError;
-  @JsonKey(name: 'teacher')
-  UserDetail? get detail => throw _privateConstructorUsedError;
-  @JsonKey(name: 'created_at')
-  DateTime? get createdAt => throw _privateConstructorUsedError;
-  @JsonKey(name: 'updated_at')
-  DateTime? get updatedAt => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $UserCopyWith<$Res> {
-  factory $UserCopyWith(User value, $Res Function(User) then) =
-      _$UserCopyWithImpl<$Res, User>;
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'id') int? id,
-      @JsonKey(name: 'teacher_id') String? teacherId,
-      @JsonKey(name: 'school_id') String? schoolId,
-      @JsonKey(name: 'teacher') UserDetail? detail,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'updated_at') DateTime? updatedAt});
-
-  $UserDetailCopyWith<$Res>? get detail;
-}
-
-/// @nodoc
-class _$UserCopyWithImpl<$Res, $Val extends User>
-    implements $UserCopyWith<$Res> {
-  _$UserCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? teacherId = freezed,
-    Object? schoolId = freezed,
-    Object? detail = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
-  }) {
-    return _then(_value.copyWith(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      teacherId: freezed == teacherId
-          ? _value.teacherId
-          : teacherId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      schoolId: freezed == schoolId
-          ? _value.schoolId
-          : schoolId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      detail: freezed == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
-              as UserDetail?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserDetailCopyWith<$Res>? get detail {
-    if (_value.detail == null) {
-      return null;
-    }
-
-    return $UserDetailCopyWith<$Res>(_value.detail!, (value) {
-      return _then(_value.copyWith(detail: value) as $Val);
-    });
-  }
-}
-
-/// @nodoc
-abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
-  factory _$$UserImplCopyWith(
-          _$UserImpl value, $Res Function(_$UserImpl) then) =
-      __$$UserImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call(
-      {@JsonKey(name: 'id') int? id,
-      @JsonKey(name: 'teacher_id') String? teacherId,
-      @JsonKey(name: 'school_id') String? schoolId,
-      @JsonKey(name: 'teacher') UserDetail? detail,
-      @JsonKey(name: 'created_at') DateTime? createdAt,
-      @JsonKey(name: 'updated_at') DateTime? updatedAt});
-
-  @override
-  $UserDetailCopyWith<$Res>? get detail;
-}
-
-/// @nodoc
-class __$$UserImplCopyWithImpl<$Res>
-    extends _$UserCopyWithImpl<$Res, _$UserImpl>
-    implements _$$UserImplCopyWith<$Res> {
-  __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? id = freezed,
-    Object? teacherId = freezed,
-    Object? schoolId = freezed,
-    Object? detail = freezed,
-    Object? createdAt = freezed,
-    Object? updatedAt = freezed,
-  }) {
-    return _then(_$UserImpl(
-      id: freezed == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int?,
-      teacherId: freezed == teacherId
-          ? _value.teacherId
-          : teacherId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      schoolId: freezed == schoolId
-          ? _value.schoolId
-          : schoolId // ignore: cast_nullable_to_non_nullable
-              as String?,
-      detail: freezed == detail
-          ? _value.detail
-          : detail // ignore: cast_nullable_to_non_nullable
-              as UserDetail?,
-      createdAt: freezed == createdAt
-          ? _value.createdAt
-          : createdAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-      updatedAt: freezed == updatedAt
-          ? _value.updatedAt
-          : updatedAt // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$UserImpl implements _User {
-  _$UserImpl(
-      {@JsonKey(name: 'id') this.id,
-      @JsonKey(name: 'teacher_id') this.teacherId,
-      @JsonKey(name: 'school_id') this.schoolId,
-      @JsonKey(name: 'teacher') this.detail,
-      @JsonKey(name: 'created_at') this.createdAt,
-      @JsonKey(name: 'updated_at') this.updatedAt});
-
-  factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserImplFromJson(json);
-
-  @override
-  @JsonKey(name: 'id')
-  final int? id;
-  @override
-  @JsonKey(name: 'teacher_id')
-  final String? teacherId;
-  @override
-  @JsonKey(name: 'school_id')
-  final String? schoolId;
-  @override
-  @JsonKey(name: 'teacher')
-  final UserDetail? detail;
-  @override
-  @JsonKey(name: 'created_at')
-  final DateTime? createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  final DateTime? updatedAt;
-
-  @override
-  String toString() {
-    return 'User(id: $id, teacherId: $teacherId, schoolId: $schoolId, detail: $detail, createdAt: $createdAt, updatedAt: $updatedAt)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UserImpl &&
-            (identical(other.id, id) || other.id == id) &&
-            (identical(other.teacherId, teacherId) ||
-                other.teacherId == teacherId) &&
-            (identical(other.schoolId, schoolId) ||
-                other.schoolId == schoolId) &&
-            (identical(other.detail, detail) || other.detail == detail) &&
-            (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt) &&
-            (identical(other.updatedAt, updatedAt) ||
-                other.updatedAt == updatedAt));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(
-      runtimeType, id, teacherId, schoolId, detail, createdAt, updatedAt);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
-      __$$UserImplCopyWithImpl<_$UserImpl>(this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$UserImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _User implements User {
-  factory _User(
-      {@JsonKey(name: 'id') final int? id,
-      @JsonKey(name: 'teacher_id') final String? teacherId,
-      @JsonKey(name: 'school_id') final String? schoolId,
-      @JsonKey(name: 'teacher') final UserDetail? detail,
-      @JsonKey(name: 'created_at') final DateTime? createdAt,
-      @JsonKey(name: 'updated_at') final DateTime? updatedAt}) = _$UserImpl;
-
-  factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
-
-  @override
-  @JsonKey(name: 'id')
-  int? get id;
-  @override
-  @JsonKey(name: 'teacher_id')
-  String? get teacherId;
-  @override
-  @JsonKey(name: 'school_id')
-  String? get schoolId;
-  @override
-  @JsonKey(name: 'teacher')
-  UserDetail? get detail;
-  @override
-  @JsonKey(name: 'created_at')
-  DateTime? get createdAt;
-  @override
-  @JsonKey(name: 'updated_at')
-  DateTime? get updatedAt;
-  @override
-  @JsonKey(ignore: true)
-  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-UserDetail _$UserDetailFromJson(Map<String, dynamic> json) {
-  return _UserDetail.fromJson(json);
-}
-
-/// @nodoc
-mixin _$UserDetail {
-  @JsonKey(name: 'id')
   String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'name')
   String? get name => throw _privateConstructorUsedError;
@@ -324,7 +49,7 @@ mixin _$UserDetail {
   @JsonKey(name: 'account_number')
   String? get accountNumber => throw _privateConstructorUsedError;
   @JsonKey(name: 'headmaster')
-  UserDetail? get headmaster => throw _privateConstructorUsedError;
+  User? get headmaster => throw _privateConstructorUsedError;
   @JsonKey(name: 'point')
   int? get point => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -334,15 +59,13 @@ mixin _$UserDetail {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $UserDetailCopyWith<UserDetail> get copyWith =>
-      throw _privateConstructorUsedError;
+  $UserCopyWith<User> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $UserDetailCopyWith<$Res> {
-  factory $UserDetailCopyWith(
-          UserDetail value, $Res Function(UserDetail) then) =
-      _$UserDetailCopyWithImpl<$Res, UserDetail>;
+abstract class $UserCopyWith<$Res> {
+  factory $UserCopyWith(User value, $Res Function(User) then) =
+      _$UserCopyWithImpl<$Res, User>;
   @useResult
   $Res call(
       {@JsonKey(name: 'id') String? id,
@@ -359,18 +82,18 @@ abstract class $UserDetailCopyWith<$Res> {
       @JsonKey(name: 'photo') String? photo,
       @JsonKey(name: 'bank') String? bank,
       @JsonKey(name: 'account_number') String? accountNumber,
-      @JsonKey(name: 'headmaster') UserDetail? headmaster,
+      @JsonKey(name: 'headmaster') User? headmaster,
       @JsonKey(name: 'point') int? point,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 
-  $UserDetailCopyWith<$Res>? get headmaster;
+  $UserCopyWith<$Res>? get headmaster;
 }
 
 /// @nodoc
-class _$UserDetailCopyWithImpl<$Res, $Val extends UserDetail>
-    implements $UserDetailCopyWith<$Res> {
-  _$UserDetailCopyWithImpl(this._value, this._then);
+class _$UserCopyWithImpl<$Res, $Val extends User>
+    implements $UserCopyWith<$Res> {
+  _$UserCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -459,7 +182,7 @@ class _$UserDetailCopyWithImpl<$Res, $Val extends UserDetail>
       headmaster: freezed == headmaster
           ? _value.headmaster
           : headmaster // ignore: cast_nullable_to_non_nullable
-              as UserDetail?,
+              as User?,
       point: freezed == point
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
@@ -477,23 +200,22 @@ class _$UserDetailCopyWithImpl<$Res, $Val extends UserDetail>
 
   @override
   @pragma('vm:prefer-inline')
-  $UserDetailCopyWith<$Res>? get headmaster {
+  $UserCopyWith<$Res>? get headmaster {
     if (_value.headmaster == null) {
       return null;
     }
 
-    return $UserDetailCopyWith<$Res>(_value.headmaster!, (value) {
+    return $UserCopyWith<$Res>(_value.headmaster!, (value) {
       return _then(_value.copyWith(headmaster: value) as $Val);
     });
   }
 }
 
 /// @nodoc
-abstract class _$$UserDetailImplCopyWith<$Res>
-    implements $UserDetailCopyWith<$Res> {
-  factory _$$UserDetailImplCopyWith(
-          _$UserDetailImpl value, $Res Function(_$UserDetailImpl) then) =
-      __$$UserDetailImplCopyWithImpl<$Res>;
+abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
+  factory _$$UserImplCopyWith(
+          _$UserImpl value, $Res Function(_$UserImpl) then) =
+      __$$UserImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -511,21 +233,20 @@ abstract class _$$UserDetailImplCopyWith<$Res>
       @JsonKey(name: 'photo') String? photo,
       @JsonKey(name: 'bank') String? bank,
       @JsonKey(name: 'account_number') String? accountNumber,
-      @JsonKey(name: 'headmaster') UserDetail? headmaster,
+      @JsonKey(name: 'headmaster') User? headmaster,
       @JsonKey(name: 'point') int? point,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 
   @override
-  $UserDetailCopyWith<$Res>? get headmaster;
+  $UserCopyWith<$Res>? get headmaster;
 }
 
 /// @nodoc
-class __$$UserDetailImplCopyWithImpl<$Res>
-    extends _$UserDetailCopyWithImpl<$Res, _$UserDetailImpl>
-    implements _$$UserDetailImplCopyWith<$Res> {
-  __$$UserDetailImplCopyWithImpl(
-      _$UserDetailImpl _value, $Res Function(_$UserDetailImpl) _then)
+class __$$UserImplCopyWithImpl<$Res>
+    extends _$UserCopyWithImpl<$Res, _$UserImpl>
+    implements _$$UserImplCopyWith<$Res> {
+  __$$UserImplCopyWithImpl(_$UserImpl _value, $Res Function(_$UserImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -550,7 +271,7 @@ class __$$UserDetailImplCopyWithImpl<$Res>
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
   }) {
-    return _then(_$UserDetailImpl(
+    return _then(_$UserImpl(
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -610,7 +331,7 @@ class __$$UserDetailImplCopyWithImpl<$Res>
       headmaster: freezed == headmaster
           ? _value.headmaster
           : headmaster // ignore: cast_nullable_to_non_nullable
-              as UserDetail?,
+              as User?,
       point: freezed == point
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
@@ -629,8 +350,8 @@ class __$$UserDetailImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$UserDetailImpl implements _UserDetail {
-  _$UserDetailImpl(
+class _$UserImpl implements _User {
+  _$UserImpl(
       {@JsonKey(name: 'id') this.id,
       @JsonKey(name: 'name') this.name,
       @JsonKey(name: 'email') this.email,
@@ -650,8 +371,8 @@ class _$UserDetailImpl implements _UserDetail {
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt});
 
-  factory _$UserDetailImpl.fromJson(Map<String, dynamic> json) =>
-      _$$UserDetailImplFromJson(json);
+  factory _$UserImpl.fromJson(Map<String, dynamic> json) =>
+      _$$UserImplFromJson(json);
 
   @override
   @JsonKey(name: 'id')
@@ -697,7 +418,7 @@ class _$UserDetailImpl implements _UserDetail {
   final String? accountNumber;
   @override
   @JsonKey(name: 'headmaster')
-  final UserDetail? headmaster;
+  final User? headmaster;
   @override
   @JsonKey(name: 'point')
   final int? point;
@@ -710,14 +431,14 @@ class _$UserDetailImpl implements _UserDetail {
 
   @override
   String toString() {
-    return 'UserDetail(id: $id, name: $name, email: $email, emailVerifiedAt: $emailVerifiedAt, phoneNumber: $phoneNumber, address: $address, gender: $gender, dateBirth: $dateBirth, nationalStudentId: $nationalStudentId, status: $status, motivation: $motivation, photo: $photo, bank: $bank, accountNumber: $accountNumber, headmaster: $headmaster, point: $point, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'User(id: $id, name: $name, email: $email, emailVerifiedAt: $emailVerifiedAt, phoneNumber: $phoneNumber, address: $address, gender: $gender, dateBirth: $dateBirth, nationalStudentId: $nationalStudentId, status: $status, motivation: $motivation, photo: $photo, bank: $bank, accountNumber: $accountNumber, headmaster: $headmaster, point: $point, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$UserDetailImpl &&
+            other is _$UserImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.name, name) || other.name == name) &&
             (identical(other.email, email) || other.email == email) &&
@@ -773,41 +494,39 @@ class _$UserDetailImpl implements _UserDetail {
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UserDetailImplCopyWith<_$UserDetailImpl> get copyWith =>
-      __$$UserDetailImplCopyWithImpl<_$UserDetailImpl>(this, _$identity);
+  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
+      __$$UserImplCopyWithImpl<_$UserImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$UserDetailImplToJson(
+    return _$$UserImplToJson(
       this,
     );
   }
 }
 
-abstract class _UserDetail implements UserDetail {
-  factory _UserDetail(
-          {@JsonKey(name: 'id') final String? id,
-          @JsonKey(name: 'name') final String? name,
-          @JsonKey(name: 'email') final String? email,
-          @JsonKey(name: 'email_verified_at') final DateTime? emailVerifiedAt,
-          @JsonKey(name: 'phone_number') final String? phoneNumber,
-          @JsonKey(name: 'address') final String? address,
-          @JsonKey(name: 'gender') final String? gender,
-          @JsonKey(name: 'date_birth') final DateTime? dateBirth,
-          @JsonKey(name: 'national_student_id') final String? nationalStudentId,
-          @JsonKey(name: 'status') final String? status,
-          @JsonKey(name: 'motivation') final String? motivation,
-          @JsonKey(name: 'photo') final String? photo,
-          @JsonKey(name: 'bank') final String? bank,
-          @JsonKey(name: 'account_number') final String? accountNumber,
-          @JsonKey(name: 'headmaster') final UserDetail? headmaster,
-          @JsonKey(name: 'point') final int? point,
-          @JsonKey(name: 'created_at') final DateTime? createdAt,
-          @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
-      _$UserDetailImpl;
+abstract class _User implements User {
+  factory _User(
+      {@JsonKey(name: 'id') final String? id,
+      @JsonKey(name: 'name') final String? name,
+      @JsonKey(name: 'email') final String? email,
+      @JsonKey(name: 'email_verified_at') final DateTime? emailVerifiedAt,
+      @JsonKey(name: 'phone_number') final String? phoneNumber,
+      @JsonKey(name: 'address') final String? address,
+      @JsonKey(name: 'gender') final String? gender,
+      @JsonKey(name: 'date_birth') final DateTime? dateBirth,
+      @JsonKey(name: 'national_student_id') final String? nationalStudentId,
+      @JsonKey(name: 'status') final String? status,
+      @JsonKey(name: 'motivation') final String? motivation,
+      @JsonKey(name: 'photo') final String? photo,
+      @JsonKey(name: 'bank') final String? bank,
+      @JsonKey(name: 'account_number') final String? accountNumber,
+      @JsonKey(name: 'headmaster') final User? headmaster,
+      @JsonKey(name: 'point') final int? point,
+      @JsonKey(name: 'created_at') final DateTime? createdAt,
+      @JsonKey(name: 'updated_at') final DateTime? updatedAt}) = _$UserImpl;
 
-  factory _UserDetail.fromJson(Map<String, dynamic> json) =
-      _$UserDetailImpl.fromJson;
+  factory _User.fromJson(Map<String, dynamic> json) = _$UserImpl.fromJson;
 
   @override
   @JsonKey(name: 'id')
@@ -853,7 +572,7 @@ abstract class _UserDetail implements UserDetail {
   String? get accountNumber;
   @override
   @JsonKey(name: 'headmaster')
-  UserDetail? get headmaster;
+  User? get headmaster;
   @override
   @JsonKey(name: 'point')
   int? get point;
@@ -865,6 +584,6 @@ abstract class _UserDetail implements UserDetail {
   DateTime? get updatedAt;
   @override
   @JsonKey(ignore: true)
-  _$$UserDetailImplCopyWith<_$UserDetailImpl> get copyWith =>
+  _$$UserImplCopyWith<_$UserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

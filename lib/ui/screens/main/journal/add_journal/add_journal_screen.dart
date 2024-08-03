@@ -1,32 +1,71 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../../../../domain/entities/failure/failure.dart';
+import '../../../../../domain/entities/student.dart';
 import '../../../../../utilities/extensions.dart';
+import '../../../../providers/journal/journals_provider.dart';
+import '../../../../providers/student/students_provider.dart';
 import '../../../../theme/theme_constants.dart';
 import '../../../../widgets/multi_select/ui_multi_select_form_field.dart';
-import '../../../../widgets/ui_date_picker_form_field.dart';
-import '../../../../widgets/ui_dropdown_form_field.dart';
 import '../../../../widgets/ui_screen.dart';
 import '../../../../widgets/ui_text_form_field.dart';
+import 'widget/image_picker_dialog.dart';
 
-class AddJournalScreen extends StatefulWidget {
+class AddJournalScreen extends ConsumerStatefulWidget {
   const AddJournalScreen({super.key});
 
   @override
-  State<AddJournalScreen> createState() => _AddJournalScreenState();
+  ConsumerState<AddJournalScreen> createState() => _AddJournalScreenState();
 }
 
-class _AddJournalScreenState extends State<AddJournalScreen> {
+class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _titleController = TextEditingController();
-  final _classController = TextEditingController();
-  final _dateController = TextEditingController();
+  final _descriptionController = TextEditingController();
+
+  List<int> _sickStudents = [];
+  List<int> _absentStudents = [];
+  List<int> _permitStudents = [];
+
+  File? _image;
+
+  bool _isLoading = false;
+
+  Future<void> _submit() async {
+    if (!_formKey.currentState!.validate()) return;
+
+    if (_image == null) Failure('Image is required').snackbar(context);
+
+    try {
+      setState(() => _isLoading = true);
+
+      await ref.read(journalsProvider.notifier).add(
+            title: _titleController.text,
+            description: _descriptionController.text,
+            image: _image!,
+            sicks: _sickStudents,
+            absents: _absentStudents,
+            permits: _permitStudents,
+          );
+
+      if (mounted) {
+        Navigator.of(context).pop();
+      }
+    } on Failure catch (e) {
+      if (mounted) e.snackbar(context);
+    } finally {
+      setState(() => _isLoading = false);
+    }
+  }
 
   @override
   void dispose() {
     _titleController.dispose();
-    _classController.dispose();
-    _dateController.dispose();
+    _descriptionController.dispose();
     super.dispose();
   }
 
@@ -35,14 +74,14 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
     return UIScreen(
       body: Column(
         children: [
-          _buildHeader(context),
-          Expanded(child: _buildBody(context)),
+          buildHeader(context),
+          Expanded(child: buildBody(context)),
         ],
       ),
     );
   }
 
-  Widget _buildHeader(BuildContext context) {
+  Widget buildHeader(BuildContext context) {
     return SafeArea(
       child: Padding(
         padding: ThemeConstants.defaultPadding,
@@ -81,7 +120,7 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget buildBody(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: context.color.surface,
@@ -92,91 +131,188 @@ class _AddJournalScreenState extends State<AddJournalScreen> {
       ),
       child: SingleChildScrollView(
         padding: ThemeConstants.defaultPadding,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            UITextFormField(
-              controller: _titleController,
-              label: "Judul",
-              hint: "Masukkan judul",
-            ),
-            16.heightBox,
-            UIDropdownFormField(
-              label: "Kelas",
-              hint: "Pilih kelas",
-              options: const [
-                DropdownMenuItem(value: 1, child: Text("Kelas 1")),
-                DropdownMenuItem(value: 2, child: Text("Kelas 2")),
-                DropdownMenuItem(value: 3, child: Text("Kelas 3")),
-              ],
-              onChanged: (_) {},
-            ),
-            16.heightBox,
-            UIDatePickerFormField(
-              label: "Tanggal",
-              hint: "Tanggal",
-              onChanged: (_) {},
-            ),
-            16.heightBox,
-            UIDropdownFormField(
-              label: "Mapel",
-              hint: "Pilih Mapel",
-              options: const [
-                DropdownMenuItem(value: 1, child: Text("Mapel 1")),
-                DropdownMenuItem(value: 2, child: Text("Mapel 2")),
-                DropdownMenuItem(value: 3, child: Text("Mapel 3")),
-              ],
-              onChanged: (_) {},
-            ),
-            16.heightBox,
-            UITextFormField(
-              controller: _titleController,
-              label: "Deskripsi Jurnal",
-              hint: "Deskripsi",
-              minLines: 3,
-              maxLines: 5,
-            ),
-            16.heightBox,
-            const UIMultiSelectFormField(
-              label: "Sakit",
-              hint: "Siswa Sakit",
-              options: [
-                DropdownMenuItem(value: 1, child: Text("Siswa A")),
-                DropdownMenuItem(value: 2, child: Text("Siswa B")),
-                DropdownMenuItem(value: 3, child: Text("Siswa C")),
-                DropdownMenuItem(value: 4, child: Text("Siswa D")),
-                DropdownMenuItem(value: 5, child: Text("Siswa E")),
-                DropdownMenuItem(value: 6, child: Text("Siswa F")),
-              ],
-            ),
-            16.heightBox,
-            const UIMultiSelectFormField(
-              label: "Alpa",
-              hint: "Siswa Alpa",
-              options: [
-                DropdownMenuItem(value: 1, child: Text("Siswa A")),
-                DropdownMenuItem(value: 2, child: Text("Siswa B")),
-                DropdownMenuItem(value: 3, child: Text("Siswa C")),
-              ],
-            ),
-            16.heightBox,
-            const UIMultiSelectFormField(
-              label: "Izin",
-              hint: "Siswa Izin",
-              options: [
-                DropdownMenuItem(value: 1, child: Text("Siswa A")),
-                DropdownMenuItem(value: 2, child: Text("Siswa B")),
-                DropdownMenuItem(value: 3, child: Text("Siswa C")),
-              ],
-            ),
-            48.heightBox,
-            FilledButton(
-              onPressed: () {},
-              child: const Text("Pilih Siswa"),
-            ),
-          ],
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              UITextFormField(
+                controller: _titleController,
+                label: "Judul",
+                hint: "Masukkan judul",
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Masukkan judul";
+                  }
+                  return null;
+                },
+              ),
+              16.heightBox,
+              UITextFormField(
+                controller: _descriptionController,
+                label: "Deskripsi Jurnal",
+                hint: "Deskripsi",
+                minLines: 3,
+                maxLines: 5,
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return "Masukkan deskripsi";
+                  }
+
+                  if (value.length < 100) {
+                    return "Deskripsi harus lebih dari 100 karakter";
+                  }
+
+                  return null;
+                },
+              ),
+              16.heightBox,
+              Consumer(
+                builder: (context, ref, child) {
+                  final students = ref.watch(studentsProvider);
+
+                  return students.display(
+                    (students) => UIMultiSelectFormField(
+                      label: "Sakit",
+                      hint: "Siswa Sakit",
+                      options: mapStudentsToDropdownMenuItem("sick", students),
+                      onChanged: (value) {
+                        setState(() {
+                          _sickStudents = value;
+                        });
+                      },
+                    ),
+                  );
+                },
+              ),
+              16.heightBox,
+              Consumer(
+                builder: (context, ref, child) {
+                  final students = ref.watch(studentsProvider);
+
+                  return students.display(
+                    (students) => UIMultiSelectFormField(
+                      label: "Alpa",
+                      hint: "Siswa Alpa",
+                      options:
+                          mapStudentsToDropdownMenuItem("absent", students),
+                      onChanged: (value) {
+                        setState(() {
+                          _absentStudents = value;
+                        });
+                      },
+                    ),
+                  );
+                },
+              ),
+              16.heightBox,
+              Consumer(
+                builder: (context, ref, child) {
+                  final students = ref.watch(studentsProvider);
+
+                  return students.display(
+                    (students) => UIMultiSelectFormField(
+                      label: "Izin",
+                      hint: "Siswa Izin",
+                      options:
+                          mapStudentsToDropdownMenuItem("permit", students),
+                      onChanged: (value) {
+                        setState(() {
+                          _permitStudents = value;
+                        });
+                      },
+                    ),
+                  );
+                },
+              ),
+              16.heightBox,
+              Text(
+                "Foto Jurnal",
+                style: context.text.bodyLarge?.weight(Weight.medium),
+              ),
+              4.heightBox,
+              AspectRatio(
+                aspectRatio: 16 / 9,
+                child: Material(
+                  child: InkWell(
+                    onTap: () async {
+                      final result = await ImagePickerDialog.pick(context);
+
+                      if (result != null) {
+                        setState(() {
+                          _image = result;
+                        });
+                      }
+                    },
+                    borderRadius: ThemeConstants.mediumRadius,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: context.color.onSurface.withOpacity(0.2),
+                          width: 1,
+                        ),
+                        borderRadius: ThemeConstants.mediumRadius,
+                      ),
+                      child: _image != null
+                          ? ClipRRect(
+                              borderRadius: ThemeConstants.mediumRadius,
+                              child: Image.file(
+                                _image!,
+                                fit: BoxFit.cover,
+                              ),
+                            )
+                          : Icon(
+                              Icons.camera_alt_rounded,
+                              color: context.color.onSurface.withOpacity(0.2),
+                              size: 48,
+                            ),
+                    ),
+                  ),
+                ),
+              ),
+              38.heightBox,
+              FilledButton(
+                onPressed: _isLoading ? null : _submit,
+                child: _isLoading
+                    ? const CircularProgressIndicator()
+                    : const Text("Tambah Jurnal"),
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  List<DropdownMenuItem<int>> mapStudentsToDropdownMenuItem(
+    String type,
+    List<Student> students,
+  ) {
+    var filtered = students.map((e) => e.studentClassroom!.id!).toSet();
+
+    if (type == "sick") {
+      filtered = filtered
+          .difference(_absentStudents.toSet())
+          .difference(_permitStudents.toSet());
+    } else if (type == "absent") {
+      filtered = filtered
+          .difference(_sickStudents.toSet())
+          .difference(_permitStudents.toSet());
+    } else if (type == "permit") {
+      filtered = filtered
+          .difference(_sickStudents.toSet())
+          .difference(_absentStudents.toSet());
+    }
+
+    final result = students
+        .where((e) => filtered.contains(e.studentClassroom!.id!))
+        .toList();
+
+    return result
+        .map((data) => DropdownMenuItem(
+              value: data.studentClassroom!.id!,
+              child: Text(data.student?.name ?? '-'),
+            ))
+        .toList();
   }
 }

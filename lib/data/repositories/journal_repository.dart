@@ -1,7 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 
 import '../../domain/entities/failure/failure.dart';
 import '../../domain/entities/journal.dart';
+import '../../domain/entities/requests/add_journal_request.dart';
+import '../../domain/enums/attendance_type.dart';
 import '../../domain/repositories/journal_repository.dart';
 import '../datasources/api_service.dart';
 
@@ -24,9 +27,26 @@ class JournalRepositoryImpl implements JournalRepository {
   }
 
   @override
-  Future<Either<Failure, void>> addJournal(Journal journal) {
-    // TODO: implement addJournal
-    throw UnimplementedError();
+  Future<Either<Failure, void>> addJournal(AddJournalRequest journal) async {
+    final formData = FormData.fromMap({
+      'title': journal.title,
+      'photo': await MultipartFile.fromFile(journal.image.path),
+      'description': journal.description,
+      'created_by': journal.teacherId,
+      for (final MapEntry(:key, :value) in journal.attendancesRecord.entries)
+        'attendance[$key]': value.value,
+    });
+
+    final result = await _api.post<void>(
+      '/journals',
+      Journal.fromJson,
+      data: formData,
+    );
+
+    return result.fold(
+      (failure) => Left(failure),
+      (_) => const Right(null),
+    );
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
 import '../domain/entities/failure/failure.dart';
@@ -123,6 +124,16 @@ extension FailureX on Failure {
         content: Text(message),
         backgroundColor: context.color.error,
       ),
+    );
+  }
+}
+
+extension AsyncValueX<T> on AsyncValue<T> {
+  Widget display(Widget Function(T) builder) {
+    return when(
+      data: builder,
+      error: (failure, stackTrace) => Text(failure.toString()),
+      loading: () => const Center(child: CircularProgressIndicator()),
     );
   }
 }

@@ -19,6 +19,7 @@ mixin _$AuthState {
   Failure? get failure => throw _privateConstructorUsedError;
   bool get isLoading => throw _privateConstructorUsedError;
   bool get isLoggedIn => throw _privateConstructorUsedError;
+  User? get user => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AuthStateCopyWith<AuthState> get copyWith =>
@@ -30,7 +31,9 @@ abstract class $AuthStateCopyWith<$Res> {
   factory $AuthStateCopyWith(AuthState value, $Res Function(AuthState) then) =
       _$AuthStateCopyWithImpl<$Res, AuthState>;
   @useResult
-  $Res call({Failure? failure, bool isLoading, bool isLoggedIn});
+  $Res call({Failure? failure, bool isLoading, bool isLoggedIn, User? user});
+
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -49,6 +52,7 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
     Object? failure = freezed,
     Object? isLoading = null,
     Object? isLoggedIn = null,
+    Object? user = freezed,
   }) {
     return _then(_value.copyWith(
       failure: freezed == failure
@@ -63,7 +67,23 @@ class _$AuthStateCopyWithImpl<$Res, $Val extends AuthState>
           ? _value.isLoggedIn
           : isLoggedIn // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value) as $Val);
+    });
   }
 }
 
@@ -75,7 +95,10 @@ abstract class _$$AuthStateImplCopyWith<$Res>
       __$$AuthStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({Failure? failure, bool isLoading, bool isLoggedIn});
+  $Res call({Failure? failure, bool isLoading, bool isLoggedIn, User? user});
+
+  @override
+  $UserCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -92,6 +115,7 @@ class __$$AuthStateImplCopyWithImpl<$Res>
     Object? failure = freezed,
     Object? isLoading = null,
     Object? isLoggedIn = null,
+    Object? user = freezed,
   }) {
     return _then(_$AuthStateImpl(
       failure: freezed == failure
@@ -106,6 +130,10 @@ class __$$AuthStateImplCopyWithImpl<$Res>
           ? _value.isLoggedIn
           : isLoggedIn // ignore: cast_nullable_to_non_nullable
               as bool,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as User?,
     ));
   }
 }
@@ -114,7 +142,10 @@ class __$$AuthStateImplCopyWithImpl<$Res>
 
 class _$AuthStateImpl implements _AuthState {
   _$AuthStateImpl(
-      {this.failure, this.isLoading = false, this.isLoggedIn = false});
+      {this.failure,
+      this.isLoading = false,
+      this.isLoggedIn = false,
+      this.user});
 
   @override
   final Failure? failure;
@@ -124,10 +155,12 @@ class _$AuthStateImpl implements _AuthState {
   @override
   @JsonKey()
   final bool isLoggedIn;
+  @override
+  final User? user;
 
   @override
   String toString() {
-    return 'AuthState(failure: $failure, isLoading: $isLoading, isLoggedIn: $isLoggedIn)';
+    return 'AuthState(failure: $failure, isLoading: $isLoading, isLoggedIn: $isLoggedIn, user: $user)';
   }
 
   @override
@@ -139,11 +172,13 @@ class _$AuthStateImpl implements _AuthState {
             (identical(other.isLoading, isLoading) ||
                 other.isLoading == isLoading) &&
             (identical(other.isLoggedIn, isLoggedIn) ||
-                other.isLoggedIn == isLoggedIn));
+                other.isLoggedIn == isLoggedIn) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, failure, isLoading, isLoggedIn);
+  int get hashCode =>
+      Object.hash(runtimeType, failure, isLoading, isLoggedIn, user);
 
   @JsonKey(ignore: true)
   @override
@@ -156,7 +191,8 @@ abstract class _AuthState implements AuthState {
   factory _AuthState(
       {final Failure? failure,
       final bool isLoading,
-      final bool isLoggedIn}) = _$AuthStateImpl;
+      final bool isLoggedIn,
+      final User? user}) = _$AuthStateImpl;
 
   @override
   Failure? get failure;
@@ -164,6 +200,8 @@ abstract class _AuthState implements AuthState {
   bool get isLoading;
   @override
   bool get isLoggedIn;
+  @override
+  User? get user;
   @override
   @JsonKey(ignore: true)
   _$$AuthStateImplCopyWith<_$AuthStateImpl> get copyWith =>

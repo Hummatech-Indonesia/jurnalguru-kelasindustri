@@ -73,7 +73,16 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
     );
   }
 
-  SizedBox _buildList() {
+  Widget _buildList() {
+    final selectedValues = _selectedValues.map((e) => e.value).toList();
+
+    if (widget.options.isEmpty) {
+      return Text(
+        "Tidak ada data",
+        style: context.text.bodyMedium?.withColor(ColorPallete.onSurfaceHint),
+      );
+    }
+
     return SizedBox(
       width: double.maxFinite,
       child: ListView.builder(
@@ -82,14 +91,17 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
         itemCount: widget.options.length,
         itemBuilder: (context, index) {
           return CheckboxListTile(
-            value: _selectedValues.contains(widget.options[index]),
+            value: selectedValues.contains(widget.options[index].value),
             onChanged: (value) {
-              final selectedValues = [..._selectedValues];
+              final List<DropdownMenuItem<T>> selectedValues;
 
               if (value == true) {
-                selectedValues.add(widget.options[index]);
+                selectedValues = [..._selectedValues, widget.options[index]];
               } else {
-                selectedValues.remove(widget.options[index]);
+                selectedValues = [
+                  for (final e in _selectedValues)
+                    if (e.value != widget.options[index].value) e
+                ];
               }
 
               setState(() {

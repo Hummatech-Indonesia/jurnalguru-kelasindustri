@@ -8,18 +8,16 @@ import 'multi_select_dialog.dart';
 class UIMultiSelectFormField<T> extends StatefulWidget {
   final String? label;
   final String? hint;
-  final bool obscureText;
   final InputDecoration? decoration;
   final bool readOnly;
   final Widget Function(BuildContext context)? formBuilder;
   final List<DropdownMenuItem<T>> options;
-  final Function(List<DropdownMenuItem<T>>)? onChanged;
+  final Function(List<T>)? onChanged;
 
   const UIMultiSelectFormField({
     super.key,
     this.label,
     this.hint,
-    this.obscureText = false,
     this.decoration,
     this.readOnly = false,
     this.formBuilder,
@@ -33,8 +31,6 @@ class UIMultiSelectFormField<T> extends StatefulWidget {
 }
 
 class _UIMultiSelectFormFieldState<T> extends State<UIMultiSelectFormField<T>> {
-  late final bool _isObscure = widget.obscureText;
-
   List<DropdownMenuItem<T>> _selectedValues = [];
 
   @override
@@ -75,7 +71,9 @@ class _UIMultiSelectFormFieldState<T> extends State<UIMultiSelectFormField<T>> {
 
                   if (result != null) {
                     setState(() {
-                      widget.onChanged?.call(result);
+                      widget.onChanged?.call(
+                        result.map((e) => e.value!).toList(),
+                      );
                       _selectedValues = result;
                     });
                   }
@@ -115,6 +113,10 @@ class _UIMultiSelectFormFieldState<T> extends State<UIMultiSelectFormField<T>> {
                     _selectedValues = _selectedValues.where((element) {
                       return element != _selectedValues[index];
                     }).toList();
+
+                    widget.onChanged?.call(
+                      _selectedValues.map((e) => e.value!).toList(),
+                    );
                   });
                 },
               );

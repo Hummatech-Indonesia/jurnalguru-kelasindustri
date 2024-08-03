@@ -19,11 +19,35 @@ class AuthNotifier extends _$AuthNotifier {
     final token = sharedPreference.getString('token');
 
     if (token != null) {
-      state = state.copyWith(isLoggedIn: true);
+      await getUser();
     }
   }
 
+  Future<void> getUser() async {
+    state = state.copyWith(
+      isLoading: true,
+      failure: null,
+    );
+
+    final result = await ref.read(authRepositoryProvider).getUser();
+
+    state = result.fold(
+      (failure) => state.copyWith(
+        isLoading: false,
+        failure: failure,
+      ),
+      (success) => state.copyWith(
+        isLoggedIn: true,
+        isLoading: false,
+        failure: null,
+        user: success,
+      ),
+    );
+  }
+
   void login(String email, String password) async {
+    if (state.isLoading) return;
+
     state = state.copyWith(
       isLoading: true,
       failure: null,
@@ -36,19 +60,14 @@ class AuthNotifier extends _$AuthNotifier {
       final sharedPreference = await ref.read(sharedPreferencesProvider.future);
 
       sharedPreference.setString('token', result.right);
-    }
 
-    state = result.fold(
-      (failure) => state.copyWith(
+      await getUser();
+    } else {
+      state = state.copyWith(
         isLoading: false,
-        failure: failure,
-      ),
-      (success) => state.copyWith(
-        isLoggedIn: true,
-        isLoading: false,
-        failure: null,
-      ),
-    );
+        failure: result.left,
+      );
+    }
   }
 
   Future<void> logout() async {

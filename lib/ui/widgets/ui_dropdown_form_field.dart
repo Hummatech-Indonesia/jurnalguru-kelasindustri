@@ -30,7 +30,7 @@ class UIDropdownFormField<T> extends StatefulWidget {
 }
 
 class _UIDropdownFormFieldState<T> extends State<UIDropdownFormField<T>> {
-  late bool _isObscure = widget.obscureText;
+  late final bool _isObscure = widget.obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -60,20 +60,6 @@ class _UIDropdownFormFieldState<T> extends State<UIDropdownFormField<T>> {
             items: widget.options,
           ),
       ],
-    );
-  }
-
-  Widget _buildIcon() {
-    return IconButton(
-      icon: Icon(
-        _isObscure ? Icons.visibility : Icons.visibility_off,
-        color: ColorPallete.onSurfaceHint,
-      ),
-      onPressed: () {
-        setState(() {
-          _isObscure = !_isObscure;
-        });
-      },
     );
   }
 }
