@@ -231,45 +231,13 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
                 style: context.text.bodyLarge?.weight(Weight.medium),
               ),
               4.heightBox,
-              AspectRatio(
-                aspectRatio: 16 / 9,
-                child: Material(
-                  child: InkWell(
-                    onTap: () async {
-                      final result = await ImagePickerDialog.pick(context);
-
-                      if (result != null) {
-                        setState(() {
-                          _image = result;
-                        });
-                      }
-                    },
-                    borderRadius: ThemeConstants.mediumRadius,
-                    child: Container(
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: context.color.onSurface.withOpacity(0.2),
-                          width: 1,
-                        ),
-                        borderRadius: ThemeConstants.mediumRadius,
-                      ),
-                      child: _image != null
-                          ? ClipRRect(
-                              borderRadius: ThemeConstants.mediumRadius,
-                              child: Image.file(
-                                _image!,
-                                fit: BoxFit.cover,
-                              ),
-                            )
-                          : Icon(
-                              Icons.camera_alt_rounded,
-                              color: context.color.onSurface.withOpacity(0.2),
-                              size: 48,
-                            ),
-                    ),
-                  ),
+              if (_image != null)
+                _buildImagePicker(context)
+              else
+                AspectRatio(
+                  aspectRatio: 1,
+                  child: _buildImagePicker(context),
                 ),
-              ),
               38.heightBox,
               FilledButton(
                 onPressed: _isLoading ? null : _submit,
@@ -279,6 +247,46 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Material _buildImagePicker(BuildContext context) {
+    return Material(
+      child: InkWell(
+        onTap: () async {
+          final result = await ImagePickerDialog.pick(context);
+
+          if (result != null) {
+            setState(() {
+              _image = result;
+            });
+          }
+        },
+        borderRadius: ThemeConstants.mediumRadius,
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: context.color.onSurface.withOpacity(0.2),
+              width: 1,
+              strokeAlign: BorderSide.strokeAlignOutside,
+            ),
+            borderRadius: ThemeConstants.mediumRadius,
+          ),
+          child: _image != null
+              ? ClipRRect(
+                  borderRadius: ThemeConstants.mediumRadius,
+                  child: Image.file(
+                    _image!,
+                    fit: BoxFit.cover,
+                  ),
+                )
+              : Icon(
+                  Icons.camera_alt_rounded,
+                  color: context.color.onSurface.withOpacity(0.2),
+                  size: 48,
+                ),
         ),
       ),
     );

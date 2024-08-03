@@ -172,6 +172,17 @@ class _JournalDetailScreenState extends ConsumerState<JournalDetailScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  if (widget.journal.photo != null)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 16),
+                      child: ClipRRect(
+                        borderRadius: ThemeConstants.mediumRadius,
+                        child: Image.network(
+                          "https://classhummatech.mijurnal.com/storage/${widget.journal.photo!}",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
                   Text(
                     widget.journal.title ?? '',
                     style: context.text.titleLarge?.weight(Weight.semiBold),

@@ -9,8 +9,9 @@ part 'students_provider.g.dart';
 @Riverpod(keepAlive: true)
 Future<List<Student>> students(StudentsRef ref) async {
   final repository = ref.watch(studentRepositoryProvider);
-  final teacherId =
-      ref.watch(authNotifierProvider.select((state) => state.user?.id));
+  final teacherId = ref.watch(
+    authNotifierProvider.select((state) => state.user?.id),
+  );
 
   if (teacherId == null) {
     return [];

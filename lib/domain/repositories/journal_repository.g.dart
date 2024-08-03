@@ -6,12 +6,11 @@ part of 'journal_repository.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$journalRepositoryHash() => r'40d3ac4deb3b6064ffc001c0565cbc208121e4be';
+String _$journalRepositoryHash() => r'1c06a3d69bbbc6130b72ac5d39a694544aaa6cb2';
 
 /// See also [journalRepository].
 @ProviderFor(journalRepository)
-final journalRepositoryProvider =
-    AutoDisposeProvider<JournalRepository>.internal(
+final journalRepositoryProvider = Provider<JournalRepository>.internal(
   journalRepository,
   name: r'journalRepositoryProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
@@ -21,6 +20,6 @@ final journalRepositoryProvider =
   allTransitiveDependencies: null,
 );
 
-typedef JournalRepositoryRef = AutoDisposeProviderRef<JournalRepository>;
+typedef JournalRepositoryRef = ProviderRef<JournalRepository>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

@@ -14,7 +14,7 @@ abstract class StudentRepository {
   );
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 StudentRepository studentRepository(StudentRepositoryRef ref) {
-  return StudentRepositoryImpl(ref.read(apiServiceProvider));
+  return StudentRepositoryImpl(ref.watch(apiServiceProvider));
 }

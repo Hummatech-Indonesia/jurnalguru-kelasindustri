@@ -11,7 +11,7 @@ import '../student/students_provider.dart';
 
 part 'journals_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 class Journals extends _$Journals {
   @override
   Future<List<Journal>> build() async {

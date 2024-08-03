@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../utilities/extensions.dart';
 import '../../../providers/auth/auth_notifier.dart';
 import '../../../providers/journal/journals_provider.dart';
+import '../../../providers/student/students_provider.dart';
 import '../../../theme/theme_constants.dart';
 import '../../../widgets/journal_list_item.dart';
 import '../../../widgets/section_title.dart';
@@ -133,11 +134,20 @@ class HomeView extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildStatisticItem(context, "03", "Kelas", Colors.red),
-          8.widthBox,
-          _buildStatisticItem(context, "03", "Jurnal", Colors.green),
-          8.widthBox,
-          _buildStatisticItem(context, "03", "Notifikasi", Colors.blue),
+          _buildStatisticItem(context, 1, "Kelas", Colors.red),
+          const Spacer(),
+          Consumer(builder: (context, ref, child) {
+            final journals = ref.watch(journalsProvider).value?.length ?? 0;
+
+            return _buildStatisticItem(
+                context, journals, "Jurnal", Colors.green);
+          }),
+          const Spacer(),
+          Consumer(builder: (context, ref, child) {
+            final students = ref.watch(studentsProvider).value?.length ?? 0;
+
+            return _buildStatisticItem(context, students, "Siswa", Colors.blue);
+          }),
         ],
       ),
     );
@@ -145,31 +155,34 @@ class HomeView extends ConsumerWidget {
 
   Widget _buildStatisticItem(
     BuildContext context,
-    String value,
+    num value,
     String label,
     Color color,
   ) {
-    return Column(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: color.withOpacity(0.25),
-            borderRadius: ThemeConstants.smallRadius,
+    return Expanded(
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: color.withOpacity(0.25),
+              borderRadius: ThemeConstants.smallRadius,
+            ),
+            padding: ThemeConstants.defaultPadding / 2,
+            alignment: Alignment.center,
+            child: Text(
+              value.toString(),
+              style: context.text.headlineLarge
+                  ?.weight(Weight.semiBold)
+                  .withColor(color),
+            ),
           ),
-          padding: ThemeConstants.defaultPadding / 2,
-          child: Text(
-            value,
-            style: context.text.headlineLarge
-                ?.weight(Weight.semiBold)
-                .withColor(color),
+          10.heightBox,
+          Text(
+            label,
+            style: context.text.bodyMedium,
           ),
-        ),
-        10.heightBox,
-        Text(
-          label,
-          style: context.text.bodyMedium,
-        ),
-      ],
+        ],
+      ),
     );
   }
 

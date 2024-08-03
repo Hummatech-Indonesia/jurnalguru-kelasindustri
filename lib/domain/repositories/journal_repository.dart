@@ -16,7 +16,7 @@ abstract class JournalRepository {
   Future<Either<Failure, void>> deleteJournal(Journal journal);
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 JournalRepository journalRepository(JournalRepositoryRef ref) {
   return JournalRepositoryImpl(ref.read(apiServiceProvider));
 }

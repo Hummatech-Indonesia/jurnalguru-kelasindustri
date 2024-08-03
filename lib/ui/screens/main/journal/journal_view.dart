@@ -9,17 +9,17 @@ import '../../../widgets/journal_list_item.dart';
 import '../widgets/custom_navigation_bar.dart';
 import 'add_journal/add_journal_screen.dart';
 
-class JournalView extends StatelessWidget {
+class JournalView extends ConsumerWidget {
   const JournalView({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Stack(
       children: [
         Column(
           children: [
             _buildHeader(context),
-            Expanded(child: _buildBody(context)),
+            Expanded(child: _buildBody(context, ref)),
           ],
         ),
         Positioned(
@@ -56,7 +56,7 @@ class JournalView extends StatelessWidget {
     );
   }
 
-  Widget _buildBody(BuildContext context) {
+  Widget _buildBody(BuildContext context, WidgetRef ref) {
     return Container(
       decoration: BoxDecoration(
         color: context.color.surface,
@@ -65,16 +65,23 @@ class JournalView extends StatelessWidget {
           topRight: ThemeConstants.largeRadius.topRight,
         ),
       ),
-      child: SingleChildScrollView(
-        padding: ThemeConstants.defaultPadding +
-            const EdgeInsets.only(bottom: CustomNavigationBar.height),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildSectionTitle(context, "Jurnal Harian"),
-            24.heightBox,
-            _buildJournalList(context),
-          ],
+      child: RefreshIndicator(
+        onRefresh: () async {
+          ref.invalidate(journalsProvider);
+
+          return ref.read(journalsProvider.future);
+        },
+        child: SingleChildScrollView(
+          padding: ThemeConstants.defaultPadding +
+              const EdgeInsets.only(bottom: CustomNavigationBar.height),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _buildSectionTitle(context, "Jurnal Harian"),
+              24.heightBox,
+              _buildJournalList(context),
+            ],
+          ),
         ),
       ),
     );

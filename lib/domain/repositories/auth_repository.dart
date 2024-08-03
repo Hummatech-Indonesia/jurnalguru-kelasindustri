@@ -14,7 +14,7 @@ abstract class AuthRepository {
   Future<Either<Failure, User>> getUser();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 AuthRepository authRepository(AuthRepositoryRef ref) {
   return AuthRepositoryImpl(ref.read(apiServiceProvider));
 }
