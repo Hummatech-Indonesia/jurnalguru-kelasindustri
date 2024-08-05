@@ -25,7 +25,7 @@ class MainApp extends ConsumerWidget {
       navigatorKey: alice.getNavigatorKey(),
       theme: theme,
       initialRoute: Routes.splash,
-      routes: Routes.routes,
+      onGenerateRoute: Routes.onGenerateRoute,
     );
   }
 }
