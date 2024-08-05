@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../../../domain/constants/api_config.dart';
 import '../../../../../domain/entities/failure/failure.dart';
+import '../../../../../domain/entities/journal.dart';
 import '../../../../../domain/entities/student.dart';
 import '../../../../../utilities/extensions.dart';
 import '../../../../providers/journal/journals_provider.dart';
@@ -15,7 +17,12 @@ import '../../../../widgets/ui_text_form_field.dart';
 import 'widget/image_picker_dialog.dart';
 
 class AddJournalScreen extends ConsumerStatefulWidget {
-  const AddJournalScreen({super.key});
+  final Journal? journal;
+
+  const AddJournalScreen({
+    super.key,
+    this.journal,
+  });
 
   @override
   ConsumerState<AddJournalScreen> createState() => _AddJournalScreenState();
@@ -35,6 +42,29 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
 
   bool _isLoading = false;
 
+  @override
+  void initState() {
+    super.initState();
+
+    if (widget.journal != null) {
+      _titleController.text = widget.journal!.title ?? '';
+      _descriptionController.text = widget.journal!.description ?? '';
+
+      // _sickStudents = widget.journal!.attendancesRecord.entries
+      //     .where((e) => e.value == AttendanceType.sick)
+      //     .map((e) => e.key)
+      //     .toList();
+      // _absentStudents = widget.journal!.attendancesRecord.entries
+      //     .where((e) => e.value == AttendanceType.absent)
+      //     .map((e) => e.key)
+      //     .toList();
+      // _permitStudents = widget.journal!.attendancesRecord.entries
+      //     .where((e) => e.value == AttendanceType.permit)
+      //     .map((e) => e.key)
+      //     .toList();
+    }
+  }
+
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
@@ -43,14 +73,27 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
     try {
       setState(() => _isLoading = true);
 
-      await ref.read(journalsProvider.notifier).add(
-            title: _titleController.text,
-            description: _descriptionController.text,
-            image: _image!,
-            sicks: _sickStudents,
-            absents: _absentStudents,
-            permits: _permitStudents,
-          );
+      if (widget.journal == null) {
+        await ref.read(journalsProvider.notifier).add(
+              title: _titleController.text,
+              description: _descriptionController.text,
+              image: _image!,
+              sicks: _sickStudents,
+              absents: _absentStudents,
+              permits: _permitStudents,
+            );
+      } else {
+        // TODO: only update image if it's changed
+        await ref.read(journalsProvider.notifier).edit(
+              journal: widget.journal!,
+              title: _titleController.text,
+              description: _descriptionController.text,
+              image: _image!,
+              sicks: _sickStudents,
+              absents: _absentStudents,
+              permits: _permitStudents,
+            );
+      }
 
       if (mounted) {
         Navigator.of(context).pop();
@@ -106,7 +149,7 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
               flex: 3,
               child: Center(
                 child: Text(
-                  "Tambah Jurnal",
+                  widget.journal != null ? "Edit Jurnal" : "Tambah Jurnal",
                   style: context.text.titleLarge
                       ?.weight(Weight.bold)
                       .onPrimaryColor(),
@@ -282,11 +325,19 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
                     fit: BoxFit.cover,
                   ),
                 )
-              : Icon(
-                  Icons.camera_alt_rounded,
-                  color: context.color.onSurface.withOpacity(0.2),
-                  size: 48,
-                ),
+              : widget.journal?.photo != null
+                  ? ClipRRect(
+                      borderRadius: ThemeConstants.mediumRadius,
+                      child: Image.network(
+                        "${ApiConfig.storageUrl}/${widget.journal!.photo!}",
+                        fit: BoxFit.cover,
+                      ),
+                    )
+                  : Icon(
+                      Icons.camera_alt_rounded,
+                      color: context.color.onSurface.withOpacity(0.2),
+                      size: 48,
+                    ),
         ),
       ),
     );

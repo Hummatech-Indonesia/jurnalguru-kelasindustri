@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../constants/api_config.dart';
 import 'alice_provider.dart';
 import 'shared_preferences_provider.dart';
 
@@ -12,7 +13,7 @@ Dio dio(DioRef ref) {
 
   final dio = Dio(
     BaseOptions(
-      baseUrl: 'https://classhummatech.mijurnal.com/api',
+      baseUrl: ApiConfig.apiUrl,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json',

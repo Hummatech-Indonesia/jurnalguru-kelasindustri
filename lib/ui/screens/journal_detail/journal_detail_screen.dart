@@ -9,6 +9,7 @@ import '../../theme/theme_constants.dart';
 import '../../widgets/section_title.dart';
 import '../../widgets/ui_card.dart';
 import '../../widgets/ui_screen.dart';
+import '../main/journal/add_journal/add_journal_screen.dart';
 import 'widgets/delete_journal_modal.dart';
 
 class JournalDetailScreen extends ConsumerStatefulWidget {
@@ -48,6 +49,16 @@ class _JournalDetailScreenState extends ConsumerState<JournalDetailScreen> {
     }
   }
 
+  Future<void> _editJournal() async {
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => AddJournalScreen(
+          journal: widget.journal,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return UIScreen(
@@ -72,7 +83,7 @@ class _JournalDetailScreenState extends ConsumerState<JournalDetailScreen> {
                 ),
                 8.widthBox,
                 FloatingActionButton(
-                  onPressed: () {},
+                  onPressed: _editJournal,
                   heroTag: "edit",
                   backgroundColor: Colors.yellow.shade800,
                   child: const Icon(Icons.edit_square),

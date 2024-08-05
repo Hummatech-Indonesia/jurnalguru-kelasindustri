@@ -75,6 +75,51 @@ class Journals extends _$Journals {
     );
   }
 
+  Future<void> edit({
+    Journal? journal,
+    String? title,
+    String? description,
+    File? image,
+    List<int>? sicks,
+    List<int>? absents,
+    List<int>? permits,
+  }) async {
+    final repository = ref.read(journalRepositoryProvider);
+    final teacherId = ref.read(
+      authNotifierProvider.select((state) => state.user?.id),
+    );
+    final students = ref.read(
+      studentsProvider.select((value) => value.value ?? []),
+    );
+
+    if (teacherId == null) return;
+
+    AttendanceType getAttendanceType(int id) {
+      if (sicks?.contains(id) == true) {
+        return AttendanceType.sick;
+      } else if (absents?.contains(id) == true) {
+        return AttendanceType.absent;
+      } else if (permits?.contains(id) == true) {
+        return AttendanceType.permit;
+      } else {
+        return AttendanceType.present;
+      }
+    }
+
+    final attendancesRecord = {
+      for (final student in students)
+        student.studentClassroom!.id!:
+            getAttendanceType(student.studentClassroom!.id!),
+    };
+
+    // final response = await repository.updateJournal(journal);
+
+    // response.fold(
+    //   (failure) => throw failure,
+    //   (success) => ref.invalidateSelf(),
+    // );
+  }
+
   Future<void> delete(Journal journal) async {
     final repository = ref.read(journalRepositoryProvider);
 
