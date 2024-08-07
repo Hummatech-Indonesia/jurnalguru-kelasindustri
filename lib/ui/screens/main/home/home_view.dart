@@ -194,8 +194,8 @@ class HomeView extends ConsumerWidget {
         builder: (context, ref, child) {
           final journals = ref.watch(journalsProvider);
 
-          return journals.when(
-            data: (journals) {
+          return journals.display(
+            (journals) {
               journals = journals.take(5).toList();
 
               return ListView.separated(
@@ -210,8 +210,6 @@ class HomeView extends ConsumerWidget {
                 separatorBuilder: (context, index) => 12.heightBox,
               );
             },
-            error: (failure, stackTrace) => Text(failure.toString()),
-            loading: () => const Center(child: CircularProgressIndicator()),
           );
         },
       ),

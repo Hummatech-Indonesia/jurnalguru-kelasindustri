@@ -7,7 +7,7 @@ enum AttendanceType {
   sick,
   @JsonValue('alfa')
   absent,
-  @JsonValue('izin')
+  @JsonValue('ijin')
   permit,
 }
 
@@ -16,6 +16,6 @@ extension AttendanceTypeExtension on AttendanceType {
         AttendanceType.present => 'hadir',
         AttendanceType.sick => 'sakit',
         AttendanceType.absent => 'alfa',
-        AttendanceType.permit => 'izin',
+        AttendanceType.permit => 'ijin',
       };
 }

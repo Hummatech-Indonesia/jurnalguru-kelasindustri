@@ -46,6 +46,15 @@ mixin _$Journal {
   int? get absents => throw _privateConstructorUsedError;
   @JsonKey(name: 'classroom')
   Classroom? get classroom => throw _privateConstructorUsedError;
+  @JsonKey(name: 'attendance_alfa')
+  List<JournalAttendance>? get absentsAttendance =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: 'attendance_ijin')
+  List<JournalAttendance>? get permitsAttendance =>
+      throw _privateConstructorUsedError;
+  @JsonKey(name: 'attendance_sakit')
+  List<JournalAttendance>? get sicksAttendance =>
+      throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -70,7 +79,13 @@ abstract class $JournalCopyWith<$Res> {
       @JsonKey(name: 'permits') int? permits,
       @JsonKey(name: 'sicks') int? sicks,
       @JsonKey(name: 'absents') int? absents,
-      @JsonKey(name: 'classroom') Classroom? classroom});
+      @JsonKey(name: 'classroom') Classroom? classroom,
+      @JsonKey(name: 'attendance_alfa')
+      List<JournalAttendance>? absentsAttendance,
+      @JsonKey(name: 'attendance_ijin')
+      List<JournalAttendance>? permitsAttendance,
+      @JsonKey(name: 'attendance_sakit')
+      List<JournalAttendance>? sicksAttendance});
 
   $ClassroomCopyWith<$Res>? get classroom;
 }
@@ -101,6 +116,9 @@ class _$JournalCopyWithImpl<$Res, $Val extends Journal>
     Object? sicks = freezed,
     Object? absents = freezed,
     Object? classroom = freezed,
+    Object? absentsAttendance = freezed,
+    Object? permitsAttendance = freezed,
+    Object? sicksAttendance = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -155,6 +173,18 @@ class _$JournalCopyWithImpl<$Res, $Val extends Journal>
           ? _value.classroom
           : classroom // ignore: cast_nullable_to_non_nullable
               as Classroom?,
+      absentsAttendance: freezed == absentsAttendance
+          ? _value.absentsAttendance
+          : absentsAttendance // ignore: cast_nullable_to_non_nullable
+              as List<JournalAttendance>?,
+      permitsAttendance: freezed == permitsAttendance
+          ? _value.permitsAttendance
+          : permitsAttendance // ignore: cast_nullable_to_non_nullable
+              as List<JournalAttendance>?,
+      sicksAttendance: freezed == sicksAttendance
+          ? _value.sicksAttendance
+          : sicksAttendance // ignore: cast_nullable_to_non_nullable
+              as List<JournalAttendance>?,
     ) as $Val);
   }
 
@@ -191,7 +221,13 @@ abstract class _$$JournalImplCopyWith<$Res> implements $JournalCopyWith<$Res> {
       @JsonKey(name: 'permits') int? permits,
       @JsonKey(name: 'sicks') int? sicks,
       @JsonKey(name: 'absents') int? absents,
-      @JsonKey(name: 'classroom') Classroom? classroom});
+      @JsonKey(name: 'classroom') Classroom? classroom,
+      @JsonKey(name: 'attendance_alfa')
+      List<JournalAttendance>? absentsAttendance,
+      @JsonKey(name: 'attendance_ijin')
+      List<JournalAttendance>? permitsAttendance,
+      @JsonKey(name: 'attendance_sakit')
+      List<JournalAttendance>? sicksAttendance});
 
   @override
   $ClassroomCopyWith<$Res>? get classroom;
@@ -221,6 +257,9 @@ class __$$JournalImplCopyWithImpl<$Res>
     Object? sicks = freezed,
     Object? absents = freezed,
     Object? classroom = freezed,
+    Object? absentsAttendance = freezed,
+    Object? permitsAttendance = freezed,
+    Object? sicksAttendance = freezed,
   }) {
     return _then(_$JournalImpl(
       id: freezed == id
@@ -275,6 +314,18 @@ class __$$JournalImplCopyWithImpl<$Res>
           ? _value.classroom
           : classroom // ignore: cast_nullable_to_non_nullable
               as Classroom?,
+      absentsAttendance: freezed == absentsAttendance
+          ? _value._absentsAttendance
+          : absentsAttendance // ignore: cast_nullable_to_non_nullable
+              as List<JournalAttendance>?,
+      permitsAttendance: freezed == permitsAttendance
+          ? _value._permitsAttendance
+          : permitsAttendance // ignore: cast_nullable_to_non_nullable
+              as List<JournalAttendance>?,
+      sicksAttendance: freezed == sicksAttendance
+          ? _value._sicksAttendance
+          : sicksAttendance // ignore: cast_nullable_to_non_nullable
+              as List<JournalAttendance>?,
     ));
   }
 }
@@ -295,7 +346,16 @@ class _$JournalImpl implements _Journal {
       @JsonKey(name: 'permits') this.permits,
       @JsonKey(name: 'sicks') this.sicks,
       @JsonKey(name: 'absents') this.absents,
-      @JsonKey(name: 'classroom') this.classroom});
+      @JsonKey(name: 'classroom') this.classroom,
+      @JsonKey(name: 'attendance_alfa')
+      final List<JournalAttendance>? absentsAttendance,
+      @JsonKey(name: 'attendance_ijin')
+      final List<JournalAttendance>? permitsAttendance,
+      @JsonKey(name: 'attendance_sakit')
+      final List<JournalAttendance>? sicksAttendance})
+      : _absentsAttendance = absentsAttendance,
+        _permitsAttendance = permitsAttendance,
+        _sicksAttendance = sicksAttendance;
 
   factory _$JournalImpl.fromJson(Map<String, dynamic> json) =>
       _$$JournalImplFromJson(json);
@@ -339,10 +399,44 @@ class _$JournalImpl implements _Journal {
   @override
   @JsonKey(name: 'classroom')
   final Classroom? classroom;
+  final List<JournalAttendance>? _absentsAttendance;
+  @override
+  @JsonKey(name: 'attendance_alfa')
+  List<JournalAttendance>? get absentsAttendance {
+    final value = _absentsAttendance;
+    if (value == null) return null;
+    if (_absentsAttendance is EqualUnmodifiableListView)
+      return _absentsAttendance;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<JournalAttendance>? _permitsAttendance;
+  @override
+  @JsonKey(name: 'attendance_ijin')
+  List<JournalAttendance>? get permitsAttendance {
+    final value = _permitsAttendance;
+    if (value == null) return null;
+    if (_permitsAttendance is EqualUnmodifiableListView)
+      return _permitsAttendance;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
+  final List<JournalAttendance>? _sicksAttendance;
+  @override
+  @JsonKey(name: 'attendance_sakit')
+  List<JournalAttendance>? get sicksAttendance {
+    final value = _sicksAttendance;
+    if (value == null) return null;
+    if (_sicksAttendance is EqualUnmodifiableListView) return _sicksAttendance;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
 
   @override
   String toString() {
-    return 'Journal(id: $id, title: $title, photo: $photo, date: $date, description: $description, classroomId: $classroomId, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, permits: $permits, sicks: $sicks, absents: $absents, classroom: $classroom)';
+    return 'Journal(id: $id, title: $title, photo: $photo, date: $date, description: $description, classroomId: $classroomId, createdBy: $createdBy, createdAt: $createdAt, updatedAt: $updatedAt, permits: $permits, sicks: $sicks, absents: $absents, classroom: $classroom, absentsAttendance: $absentsAttendance, permitsAttendance: $permitsAttendance, sicksAttendance: $sicksAttendance)';
   }
 
   @override
@@ -368,7 +462,13 @@ class _$JournalImpl implements _Journal {
             (identical(other.sicks, sicks) || other.sicks == sicks) &&
             (identical(other.absents, absents) || other.absents == absents) &&
             (identical(other.classroom, classroom) ||
-                other.classroom == classroom));
+                other.classroom == classroom) &&
+            const DeepCollectionEquality()
+                .equals(other._absentsAttendance, _absentsAttendance) &&
+            const DeepCollectionEquality()
+                .equals(other._permitsAttendance, _permitsAttendance) &&
+            const DeepCollectionEquality()
+                .equals(other._sicksAttendance, _sicksAttendance));
   }
 
   @JsonKey(ignore: true)
@@ -387,7 +487,10 @@ class _$JournalImpl implements _Journal {
       permits,
       sicks,
       absents,
-      classroom);
+      classroom,
+      const DeepCollectionEquality().hash(_absentsAttendance),
+      const DeepCollectionEquality().hash(_permitsAttendance),
+      const DeepCollectionEquality().hash(_sicksAttendance));
 
   @JsonKey(ignore: true)
   @override
@@ -417,7 +520,13 @@ abstract class _Journal implements Journal {
       @JsonKey(name: 'permits') final int? permits,
       @JsonKey(name: 'sicks') final int? sicks,
       @JsonKey(name: 'absents') final int? absents,
-      @JsonKey(name: 'classroom') final Classroom? classroom}) = _$JournalImpl;
+      @JsonKey(name: 'classroom') final Classroom? classroom,
+      @JsonKey(name: 'attendance_alfa')
+      final List<JournalAttendance>? absentsAttendance,
+      @JsonKey(name: 'attendance_ijin')
+      final List<JournalAttendance>? permitsAttendance,
+      @JsonKey(name: 'attendance_sakit')
+      final List<JournalAttendance>? sicksAttendance}) = _$JournalImpl;
 
   factory _Journal.fromJson(Map<String, dynamic> json) = _$JournalImpl.fromJson;
 
@@ -461,7 +570,282 @@ abstract class _Journal implements Journal {
   @JsonKey(name: 'classroom')
   Classroom? get classroom;
   @override
+  @JsonKey(name: 'attendance_alfa')
+  List<JournalAttendance>? get absentsAttendance;
+  @override
+  @JsonKey(name: 'attendance_ijin')
+  List<JournalAttendance>? get permitsAttendance;
+  @override
+  @JsonKey(name: 'attendance_sakit')
+  List<JournalAttendance>? get sicksAttendance;
+  @override
   @JsonKey(ignore: true)
   _$$JournalImplCopyWith<_$JournalImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+JournalAttendance _$JournalAttendanceFromJson(Map<String, dynamic> json) {
+  return _JournalAttendance.fromJson(json);
+}
+
+/// @nodoc
+mixin _$JournalAttendance {
+  @JsonKey(name: 'id')
+  int? get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'journal_id')
+  String? get journalId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'student_classroom_id')
+  int? get studentClassroomId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'attendance')
+  AttendanceType? get attendance => throw _privateConstructorUsedError;
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt => throw _privateConstructorUsedError;
+  @JsonKey(name: 'updated_at')
+  DateTime? get updatedAt => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $JournalAttendanceCopyWith<JournalAttendance> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $JournalAttendanceCopyWith<$Res> {
+  factory $JournalAttendanceCopyWith(
+          JournalAttendance value, $Res Function(JournalAttendance) then) =
+      _$JournalAttendanceCopyWithImpl<$Res, JournalAttendance>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int? id,
+      @JsonKey(name: 'journal_id') String? journalId,
+      @JsonKey(name: 'student_classroom_id') int? studentClassroomId,
+      @JsonKey(name: 'attendance') AttendanceType? attendance,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt});
+}
+
+/// @nodoc
+class _$JournalAttendanceCopyWithImpl<$Res, $Val extends JournalAttendance>
+    implements $JournalAttendanceCopyWith<$Res> {
+  _$JournalAttendanceCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? journalId = freezed,
+    Object? studentClassroomId = freezed,
+    Object? attendance = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_value.copyWith(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      journalId: freezed == journalId
+          ? _value.journalId
+          : journalId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      studentClassroomId: freezed == studentClassroomId
+          ? _value.studentClassroomId
+          : studentClassroomId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      attendance: freezed == attendance
+          ? _value.attendance
+          : attendance // ignore: cast_nullable_to_non_nullable
+              as AttendanceType?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$JournalAttendanceImplCopyWith<$Res>
+    implements $JournalAttendanceCopyWith<$Res> {
+  factory _$$JournalAttendanceImplCopyWith(_$JournalAttendanceImpl value,
+          $Res Function(_$JournalAttendanceImpl) then) =
+      __$$JournalAttendanceImplCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int? id,
+      @JsonKey(name: 'journal_id') String? journalId,
+      @JsonKey(name: 'student_classroom_id') int? studentClassroomId,
+      @JsonKey(name: 'attendance') AttendanceType? attendance,
+      @JsonKey(name: 'created_at') DateTime? createdAt,
+      @JsonKey(name: 'updated_at') DateTime? updatedAt});
+}
+
+/// @nodoc
+class __$$JournalAttendanceImplCopyWithImpl<$Res>
+    extends _$JournalAttendanceCopyWithImpl<$Res, _$JournalAttendanceImpl>
+    implements _$$JournalAttendanceImplCopyWith<$Res> {
+  __$$JournalAttendanceImplCopyWithImpl(_$JournalAttendanceImpl _value,
+      $Res Function(_$JournalAttendanceImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = freezed,
+    Object? journalId = freezed,
+    Object? studentClassroomId = freezed,
+    Object? attendance = freezed,
+    Object? createdAt = freezed,
+    Object? updatedAt = freezed,
+  }) {
+    return _then(_$JournalAttendanceImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      journalId: freezed == journalId
+          ? _value.journalId
+          : journalId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      studentClassroomId: freezed == studentClassroomId
+          ? _value.studentClassroomId
+          : studentClassroomId // ignore: cast_nullable_to_non_nullable
+              as int?,
+      attendance: freezed == attendance
+          ? _value.attendance
+          : attendance // ignore: cast_nullable_to_non_nullable
+              as AttendanceType?,
+      createdAt: freezed == createdAt
+          ? _value.createdAt
+          : createdAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      updatedAt: freezed == updatedAt
+          ? _value.updatedAt
+          : updatedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$JournalAttendanceImpl implements _JournalAttendance {
+  _$JournalAttendanceImpl(
+      {@JsonKey(name: 'id') this.id,
+      @JsonKey(name: 'journal_id') this.journalId,
+      @JsonKey(name: 'student_classroom_id') this.studentClassroomId,
+      @JsonKey(name: 'attendance') this.attendance,
+      @JsonKey(name: 'created_at') this.createdAt,
+      @JsonKey(name: 'updated_at') this.updatedAt});
+
+  factory _$JournalAttendanceImpl.fromJson(Map<String, dynamic> json) =>
+      _$$JournalAttendanceImplFromJson(json);
+
+  @override
+  @JsonKey(name: 'id')
+  final int? id;
+  @override
+  @JsonKey(name: 'journal_id')
+  final String? journalId;
+  @override
+  @JsonKey(name: 'student_classroom_id')
+  final int? studentClassroomId;
+  @override
+  @JsonKey(name: 'attendance')
+  final AttendanceType? attendance;
+  @override
+  @JsonKey(name: 'created_at')
+  final DateTime? createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  final DateTime? updatedAt;
+
+  @override
+  String toString() {
+    return 'JournalAttendance(id: $id, journalId: $journalId, studentClassroomId: $studentClassroomId, attendance: $attendance, createdAt: $createdAt, updatedAt: $updatedAt)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$JournalAttendanceImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.journalId, journalId) ||
+                other.journalId == journalId) &&
+            (identical(other.studentClassroomId, studentClassroomId) ||
+                other.studentClassroomId == studentClassroomId) &&
+            (identical(other.attendance, attendance) ||
+                other.attendance == attendance) &&
+            (identical(other.createdAt, createdAt) ||
+                other.createdAt == createdAt) &&
+            (identical(other.updatedAt, updatedAt) ||
+                other.updatedAt == updatedAt));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, journalId,
+      studentClassroomId, attendance, createdAt, updatedAt);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$JournalAttendanceImplCopyWith<_$JournalAttendanceImpl> get copyWith =>
+      __$$JournalAttendanceImplCopyWithImpl<_$JournalAttendanceImpl>(
+          this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$JournalAttendanceImplToJson(
+      this,
+    );
+  }
+}
+
+abstract class _JournalAttendance implements JournalAttendance {
+  factory _JournalAttendance(
+          {@JsonKey(name: 'id') final int? id,
+          @JsonKey(name: 'journal_id') final String? journalId,
+          @JsonKey(name: 'student_classroom_id') final int? studentClassroomId,
+          @JsonKey(name: 'attendance') final AttendanceType? attendance,
+          @JsonKey(name: 'created_at') final DateTime? createdAt,
+          @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
+      _$JournalAttendanceImpl;
+
+  factory _JournalAttendance.fromJson(Map<String, dynamic> json) =
+      _$JournalAttendanceImpl.fromJson;
+
+  @override
+  @JsonKey(name: 'id')
+  int? get id;
+  @override
+  @JsonKey(name: 'journal_id')
+  String? get journalId;
+  @override
+  @JsonKey(name: 'student_classroom_id')
+  int? get studentClassroomId;
+  @override
+  @JsonKey(name: 'attendance')
+  AttendanceType? get attendance;
+  @override
+  @JsonKey(name: 'created_at')
+  DateTime? get createdAt;
+  @override
+  @JsonKey(name: 'updated_at')
+  DateTime? get updatedAt;
+  @override
+  @JsonKey(ignore: true)
+  _$$JournalAttendanceImplCopyWith<_$JournalAttendanceImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

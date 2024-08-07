@@ -30,8 +30,6 @@ class UIDropdownFormField<T> extends StatefulWidget {
 }
 
 class _UIDropdownFormFieldState<T> extends State<UIDropdownFormField<T>> {
-  late final bool _isObscure = widget.obscureText;
-
   @override
   Widget build(BuildContext context) {
     return Column(

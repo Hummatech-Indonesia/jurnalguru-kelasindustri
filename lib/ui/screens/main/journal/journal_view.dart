@@ -124,21 +124,17 @@ class JournalView extends ConsumerWidget {
         builder: (context, ref, child) {
           final journals = ref.watch(journalsProvider);
 
-          return journals.when(
-            data: (journals) => ListView.separated(
+          return journals.display(
+            (journals) => ListView.separated(
               itemCount: journals.length,
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
               // padding: EdgeInsets.zero,
-              itemBuilder: (context, index) {
-                return JournalListItem(
-                  journal: journals[index],
-                );
-              },
+              itemBuilder: (context, index) => JournalListItem(
+                journal: journals[index],
+              ),
               separatorBuilder: (context, index) => 12.heightBox,
             ),
-            error: (failure, stackTrace) => Text(failure.toString()),
-            loading: () => const Center(child: CircularProgressIndicator()),
           );
         },
       ),

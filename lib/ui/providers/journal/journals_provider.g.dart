@@ -6,7 +6,7 @@ part of 'journals_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$journalsHash() => r'ac0bcc1538095d4caae186779017ce02a348e24a';
+String _$journalsHash() => r'c7dadac70bf43389a7176f663579ae85fc321139';
 
 /// See also [Journals].
 @ProviderFor(Journals)

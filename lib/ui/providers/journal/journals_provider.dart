@@ -4,10 +4,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import '../../../domain/entities/journal.dart';
 import '../../../domain/entities/requests/add_journal_request.dart';
+import '../../../domain/entities/requests/update_journal_request.dart';
 import '../../../domain/enums/attendance_type.dart';
 import '../../../domain/repositories/journal_repository.dart';
 import '../auth/auth_notifier.dart';
 import '../student/students_provider.dart';
+import 'journal_provider.dart';
 
 part 'journals_provider.g.dart';
 
@@ -112,12 +114,24 @@ class Journals extends _$Journals {
             getAttendanceType(student.studentClassroom!.id!),
     };
 
-    // final response = await repository.updateJournal(journal);
+    final request = UpdateJournalRequest(
+      id: journal!.id!,
+      title: title,
+      description: description,
+      image: image,
+      teacherId: teacherId,
+      attendancesRecord: attendancesRecord,
+    );
 
-    // response.fold(
-    //   (failure) => throw failure,
-    //   (success) => ref.invalidateSelf(),
-    // );
+    final response = await repository.updateJournal(request);
+
+    response.fold(
+      (failure) => throw failure,
+      (success) {
+        ref.invalidate(journalProvider(journal.id));
+        ref.invalidateSelf();
+      },
+    );
   }
 
   Future<void> delete(Journal journal) async {

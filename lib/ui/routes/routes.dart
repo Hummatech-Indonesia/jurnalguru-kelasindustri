@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../utilities/extensions.dart';
+import '../screens/journal_detail/journal_detail_screen.dart';
 import '../screens/login/login_screen.dart';
 import '../screens/main/journal/add_journal/add_journal_screen.dart';
 import '../screens/main/main_screen.dart';
@@ -10,12 +11,14 @@ class Routes {
   static const String splash = '/splash';
   static const String login = '/login';
   static const String main = '/main';
+  static const String journalDetail = '/journal';
   static const String addJournal = '/add-journal';
 
   static final routes = {
     Routes.splash: (context) => const SplashScreen(),
     Routes.login: (context) => const LoginScreen(),
     Routes.main: (context) => const MainScreen(),
+    Routes.journalDetail: (context) => const JournalDetailScreen(),
     Routes.addJournal: (context) => const AddJournalScreen(),
   };
 
@@ -43,7 +46,7 @@ class Routes {
           );
         }
 
-        return MaterialPageRoute(builder: route);
+        return MaterialPageRoute(builder: route, settings: settings);
       }
     }
 

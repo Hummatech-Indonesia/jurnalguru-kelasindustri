@@ -28,6 +28,15 @@ _$JournalImpl _$$JournalImplFromJson(Map<String, dynamic> json) =>
       classroom: json['classroom'] == null
           ? null
           : Classroom.fromJson(json['classroom']),
+      absentsAttendance: (json['attendance_alfa'] as List<dynamic>?)
+          ?.map(JournalAttendance.fromJson)
+          .toList(),
+      permitsAttendance: (json['attendance_ijin'] as List<dynamic>?)
+          ?.map(JournalAttendance.fromJson)
+          .toList(),
+      sicksAttendance: (json['attendance_sakit'] as List<dynamic>?)
+          ?.map(JournalAttendance.fromJson)
+          .toList(),
     );
 
 Map<String, dynamic> _$$JournalImplToJson(_$JournalImpl instance) =>
@@ -45,4 +54,41 @@ Map<String, dynamic> _$$JournalImplToJson(_$JournalImpl instance) =>
       'sicks': instance.sicks,
       'absents': instance.absents,
       'classroom': instance.classroom,
+      'attendance_alfa': instance.absentsAttendance,
+      'attendance_ijin': instance.permitsAttendance,
+      'attendance_sakit': instance.sicksAttendance,
     };
+
+_$JournalAttendanceImpl _$$JournalAttendanceImplFromJson(
+        Map<String, dynamic> json) =>
+    _$JournalAttendanceImpl(
+      id: (json['id'] as num?)?.toInt(),
+      journalId: json['journal_id'] as String?,
+      studentClassroomId: (json['student_classroom_id'] as num?)?.toInt(),
+      attendance:
+          $enumDecodeNullable(_$AttendanceTypeEnumMap, json['attendance']),
+      createdAt: json['created_at'] == null
+          ? null
+          : DateTime.parse(json['created_at'] as String),
+      updatedAt: json['updated_at'] == null
+          ? null
+          : DateTime.parse(json['updated_at'] as String),
+    );
+
+Map<String, dynamic> _$$JournalAttendanceImplToJson(
+        _$JournalAttendanceImpl instance) =>
+    <String, dynamic>{
+      'id': instance.id,
+      'journal_id': instance.journalId,
+      'student_classroom_id': instance.studentClassroomId,
+      'attendance': _$AttendanceTypeEnumMap[instance.attendance],
+      'created_at': instance.createdAt?.toIso8601String(),
+      'updated_at': instance.updatedAt?.toIso8601String(),
+    };
+
+const _$AttendanceTypeEnumMap = {
+  AttendanceType.present: 'hadir',
+  AttendanceType.sick: 'sakit',
+  AttendanceType.absent: 'alfa',
+  AttendanceType.permit: 'ijin',
+};

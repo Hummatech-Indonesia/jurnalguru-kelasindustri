@@ -4,28 +4,49 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../../../utilities/extensions.dart';
 import '../../../domain/entities/failure/failure.dart';
 import '../../../domain/entities/journal.dart';
+import '../../providers/journal/journal_provider.dart';
 import '../../providers/journal/journals_provider.dart';
 import '../../theme/theme_constants.dart';
 import '../../widgets/section_title.dart';
 import '../../widgets/ui_card.dart';
 import '../../widgets/ui_screen.dart';
 import '../main/journal/add_journal/add_journal_screen.dart';
+import 'journal_detail_screen_argument.dart';
 import 'widgets/delete_journal_modal.dart';
 
-class JournalDetailScreen extends ConsumerStatefulWidget {
+class JournalDetailScreen extends ConsumerWidget {
+  const JournalDetailScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final args = ModalRoute.of(context)!.settings.arguments
+        as JournalDetailScreenArgument;
+
+    final journal = ref.watch(journalProvider(args.journalId));
+
+    return UIScreen(
+      body: journal.display(
+        (journal) => JournalDetailScreenContent(journal: journal),
+      ),
+    );
+  }
+}
+
+class JournalDetailScreenContent extends ConsumerStatefulWidget {
   final Journal journal;
 
-  const JournalDetailScreen({
+  const JournalDetailScreenContent({
     super.key,
     required this.journal,
   });
 
   @override
-  ConsumerState<JournalDetailScreen> createState() =>
+  ConsumerState<JournalDetailScreenContent> createState() =>
       _JournalDetailScreenState();
 }
 
-class _JournalDetailScreenState extends ConsumerState<JournalDetailScreen> {
+class _JournalDetailScreenState
+    extends ConsumerState<JournalDetailScreenContent> {
   bool _isLoading = false;
 
   Future<void> _deleteJournal() async {
@@ -61,47 +82,45 @@ class _JournalDetailScreenState extends ConsumerState<JournalDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return UIScreen(
-      body: Stack(
-        children: [
-          Column(
+    return Stack(
+      children: [
+        Column(
+          children: [
+            buildHeader(context),
+            Expanded(child: buildBody(context)),
+          ],
+        ),
+        Positioned(
+          right: 24,
+          bottom: 24,
+          child: Row(
             children: [
-              buildHeader(context),
-              Expanded(child: buildBody(context)),
+              FloatingActionButton(
+                onPressed: _deleteJournal,
+                heroTag: "delete",
+                backgroundColor: context.color.error,
+                child: const Icon(Icons.delete),
+              ),
+              8.widthBox,
+              FloatingActionButton(
+                onPressed: _editJournal,
+                heroTag: "edit",
+                backgroundColor: Colors.yellow.shade800,
+                child: const Icon(Icons.edit_square),
+              ),
             ],
           ),
-          Positioned(
-            right: 24,
-            bottom: 24,
-            child: Row(
-              children: [
-                FloatingActionButton(
-                  onPressed: _deleteJournal,
-                  heroTag: "delete",
-                  backgroundColor: context.color.error,
-                  child: const Icon(Icons.delete),
-                ),
-                8.widthBox,
-                FloatingActionButton(
-                  onPressed: _editJournal,
-                  heroTag: "edit",
-                  backgroundColor: Colors.yellow.shade800,
-                  child: const Icon(Icons.edit_square),
-                ),
-              ],
+        ),
+        if (_isLoading)
+          AbsorbPointer(
+            absorbing: true,
+            child: Container(
+              color: Colors.black.withOpacity(0.1),
+              alignment: Alignment.center,
+              child: const CircularProgressIndicator(),
             ),
           ),
-          if (_isLoading)
-            AbsorbPointer(
-              absorbing: true,
-              child: Container(
-                color: Colors.black.withOpacity(0.1),
-                alignment: Alignment.center,
-                child: const CircularProgressIndicator(),
-              ),
-            ),
-        ],
-      ),
+      ],
     );
   }
 

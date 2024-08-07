@@ -3,7 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../domain/entities/journal.dart';
 import '../../utilities/extensions.dart';
-import '../screens/journal_detail/journal_detail_screen.dart';
+import '../routes/routes.dart';
+import '../screens/journal_detail/journal_detail_screen_argument.dart';
 import '../theme/theme.dart';
 import 'ui_card.dart';
 
@@ -20,12 +21,9 @@ class JournalListItem extends StatelessWidget {
     return UICard(
       padding: ThemeConstants.defaultPadding / 2,
       onTap: () {
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => JournalDetailScreen(
-              journal: journal,
-            ),
-          ),
+        Navigator.of(context).pushNamed(
+          Routes.journalDetail,
+          arguments: JournalDetailScreenArgument(journalId: journal.id!),
         );
       },
       child: Row(

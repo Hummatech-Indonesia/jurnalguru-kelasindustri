@@ -12,6 +12,7 @@ class UIMultiSelectFormField<T> extends StatefulWidget {
   final bool readOnly;
   final Widget Function(BuildContext context)? formBuilder;
   final List<DropdownMenuItem<T>> options;
+  final List<T> initialValue;
   final Function(List<T>)? onChanged;
 
   const UIMultiSelectFormField({
@@ -22,6 +23,7 @@ class UIMultiSelectFormField<T> extends StatefulWidget {
     this.readOnly = false,
     this.formBuilder,
     this.options = const [],
+    this.initialValue = const [],
     this.onChanged,
   });
 
@@ -32,6 +34,15 @@ class UIMultiSelectFormField<T> extends StatefulWidget {
 
 class _UIMultiSelectFormFieldState<T> extends State<UIMultiSelectFormField<T>> {
   List<DropdownMenuItem<T>> _selectedValues = [];
+
+  @override
+  initState() {
+    super.initState();
+
+    _selectedValues = widget.initialValue.map((e) {
+      return widget.options.firstWhere((element) => element.value == e);
+    }).toList();
+  }
 
   @override
   Widget build(BuildContext context) {

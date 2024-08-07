@@ -34,9 +34,14 @@ class ApiService {
     String path,
     T Function(Object? json) fromJsonT, {
     Object? data,
+    Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      final response = await _dio.post<Map<String, dynamic>>(path, data: data);
+      final response = await _dio.post<Map<String, dynamic>>(
+        path,
+        data: data,
+        queryParameters: queryParameters,
+      );
 
       if (response.data == null) {
         return Left(EmptyResponseFailure('Data is null'));

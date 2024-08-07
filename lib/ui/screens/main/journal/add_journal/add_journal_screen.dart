@@ -50,25 +50,27 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
       _titleController.text = widget.journal!.title ?? '';
       _descriptionController.text = widget.journal!.description ?? '';
 
-      // _sickStudents = widget.journal!.attendancesRecord.entries
-      //     .where((e) => e.value == AttendanceType.sick)
-      //     .map((e) => e.key)
-      //     .toList();
-      // _absentStudents = widget.journal!.attendancesRecord.entries
-      //     .where((e) => e.value == AttendanceType.absent)
-      //     .map((e) => e.key)
-      //     .toList();
-      // _permitStudents = widget.journal!.attendancesRecord.entries
-      //     .where((e) => e.value == AttendanceType.permit)
-      //     .map((e) => e.key)
-      //     .toList();
+      _sickStudents = widget.journal!.sicksAttendance
+              ?.map((e) => e.studentClassroomId!)
+              .toList() ??
+          [];
+      _absentStudents = widget.journal!.absentsAttendance
+              ?.map((e) => e.studentClassroomId!)
+              .toList() ??
+          [];
+      _permitStudents = widget.journal!.permitsAttendance
+              ?.map((e) => e.studentClassroomId!)
+              .toList() ??
+          [];
     }
   }
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
-    if (_image == null) Failure('Image is required').snackbar(context);
+    if (widget.journal == null && _image == null) {
+      Failure('Image is required').snackbar(context);
+    }
 
     try {
       setState(() => _isLoading = true);
@@ -83,12 +85,11 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
               permits: _permitStudents,
             );
       } else {
-        // TODO: only update image if it's changed
         await ref.read(journalsProvider.notifier).edit(
               journal: widget.journal!,
               title: _titleController.text,
               description: _descriptionController.text,
-              image: _image!,
+              image: _image,
               sicks: _sickStudents,
               absents: _absentStudents,
               permits: _permitStudents,
@@ -218,6 +219,7 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
                     (students) => UIMultiSelectFormField(
                       label: "Sakit",
                       hint: "Siswa Sakit",
+                      initialValue: _sickStudents,
                       options: mapStudentsToDropdownMenuItem("sick", students),
                       onChanged: (value) {
                         setState(() {
@@ -237,6 +239,7 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
                     (students) => UIMultiSelectFormField(
                       label: "Alpa",
                       hint: "Siswa Alpa",
+                      initialValue: _absentStudents,
                       options:
                           mapStudentsToDropdownMenuItem("absent", students),
                       onChanged: (value) {
@@ -257,6 +260,7 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
                     (students) => UIMultiSelectFormField(
                       label: "Izin",
                       hint: "Siswa Izin",
+                      initialValue: _permitStudents,
                       options:
                           mapStudentsToDropdownMenuItem("permit", students),
                       onChanged: (value) {
@@ -286,7 +290,11 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
                 onPressed: _isLoading ? null : _submit,
                 child: _isLoading
                     ? const CircularProgressIndicator()
-                    : const Text("Tambah Jurnal"),
+                    : Text(
+                        widget.journal != null
+                            ? "Ubah Jurnal"
+                            : "Tambah Jurnal",
+                      ),
               ),
             ],
           ),

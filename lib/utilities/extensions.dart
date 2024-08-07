@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 
 import '../domain/entities/failure/failure.dart';
@@ -131,7 +132,29 @@ extension FailureX on Failure {
 extension AsyncValueX<T> on AsyncValue<T> {
   Widget display(Widget Function(T) builder) {
     return when(
-      data: builder,
+      data: (data) {
+        if (data is List && data.isEmpty) {
+          return SizedBox(
+            height: 200,
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  FaIcon(
+                    FontAwesomeIcons.list,
+                    color: ColorPallete.primary,
+                    size: 48,
+                  ),
+                  8.heightBox,
+                  const Text("Data kosong..."),
+                ],
+              ),
+            ),
+          );
+        }
+
+        return builder(data);
+      },
       error: (failure, stackTrace) => Text(failure.toString()),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
