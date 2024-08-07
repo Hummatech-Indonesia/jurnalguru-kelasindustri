@@ -1,3 +1,5 @@
+import 'package:dio/dio.dart';
+
 class Failure {
   final String message;
 
@@ -6,6 +8,25 @@ class Failure {
   @override
   String toString() {
     return message;
+  }
+}
+
+class NetworkFailure extends Failure {
+  NetworkFailure(super.message);
+
+  factory NetworkFailure.fromException(Exception e) {
+    return NetworkFailure(e.toString());
+  }
+
+  factory NetworkFailure.fromDioException(DioException exception) {
+    if (exception.response?.data is Map &&
+        exception.response!.data['message'] != null) {
+      return NetworkFailure(exception.response!.data['message']);
+    } else {
+      return NetworkFailure(
+        exception.message ?? 'Network error',
+      );
+    }
   }
 }
 

@@ -6,11 +6,11 @@ part of 'alice_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$aliceHash() => r'877785ad70a42cb8110b35dbf88aacd9b0dc259e';
+String _$aliceHash() => r'817823c87e045ca2d748bf43f5d4f62e1c96e56e';
 
 /// See also [alice].
 @ProviderFor(alice)
-final aliceProvider = AutoDisposeProvider<Alice>.internal(
+final aliceProvider = Provider<Alice>.internal(
   alice,
   name: r'aliceProvider',
   debugGetCreateSourceHash:
@@ -19,6 +19,6 @@ final aliceProvider = AutoDisposeProvider<Alice>.internal(
   allTransitiveDependencies: null,
 );
 
-typedef AliceRef = AutoDisposeProviderRef<Alice>;
+typedef AliceRef = ProviderRef<Alice>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

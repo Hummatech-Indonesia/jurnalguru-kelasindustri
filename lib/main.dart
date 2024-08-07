@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 import 'domain/services/alice_provider.dart';
+import 'page_wrapper.dart';
 import 'ui/routes/routes.dart';
 import 'ui/theme/theme.dart';
 
@@ -26,6 +27,9 @@ class MainApp extends ConsumerWidget {
       theme: theme,
       initialRoute: Routes.splash,
       onGenerateRoute: Routes.onGenerateRoute,
+      builder: (context, child) => PageWrapper(
+        child: child!,
+      ),
     );
   }
 }

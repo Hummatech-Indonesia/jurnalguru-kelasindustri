@@ -124,6 +124,7 @@ extension FailureX on Failure {
       SnackBar(
         content: Text(message),
         backgroundColor: context.color.error,
+        behavior: SnackBarBehavior.floating,
       ),
     );
   }

@@ -1,13 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
+import '../../ui/providers/common/response_message_provider.dart';
 import '../constants/api_config.dart';
+import '../entities/failure/failure.dart';
 import 'alice_provider.dart';
 import 'shared_preferences_provider.dart';
 
 part 'dio_provider.g.dart';
 
-@riverpod
+@Riverpod(keepAlive: true)
 Dio dio(DioRef ref) {
   final alice = ref.watch(aliceProvider);
 
@@ -35,6 +37,29 @@ Dio dio(DioRef ref) {
   ));
 
   dio.interceptors.add(alice.getDioInterceptor());
+
+  dio.interceptors.add(InterceptorsWrapper(
+    onResponse: (response, handler) async {
+      if (response.requestOptions.method == 'POST' &&
+          response.data is Map &&
+          response.data['message'] != null) {
+        ref
+            .read(responseMessageProvider.notifier)
+            .setMessage(response.data['message']);
+      }
+
+      return handler.next(response);
+    },
+    onError: (error, handler) async {
+      ref
+          .read(responseMessageProvider.notifier)
+          .setFailure(NetworkFailure.fromDioException(error));
+    },
+  ));
+
+  ref.onDispose(() {
+    dio.interceptors.clear();
+  });
 
   return dio;
 }

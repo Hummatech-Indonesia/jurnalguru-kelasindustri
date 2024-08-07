@@ -290,11 +290,7 @@ class _AddJournalScreenState extends ConsumerState<AddJournalScreen> {
                 onPressed: _isLoading ? null : _submit,
                 child: _isLoading
                     ? const CircularProgressIndicator()
-                    : Text(
-                        widget.journal != null
-                            ? "Ubah Jurnal"
-                            : "Tambah Jurnal",
-                      ),
+                    : const Text("Simpan"),
               ),
             ],
           ),
