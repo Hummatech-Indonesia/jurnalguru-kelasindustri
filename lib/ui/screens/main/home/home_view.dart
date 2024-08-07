@@ -37,8 +37,11 @@ class HomeView extends ConsumerWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const CircleAvatar(
+                CircleAvatar(
                   radius: 32,
+                  foregroundImage: NetworkImage(
+                    "https://ui-avatars.com/api/?name=${user?.name ?? ""}",
+                  ),
                 ),
                 8.widthBox,
                 Column(
@@ -61,7 +64,14 @@ class HomeView extends ConsumerWidget {
                 ),
                 const Spacer(),
                 IconButton.filled(
-                  onPressed: () {},
+                  onPressed: () {
+                    ref.read(MainScreen.pageController).animateToPage(
+                          2,
+                          duration:
+                              ThemeConstants.navigationBarAnimationDuration,
+                          curve: ThemeConstants.navigationBarAnimationCurve,
+                        );
+                  },
                   style: IconButton.styleFrom(
                     backgroundColor: context.color.surface,
                     foregroundColor: context.color.primary,

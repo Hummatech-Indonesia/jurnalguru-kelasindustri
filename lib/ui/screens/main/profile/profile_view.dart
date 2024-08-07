@@ -7,8 +7,6 @@ import '../../../providers/auth/auth_notifier.dart';
 import '../../../routes/routes.dart';
 import '../../../theme/theme.dart';
 import '../../../theme/theme_constants.dart';
-import '../../profile/edit_password_screen.dart';
-import '../../profile/edit_profile_screen.dart';
 import '../widgets/custom_navigation_bar.dart';
 
 class ProfileView extends StatelessWidget {
@@ -28,38 +26,47 @@ class ProfileView extends StatelessWidget {
     return SafeArea(
       child: Padding(
         padding: ThemeConstants.defaultPadding,
-        child: Column(
-          children: [
-            Container(
-              height: 80,
-              width: 80,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: context.color.onPrimary,
-                  width: 4,
+        child: Consumer(
+          builder: (context, ref, child) {
+            final user = ref.watch(
+              authNotifierProvider.select((value) => value.user),
+            );
+
+            return Column(
+              children: [
+                Container(
+                  height: 80,
+                  width: 80,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: context.color.onPrimary,
+                      width: 4,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    backgroundColor: context.color.primary,
+                    foregroundImage: NetworkImage(
+                      "https://ui-avatars.com/api/?name=${user?.name ?? ""}",
+                    ),
+                  ),
                 ),
-              ),
-              child: CircleAvatar(
-                backgroundColor: context.color.primary,
-                foregroundImage: const NetworkImage(
-                  "https://avatars.githubusercontent.com/u/100644863?v=4",
+                16.heightBox,
+                Text(
+                  user?.name ?? "-",
+                  style: context.text.titleLarge
+                      ?.weight(Weight.bold)
+                      .onPrimaryColor(),
                 ),
-              ),
-            ),
-            16.heightBox,
-            Text(
-              "Natasha",
-              style:
-                  context.text.titleLarge?.weight(Weight.bold).onPrimaryColor(),
-            ),
-            6.heightBox,
-            Text(
-              "natasha@gmail.com",
-              style: context.text.bodyMedium?.onPrimaryColor(),
-            ),
-            12.heightBox,
-          ],
+                6.heightBox,
+                Text(
+                  user?.email ?? "-",
+                  style: context.text.bodyMedium?.onPrimaryColor(),
+                ),
+                12.heightBox,
+              ],
+            );
+          },
         ),
       ),
     );
@@ -82,29 +89,29 @@ class ProfileView extends StatelessWidget {
             ThemeConstants.defaultPadding.top.heightBox,
             _buildSectionTitle(context, "Pengaturan"),
             24.heightBox,
-            _buildSettingItem(
-                context, 0, FontAwesomeIcons.solidUser, "Edit Profile", () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => const EditProfileScreen(),
-                ),
-              );
-            }),
-            8.widthBox,
-            _buildSettingItem(
-              context,
-              1,
-              FontAwesomeIcons.key,
-              "Ubah Password",
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const EditPasswordScreen(),
-                  ),
-                );
-              },
-            ),
-            8.widthBox,
+            // _buildSettingItem(
+            //     context, 0, FontAwesomeIcons.solidUser, "Edit Profile", () {
+            //   Navigator.of(context).push(
+            //     MaterialPageRoute(
+            //       builder: (context) => const EditProfileScreen(),
+            //     ),
+            //   );
+            // }),
+            // 8.widthBox,
+            // _buildSettingItem(
+            //   context,
+            //   1,
+            //   FontAwesomeIcons.key,
+            //   "Ubah Password",
+            //   () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute(
+            //         builder: (context) => const EditPasswordScreen(),
+            //       ),
+            //     );
+            //   },
+            // ),
+            // 8.widthBox,
             Consumer(builder: (context, ref, child) {
               return _buildSettingItem(
                 context,
