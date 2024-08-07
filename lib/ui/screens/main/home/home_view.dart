@@ -110,30 +110,42 @@ class HomeView extends ConsumerWidget {
           topRight: ThemeConstants.largeRadius.topRight,
         ),
       ),
-      child: SingleChildScrollView(
-        padding: ThemeConstants.defaultPadding +
-            const EdgeInsets.only(bottom: CustomNavigationBar.height),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SectionTitle(title: "Statistik"),
-            16.heightBox,
-            _buildStatistic(context),
-            24.heightBox,
-            SectionTitle(
-              title: "Jurnal Harian",
-              more: "Lihat Semua",
-              onMorePressed: () {
-                ref.read(MainScreen.pageController).animateToPage(
-                      0,
-                      duration: ThemeConstants.navigationBarAnimationDuration,
-                      curve: ThemeConstants.navigationBarAnimationCurve,
-                    );
-              },
-            ),
-            24.heightBox,
-            _buildJournalList(context),
-          ],
+      child: RefreshIndicator(
+        onRefresh: () {
+          ref.invalidate(studentsProvider);
+          ref.invalidate(journalsProvider);
+
+          return Future.wait([
+            ref.read(studentsProvider.future),
+            ref.read(journalsProvider.future),
+          ]);
+        },
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          padding: ThemeConstants.defaultPadding +
+              const EdgeInsets.only(bottom: CustomNavigationBar.height),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SectionTitle(title: "Statistik"),
+              16.heightBox,
+              _buildStatistic(context),
+              24.heightBox,
+              SectionTitle(
+                title: "Jurnal Harian",
+                more: "Lihat Semua",
+                onMorePressed: () {
+                  ref.read(MainScreen.pageController).animateToPage(
+                        0,
+                        duration: ThemeConstants.navigationBarAnimationDuration,
+                        curve: ThemeConstants.navigationBarAnimationCurve,
+                      );
+                },
+              ),
+              24.heightBox,
+              _buildJournalList(context),
+            ],
+          ),
         ),
       ),
     );

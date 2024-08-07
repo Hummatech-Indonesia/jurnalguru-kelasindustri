@@ -69,12 +69,9 @@ class Journals extends _$Journals {
       },
     );
 
-    final response = await repository.addJournal(request);
+    await repository.addJournal(request);
 
-    response.fold(
-      (failure) => Future.error(failure),
-      (success) => ref.invalidateSelf(),
-    );
+    ref.invalidateSelf();
   }
 
   Future<void> edit({
@@ -123,25 +120,17 @@ class Journals extends _$Journals {
       attendancesRecord: attendancesRecord,
     );
 
-    final response = await repository.updateJournal(request);
+    await repository.updateJournal(request);
 
-    response.fold(
-      (failure) => Future.error(failure),
-      (success) {
-        ref.invalidate(journalProvider(journal.id));
-        ref.invalidateSelf();
-      },
-    );
+    ref.invalidate(journalProvider(journal.id));
+    ref.invalidateSelf();
   }
 
   Future<void> delete(Journal journal) async {
     final repository = ref.read(journalRepositoryProvider);
 
-    final response = await repository.deleteJournal(journal);
+    await repository.deleteJournal(journal);
 
-    response.fold(
-      (failure) => Future.error(failure),
-      (success) => ref.invalidateSelf(),
-    );
+    ref.invalidateSelf();
   }
 }

@@ -71,16 +71,23 @@ class JournalView extends ConsumerWidget {
 
           return ref.read(journalsProvider.future);
         },
-        child: SingleChildScrollView(
-          padding: ThemeConstants.defaultPadding +
-              const EdgeInsets.only(bottom: CustomNavigationBar.height),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _buildSectionTitle(context, "Jurnal Harian"),
-              24.heightBox,
-              _buildJournalList(context),
-            ],
+        child: RefreshIndicator(
+          onRefresh: () {
+            ref.invalidate(journalsProvider);
+            return ref.read(journalsProvider.future);
+          },
+          child: SingleChildScrollView(
+            physics: const AlwaysScrollableScrollPhysics(),
+            padding: ThemeConstants.defaultPadding +
+                const EdgeInsets.only(bottom: CustomNavigationBar.height),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                _buildSectionTitle(context, "Jurnal Harian"),
+                24.heightBox,
+                _buildJournalList(context),
+              ],
+            ),
           ),
         ),
       ),
