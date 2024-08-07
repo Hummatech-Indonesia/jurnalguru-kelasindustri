@@ -22,9 +22,9 @@ _$JournalImpl _$$JournalImplFromJson(Map<String, dynamic> json) =>
       updatedAt: json['updated_at'] == null
           ? null
           : DateTime.parse(json['updated_at'] as String),
-      permits: (json['permits'] as num?)?.toInt(),
-      sicks: (json['sicks'] as num?)?.toInt(),
-      absents: (json['absents'] as num?)?.toInt(),
+      permits: const JsonStringToInt().fromJson(json['permits']),
+      sicks: const JsonStringToInt().fromJson(json['sicks']),
+      absents: const JsonStringToInt().fromJson(json['absents']),
       classroom: json['classroom'] == null
           ? null
           : Classroom.fromJson(json['classroom']),
@@ -50,9 +50,9 @@ Map<String, dynamic> _$$JournalImplToJson(_$JournalImpl instance) =>
       'created_by': instance.createdBy,
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
-      'permits': instance.permits,
-      'sicks': instance.sicks,
-      'absents': instance.absents,
+      'permits': const JsonStringToInt().toJson(instance.permits),
+      'sicks': const JsonStringToInt().toJson(instance.sicks),
+      'absents': const JsonStringToInt().toJson(instance.absents),
       'classroom': instance.classroom,
       'attendance_alfa': instance.absentsAttendance,
       'attendance_ijin': instance.permitsAttendance,
@@ -62,9 +62,10 @@ Map<String, dynamic> _$$JournalImplToJson(_$JournalImpl instance) =>
 _$JournalAttendanceImpl _$$JournalAttendanceImplFromJson(
         Map<String, dynamic> json) =>
     _$JournalAttendanceImpl(
-      id: (json['id'] as num?)?.toInt(),
+      id: const JsonStringToInt().fromJson(json['id']),
       journalId: json['journal_id'] as String?,
-      studentClassroomId: (json['student_classroom_id'] as num?)?.toInt(),
+      studentClassroomId:
+          const JsonStringToInt().fromJson(json['student_classroom_id']),
       attendance:
           $enumDecodeNullable(_$AttendanceTypeEnumMap, json['attendance']),
       createdAt: json['created_at'] == null
@@ -78,9 +79,10 @@ _$JournalAttendanceImpl _$$JournalAttendanceImplFromJson(
 Map<String, dynamic> _$$JournalAttendanceImplToJson(
         _$JournalAttendanceImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': const JsonStringToInt().toJson(instance.id),
       'journal_id': instance.journalId,
-      'student_classroom_id': instance.studentClassroomId,
+      'student_classroom_id':
+          const JsonStringToInt().toJson(instance.studentClassroomId),
       'attendance': _$AttendanceTypeEnumMap[instance.attendance],
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),

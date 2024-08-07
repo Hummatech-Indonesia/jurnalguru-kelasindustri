@@ -37,3 +37,7 @@ class EmptyResponseFailure extends Failure {
 class ValidationFailure extends Failure {
   ValidationFailure(super.message);
 }
+
+class ParsingFailure extends Failure {
+  ParsingFailure([super.message = "Gagal menguraikan data dari server"]);
+}

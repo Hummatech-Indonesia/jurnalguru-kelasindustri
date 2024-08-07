@@ -56,8 +56,7 @@ _$StudentDetailImpl _$$StudentDetailImplFromJson(Map<String, dynamic> json) =>
       photo: json['photo'] as String?,
       bank: json['bank'] as String?,
       accountNumber: json['account_number'] as String?,
-      headmaster: (json['headmaster'] as num?)?.toInt(),
-      point: (json['point'] as num?)?.toInt(),
+      point: const JsonStringToInt().fromJson(json['point']),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -82,8 +81,7 @@ Map<String, dynamic> _$$StudentDetailImplToJson(_$StudentDetailImpl instance) =>
       'photo': instance.photo,
       'bank': instance.bank,
       'account_number': instance.accountNumber,
-      'headmaster': instance.headmaster,
-      'point': instance.point,
+      'point': const JsonStringToInt().toJson(instance.point),
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };
@@ -91,8 +89,8 @@ Map<String, dynamic> _$$StudentDetailImplToJson(_$StudentDetailImpl instance) =>
 _$StudentClassroomImpl _$$StudentClassroomImplFromJson(
         Map<String, dynamic> json) =>
     _$StudentClassroomImpl(
-      id: (json['id'] as num?)?.toInt(),
-      studentchoolId: (json['student_school_id'] as num?)?.toInt(),
+      id: const JsonStringToInt().fromJson(json['id']),
+      studentchoolId: json['student_school_id'] as String?,
       classroomId: json['classroom_id'] as String?,
       createdAt: json['created_at'] == null
           ? null
@@ -105,7 +103,7 @@ _$StudentClassroomImpl _$$StudentClassroomImplFromJson(
 Map<String, dynamic> _$$StudentClassroomImplToJson(
         _$StudentClassroomImpl instance) =>
     <String, dynamic>{
-      'id': instance.id,
+      'id': const JsonStringToInt().toJson(instance.id),
       'student_school_id': instance.studentchoolId,
       'classroom_id': instance.classroomId,
       'created_at': instance.createdAt?.toIso8601String(),

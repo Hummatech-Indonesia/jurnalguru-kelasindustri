@@ -363,10 +363,10 @@ mixin _$StudentDetail {
   @JsonKey(name: 'bank')
   String? get bank => throw _privateConstructorUsedError;
   @JsonKey(name: 'account_number')
-  String? get accountNumber => throw _privateConstructorUsedError;
-  @JsonKey(name: 'headmaster')
-  int? get headmaster => throw _privateConstructorUsedError;
+  String? get accountNumber =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'headmaster') int? headmaster,
   @JsonKey(name: 'point')
+  @JsonStringToInt()
   int? get point => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -400,8 +400,7 @@ abstract class $StudentDetailCopyWith<$Res> {
       @JsonKey(name: 'photo') String? photo,
       @JsonKey(name: 'bank') String? bank,
       @JsonKey(name: 'account_number') String? accountNumber,
-      @JsonKey(name: 'headmaster') int? headmaster,
-      @JsonKey(name: 'point') int? point,
+      @JsonKey(name: 'point') @JsonStringToInt() int? point,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
@@ -433,7 +432,6 @@ class _$StudentDetailCopyWithImpl<$Res, $Val extends StudentDetail>
     Object? photo = freezed,
     Object? bank = freezed,
     Object? accountNumber = freezed,
-    Object? headmaster = freezed,
     Object? point = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -495,10 +493,6 @@ class _$StudentDetailCopyWithImpl<$Res, $Val extends StudentDetail>
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      headmaster: freezed == headmaster
-          ? _value.headmaster
-          : headmaster // ignore: cast_nullable_to_non_nullable
-              as int?,
       point: freezed == point
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
@@ -538,8 +532,7 @@ abstract class _$$StudentDetailImplCopyWith<$Res>
       @JsonKey(name: 'photo') String? photo,
       @JsonKey(name: 'bank') String? bank,
       @JsonKey(name: 'account_number') String? accountNumber,
-      @JsonKey(name: 'headmaster') int? headmaster,
-      @JsonKey(name: 'point') int? point,
+      @JsonKey(name: 'point') @JsonStringToInt() int? point,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
 }
@@ -569,7 +562,6 @@ class __$$StudentDetailImplCopyWithImpl<$Res>
     Object? photo = freezed,
     Object? bank = freezed,
     Object? accountNumber = freezed,
-    Object? headmaster = freezed,
     Object? point = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -631,10 +623,6 @@ class __$$StudentDetailImplCopyWithImpl<$Res>
           ? _value.accountNumber
           : accountNumber // ignore: cast_nullable_to_non_nullable
               as String?,
-      headmaster: freezed == headmaster
-          ? _value.headmaster
-          : headmaster // ignore: cast_nullable_to_non_nullable
-              as int?,
       point: freezed == point
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
@@ -669,8 +657,7 @@ class _$StudentDetailImpl implements _StudentDetail {
       @JsonKey(name: 'photo') this.photo,
       @JsonKey(name: 'bank') this.bank,
       @JsonKey(name: 'account_number') this.accountNumber,
-      @JsonKey(name: 'headmaster') this.headmaster,
-      @JsonKey(name: 'point') this.point,
+      @JsonKey(name: 'point') @JsonStringToInt() this.point,
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt});
 
@@ -719,11 +706,10 @@ class _$StudentDetailImpl implements _StudentDetail {
   @override
   @JsonKey(name: 'account_number')
   final String? accountNumber;
-  @override
-  @JsonKey(name: 'headmaster')
-  final int? headmaster;
+// @JsonKey(name: 'headmaster') int? headmaster,
   @override
   @JsonKey(name: 'point')
+  @JsonStringToInt()
   final int? point;
   @override
   @JsonKey(name: 'created_at')
@@ -734,7 +720,7 @@ class _$StudentDetailImpl implements _StudentDetail {
 
   @override
   String toString() {
-    return 'StudentDetail(id: $id, name: $name, email: $email, emailVerifiedAt: $emailVerifiedAt, phoneNumber: $phoneNumber, address: $address, gender: $gender, dateBirth: $dateBirth, nationalStudentId: $nationalStudentId, status: $status, motivation: $motivation, photo: $photo, bank: $bank, accountNumber: $accountNumber, headmaster: $headmaster, point: $point, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'StudentDetail(id: $id, name: $name, email: $email, emailVerifiedAt: $emailVerifiedAt, phoneNumber: $phoneNumber, address: $address, gender: $gender, dateBirth: $dateBirth, nationalStudentId: $nationalStudentId, status: $status, motivation: $motivation, photo: $photo, bank: $bank, accountNumber: $accountNumber, point: $point, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -762,8 +748,6 @@ class _$StudentDetailImpl implements _StudentDetail {
             (identical(other.bank, bank) || other.bank == bank) &&
             (identical(other.accountNumber, accountNumber) ||
                 other.accountNumber == accountNumber) &&
-            (identical(other.headmaster, headmaster) ||
-                other.headmaster == headmaster) &&
             (identical(other.point, point) || other.point == point) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -789,7 +773,6 @@ class _$StudentDetailImpl implements _StudentDetail {
       photo,
       bank,
       accountNumber,
-      headmaster,
       point,
       createdAt,
       updatedAt);
@@ -824,8 +807,7 @@ abstract class _StudentDetail implements StudentDetail {
           @JsonKey(name: 'photo') final String? photo,
           @JsonKey(name: 'bank') final String? bank,
           @JsonKey(name: 'account_number') final String? accountNumber,
-          @JsonKey(name: 'headmaster') final int? headmaster,
-          @JsonKey(name: 'point') final int? point,
+          @JsonKey(name: 'point') @JsonStringToInt() final int? point,
           @JsonKey(name: 'created_at') final DateTime? createdAt,
           @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
       _$StudentDetailImpl;
@@ -875,11 +857,9 @@ abstract class _StudentDetail implements StudentDetail {
   @override
   @JsonKey(name: 'account_number')
   String? get accountNumber;
-  @override
-  @JsonKey(name: 'headmaster')
-  int? get headmaster;
-  @override
+  @override // @JsonKey(name: 'headmaster') int? headmaster,
   @JsonKey(name: 'point')
+  @JsonStringToInt()
   int? get point;
   @override
   @JsonKey(name: 'created_at')
@@ -900,9 +880,10 @@ StudentClassroom _$StudentClassroomFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$StudentClassroom {
   @JsonKey(name: 'id')
+  @JsonStringToInt()
   int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'student_school_id')
-  int? get studentchoolId => throw _privateConstructorUsedError;
+  String? get studentchoolId => throw _privateConstructorUsedError;
   @JsonKey(name: 'classroom_id')
   String? get classroomId => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
@@ -923,8 +904,8 @@ abstract class $StudentClassroomCopyWith<$Res> {
       _$StudentClassroomCopyWithImpl<$Res, StudentClassroom>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
-      @JsonKey(name: 'student_school_id') int? studentchoolId,
+      {@JsonKey(name: 'id') @JsonStringToInt() int? id,
+      @JsonKey(name: 'student_school_id') String? studentchoolId,
       @JsonKey(name: 'classroom_id') String? classroomId,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
@@ -957,7 +938,7 @@ class _$StudentClassroomCopyWithImpl<$Res, $Val extends StudentClassroom>
       studentchoolId: freezed == studentchoolId
           ? _value.studentchoolId
           : studentchoolId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       classroomId: freezed == classroomId
           ? _value.classroomId
           : classroomId // ignore: cast_nullable_to_non_nullable
@@ -983,8 +964,8 @@ abstract class _$$StudentClassroomImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
-      @JsonKey(name: 'student_school_id') int? studentchoolId,
+      {@JsonKey(name: 'id') @JsonStringToInt() int? id,
+      @JsonKey(name: 'student_school_id') String? studentchoolId,
       @JsonKey(name: 'classroom_id') String? classroomId,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
@@ -1015,7 +996,7 @@ class __$$StudentClassroomImplCopyWithImpl<$Res>
       studentchoolId: freezed == studentchoolId
           ? _value.studentchoolId
           : studentchoolId // ignore: cast_nullable_to_non_nullable
-              as int?,
+              as String?,
       classroomId: freezed == classroomId
           ? _value.classroomId
           : classroomId // ignore: cast_nullable_to_non_nullable
@@ -1036,7 +1017,7 @@ class __$$StudentClassroomImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$StudentClassroomImpl implements _StudentClassroom {
   _$StudentClassroomImpl(
-      {@JsonKey(name: 'id') this.id,
+      {@JsonKey(name: 'id') @JsonStringToInt() this.id,
       @JsonKey(name: 'student_school_id') this.studentchoolId,
       @JsonKey(name: 'classroom_id') this.classroomId,
       @JsonKey(name: 'created_at') this.createdAt,
@@ -1047,10 +1028,11 @@ class _$StudentClassroomImpl implements _StudentClassroom {
 
   @override
   @JsonKey(name: 'id')
+  @JsonStringToInt()
   final int? id;
   @override
   @JsonKey(name: 'student_school_id')
-  final int? studentchoolId;
+  final String? studentchoolId;
   @override
   @JsonKey(name: 'classroom_id')
   final String? classroomId;
@@ -1104,8 +1086,8 @@ class _$StudentClassroomImpl implements _StudentClassroom {
 
 abstract class _StudentClassroom implements StudentClassroom {
   factory _StudentClassroom(
-          {@JsonKey(name: 'id') final int? id,
-          @JsonKey(name: 'student_school_id') final int? studentchoolId,
+          {@JsonKey(name: 'id') @JsonStringToInt() final int? id,
+          @JsonKey(name: 'student_school_id') final String? studentchoolId,
           @JsonKey(name: 'classroom_id') final String? classroomId,
           @JsonKey(name: 'created_at') final DateTime? createdAt,
           @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
@@ -1116,10 +1098,11 @@ abstract class _StudentClassroom implements StudentClassroom {
 
   @override
   @JsonKey(name: 'id')
+  @JsonStringToInt()
   int? get id;
   @override
   @JsonKey(name: 'student_school_id')
-  int? get studentchoolId;
+  String? get studentchoolId;
   @override
   @JsonKey(name: 'classroom_id')
   String? get classroomId;

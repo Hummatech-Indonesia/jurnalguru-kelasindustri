@@ -23,11 +23,7 @@ _$UserImpl _$$UserImplFromJson(Map<String, dynamic> json) => _$UserImpl(
       status: json['status'] as String?,
       motivation: json['motivation'] as String?,
       photo: json['photo'] as String?,
-      bank: json['bank'] as String?,
-      accountNumber: json['account_number'] as String?,
-      headmaster:
-          json['headmaster'] == null ? null : User.fromJson(json['headmaster']),
-      point: (json['point'] as num?)?.toInt(),
+      point: const JsonStringToInt().fromJson(json['point']),
       createdAt: json['created_at'] == null
           ? null
           : DateTime.parse(json['created_at'] as String),
@@ -50,10 +46,7 @@ Map<String, dynamic> _$$UserImplToJson(_$UserImpl instance) =>
       'status': instance.status,
       'motivation': instance.motivation,
       'photo': instance.photo,
-      'bank': instance.bank,
-      'account_number': instance.accountNumber,
-      'headmaster': instance.headmaster,
-      'point': instance.point,
+      'point': const JsonStringToInt().toJson(instance.point),
       'created_at': instance.createdAt?.toIso8601String(),
       'updated_at': instance.updatedAt?.toIso8601String(),
     };

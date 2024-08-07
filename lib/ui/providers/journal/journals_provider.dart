@@ -22,7 +22,7 @@ class Journals extends _$Journals {
     final result = await ref.watch(journalRepositoryProvider).getAllJournals();
 
     return result.fold(
-      (failure) => throw failure,
+      (failure) => Future.error(failure),
       (success) => success,
     );
   }
@@ -72,7 +72,7 @@ class Journals extends _$Journals {
     final response = await repository.addJournal(request);
 
     response.fold(
-      (failure) => throw failure,
+      (failure) => Future.error(failure),
       (success) => ref.invalidateSelf(),
     );
   }
@@ -126,7 +126,7 @@ class Journals extends _$Journals {
     final response = await repository.updateJournal(request);
 
     response.fold(
-      (failure) => throw failure,
+      (failure) => Future.error(failure),
       (success) {
         ref.invalidate(journalProvider(journal.id));
         ref.invalidateSelf();
@@ -140,7 +140,7 @@ class Journals extends _$Journals {
     final response = await repository.deleteJournal(journal);
 
     response.fold(
-      (failure) => throw failure,
+      (failure) => Future.error(failure),
       (success) => ref.invalidateSelf(),
     );
   }

@@ -23,6 +23,7 @@ mixin _$Classroom {
   @JsonKey(name: 'id')
   String? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'generation_id')
+  @JsonStringToInt()
   int? get generationId => throw _privateConstructorUsedError;
   @JsonKey(name: 'school_id')
   String? get schoolId => throw _privateConstructorUsedError;
@@ -35,6 +36,7 @@ mixin _$Classroom {
   @JsonKey(name: 'devision_id')
   String? get devisionId => throw _privateConstructorUsedError;
   @JsonKey(name: 'students')
+  @JsonStringToInt()
   int? get students => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,13 +52,13 @@ abstract class $ClassroomCopyWith<$Res> {
   @useResult
   $Res call(
       {@JsonKey(name: 'id') String? id,
-      @JsonKey(name: 'generation_id') int? generationId,
+      @JsonKey(name: 'generation_id') @JsonStringToInt() int? generationId,
       @JsonKey(name: 'school_id') String? schoolId,
       @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       @JsonKey(name: 'devision_id') String? devisionId,
-      @JsonKey(name: 'students') int? students});
+      @JsonKey(name: 'students') @JsonStringToInt() int? students});
 }
 
 /// @nodoc
@@ -128,13 +130,13 @@ abstract class _$$ClassroomImplCopyWith<$Res>
   @useResult
   $Res call(
       {@JsonKey(name: 'id') String? id,
-      @JsonKey(name: 'generation_id') int? generationId,
+      @JsonKey(name: 'generation_id') @JsonStringToInt() int? generationId,
       @JsonKey(name: 'school_id') String? schoolId,
       @JsonKey(name: 'name') String? name,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
       @JsonKey(name: 'devision_id') String? devisionId,
-      @JsonKey(name: 'students') int? students});
+      @JsonKey(name: 'students') @JsonStringToInt() int? students});
 }
 
 /// @nodoc
@@ -199,13 +201,13 @@ class __$$ClassroomImplCopyWithImpl<$Res>
 class _$ClassroomImpl implements _Classroom {
   _$ClassroomImpl(
       {@JsonKey(name: 'id') this.id,
-      @JsonKey(name: 'generation_id') this.generationId,
+      @JsonKey(name: 'generation_id') @JsonStringToInt() this.generationId,
       @JsonKey(name: 'school_id') this.schoolId,
       @JsonKey(name: 'name') this.name,
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt,
       @JsonKey(name: 'devision_id') this.devisionId,
-      @JsonKey(name: 'students') this.students});
+      @JsonKey(name: 'students') @JsonStringToInt() this.students});
 
   factory _$ClassroomImpl.fromJson(Map<String, dynamic> json) =>
       _$$ClassroomImplFromJson(json);
@@ -215,6 +217,7 @@ class _$ClassroomImpl implements _Classroom {
   final String? id;
   @override
   @JsonKey(name: 'generation_id')
+  @JsonStringToInt()
   final int? generationId;
   @override
   @JsonKey(name: 'school_id')
@@ -233,6 +236,7 @@ class _$ClassroomImpl implements _Classroom {
   final String? devisionId;
   @override
   @JsonKey(name: 'students')
+  @JsonStringToInt()
   final int? students;
 
   @override
@@ -282,14 +286,17 @@ class _$ClassroomImpl implements _Classroom {
 
 abstract class _Classroom implements Classroom {
   factory _Classroom(
-      {@JsonKey(name: 'id') final String? id,
-      @JsonKey(name: 'generation_id') final int? generationId,
-      @JsonKey(name: 'school_id') final String? schoolId,
-      @JsonKey(name: 'name') final String? name,
-      @JsonKey(name: 'created_at') final DateTime? createdAt,
-      @JsonKey(name: 'updated_at') final DateTime? updatedAt,
-      @JsonKey(name: 'devision_id') final String? devisionId,
-      @JsonKey(name: 'students') final int? students}) = _$ClassroomImpl;
+          {@JsonKey(name: 'id') final String? id,
+          @JsonKey(name: 'generation_id')
+          @JsonStringToInt()
+          final int? generationId,
+          @JsonKey(name: 'school_id') final String? schoolId,
+          @JsonKey(name: 'name') final String? name,
+          @JsonKey(name: 'created_at') final DateTime? createdAt,
+          @JsonKey(name: 'updated_at') final DateTime? updatedAt,
+          @JsonKey(name: 'devision_id') final String? devisionId,
+          @JsonKey(name: 'students') @JsonStringToInt() final int? students}) =
+      _$ClassroomImpl;
 
   factory _Classroom.fromJson(Map<String, dynamic> json) =
       _$ClassroomImpl.fromJson;
@@ -299,6 +306,7 @@ abstract class _Classroom implements Classroom {
   String? get id;
   @override
   @JsonKey(name: 'generation_id')
+  @JsonStringToInt()
   int? get generationId;
   @override
   @JsonKey(name: 'school_id')
@@ -317,6 +325,7 @@ abstract class _Classroom implements Classroom {
   String? get devisionId;
   @override
   @JsonKey(name: 'students')
+  @JsonStringToInt()
   int? get students;
   @override
   @JsonKey(ignore: true)

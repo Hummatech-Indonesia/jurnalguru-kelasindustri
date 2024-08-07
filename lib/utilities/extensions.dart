@@ -156,7 +156,21 @@ extension AsyncValueX<T> on AsyncValue<T> {
 
         return builder(data);
       },
-      error: (failure, stackTrace) => Text(failure.toString()),
+      error: (failure, stackTrace) => Row(
+        children: [
+          const Icon(
+            Icons.error_outline,
+            color: Colors.red,
+          ),
+          8.widthBox,
+          Text(
+            failure.toString(),
+            style: const TextStyle(
+              color: Colors.red,
+            ),
+          ),
+        ],
+      ),
       loading: () => const Center(child: CircularProgressIndicator()),
     );
   }

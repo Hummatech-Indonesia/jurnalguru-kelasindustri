@@ -11,7 +11,9 @@ part 'api_service.g.dart';
 class ApiService {
   final Dio _dio;
 
-  ApiService(this._dio);
+  ApiService(
+    this._dio,
+  );
 
   Dio get dio => _dio;
 
@@ -27,6 +29,8 @@ class ApiService {
       return Right(ResponseModel.fromJson(response.data!, fromJsonT));
     } on Exception catch (e) {
       return Left(ValidationFailure(e.toString()));
+    } catch (e) {
+      return Left(ParsingFailure());
     }
   }
 
@@ -55,6 +59,8 @@ class ApiService {
       }
 
       return Left(Failure(e.toString()));
+    } catch (e) {
+      return Left(ParsingFailure());
     }
   }
 
@@ -88,11 +94,15 @@ class ApiService {
       }
 
       return Left(Failure(e.toString()));
+    } catch (e) {
+      return Left(ParsingFailure());
     }
   }
 }
 
 @Riverpod(keepAlive: true)
 ApiService apiService(ApiServiceRef ref) {
-  return ApiService(ref.read(dioProvider));
+  return ApiService(
+    ref.watch(dioProvider),
+  );
 }

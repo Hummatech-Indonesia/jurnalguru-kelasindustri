@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../utilities/extensions.dart';
+import '../../../domain/constants/api_config.dart';
 import '../../../domain/entities/failure/failure.dart';
 import '../../../domain/entities/journal.dart';
 import '../../providers/journal/journal_provider.dart';
@@ -208,7 +209,7 @@ class _JournalDetailScreenState
                       child: ClipRRect(
                         borderRadius: ThemeConstants.mediumRadius,
                         child: Image.network(
-                          "https://classhummatech.mijurnal.com/storage/${widget.journal.photo!}",
+                          "${ApiConfig.storageUrl}/${widget.journal.photo!}",
                           fit: BoxFit.cover,
                         ),
                       ),

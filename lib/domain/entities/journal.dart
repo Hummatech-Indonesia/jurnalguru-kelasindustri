@@ -1,5 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../utilities/json_converters.dart';
 import '../enums/attendance_type.dart';
 import 'classroom.dart';
 
@@ -18,9 +19,9 @@ class Journal with _$Journal {
     @JsonKey(name: 'created_by') String? createdBy,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
-    @JsonKey(name: 'permits') int? permits,
-    @JsonKey(name: 'sicks') int? sicks,
-    @JsonKey(name: 'absents') int? absents,
+    @JsonKey(name: 'permits') @JsonStringToInt() int? permits,
+    @JsonKey(name: 'sicks') @JsonStringToInt() int? sicks,
+    @JsonKey(name: 'absents') @JsonStringToInt() int? absents,
     @JsonKey(name: 'classroom') Classroom? classroom,
     @JsonKey(name: 'attendance_alfa')
     List<JournalAttendance>? absentsAttendance,
@@ -44,9 +45,11 @@ class Journal with _$Journal {
 @freezed
 class JournalAttendance with _$JournalAttendance {
   factory JournalAttendance({
-    @JsonKey(name: 'id') int? id,
+    @JsonKey(name: 'id') @JsonStringToInt() int? id,
     @JsonKey(name: 'journal_id') String? journalId,
-    @JsonKey(name: 'student_classroom_id') int? studentClassroomId,
+    @JsonKey(name: 'student_classroom_id')
+    @JsonStringToInt()
+    int? studentClassroomId,
     @JsonKey(name: 'attendance') AttendanceType? attendance,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,

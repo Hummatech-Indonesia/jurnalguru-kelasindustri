@@ -154,7 +154,9 @@ class HomeView extends ConsumerWidget {
           }),
           const Spacer(),
           Consumer(builder: (context, ref, child) {
-            final students = ref.watch(studentsProvider).value?.length ?? 0;
+            final students = ref.watch(
+              studentsProvider.select((value) => value.value?.length ?? 0),
+            );
 
             return _buildStatisticItem(context, students, "Siswa", Colors.blue);
           }),

@@ -6,7 +6,7 @@ part of 'alice_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$aliceHash() => r'817823c87e045ca2d748bf43f5d4f62e1c96e56e';
+String _$aliceHash() => r'3292d3ed6190abdf00268b147c592b21fbb9bb69';
 
 /// See also [alice].
 @ProviderFor(alice)

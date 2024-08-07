@@ -39,10 +39,13 @@ mixin _$Journal {
   @JsonKey(name: 'updated_at')
   DateTime? get updatedAt => throw _privateConstructorUsedError;
   @JsonKey(name: 'permits')
+  @JsonStringToInt()
   int? get permits => throw _privateConstructorUsedError;
   @JsonKey(name: 'sicks')
+  @JsonStringToInt()
   int? get sicks => throw _privateConstructorUsedError;
   @JsonKey(name: 'absents')
+  @JsonStringToInt()
   int? get absents => throw _privateConstructorUsedError;
   @JsonKey(name: 'classroom')
   Classroom? get classroom => throw _privateConstructorUsedError;
@@ -76,9 +79,9 @@ abstract class $JournalCopyWith<$Res> {
       @JsonKey(name: 'created_by') String? createdBy,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
-      @JsonKey(name: 'permits') int? permits,
-      @JsonKey(name: 'sicks') int? sicks,
-      @JsonKey(name: 'absents') int? absents,
+      @JsonKey(name: 'permits') @JsonStringToInt() int? permits,
+      @JsonKey(name: 'sicks') @JsonStringToInt() int? sicks,
+      @JsonKey(name: 'absents') @JsonStringToInt() int? absents,
       @JsonKey(name: 'classroom') Classroom? classroom,
       @JsonKey(name: 'attendance_alfa')
       List<JournalAttendance>? absentsAttendance,
@@ -218,9 +221,9 @@ abstract class _$$JournalImplCopyWith<$Res> implements $JournalCopyWith<$Res> {
       @JsonKey(name: 'created_by') String? createdBy,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt,
-      @JsonKey(name: 'permits') int? permits,
-      @JsonKey(name: 'sicks') int? sicks,
-      @JsonKey(name: 'absents') int? absents,
+      @JsonKey(name: 'permits') @JsonStringToInt() int? permits,
+      @JsonKey(name: 'sicks') @JsonStringToInt() int? sicks,
+      @JsonKey(name: 'absents') @JsonStringToInt() int? absents,
       @JsonKey(name: 'classroom') Classroom? classroom,
       @JsonKey(name: 'attendance_alfa')
       List<JournalAttendance>? absentsAttendance,
@@ -343,9 +346,9 @@ class _$JournalImpl implements _Journal {
       @JsonKey(name: 'created_by') this.createdBy,
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt,
-      @JsonKey(name: 'permits') this.permits,
-      @JsonKey(name: 'sicks') this.sicks,
-      @JsonKey(name: 'absents') this.absents,
+      @JsonKey(name: 'permits') @JsonStringToInt() this.permits,
+      @JsonKey(name: 'sicks') @JsonStringToInt() this.sicks,
+      @JsonKey(name: 'absents') @JsonStringToInt() this.absents,
       @JsonKey(name: 'classroom') this.classroom,
       @JsonKey(name: 'attendance_alfa')
       final List<JournalAttendance>? absentsAttendance,
@@ -389,12 +392,15 @@ class _$JournalImpl implements _Journal {
   final DateTime? updatedAt;
   @override
   @JsonKey(name: 'permits')
+  @JsonStringToInt()
   final int? permits;
   @override
   @JsonKey(name: 'sicks')
+  @JsonStringToInt()
   final int? sicks;
   @override
   @JsonKey(name: 'absents')
+  @JsonStringToInt()
   final int? absents;
   @override
   @JsonKey(name: 'classroom')
@@ -517,9 +523,9 @@ abstract class _Journal implements Journal {
       @JsonKey(name: 'created_by') final String? createdBy,
       @JsonKey(name: 'created_at') final DateTime? createdAt,
       @JsonKey(name: 'updated_at') final DateTime? updatedAt,
-      @JsonKey(name: 'permits') final int? permits,
-      @JsonKey(name: 'sicks') final int? sicks,
-      @JsonKey(name: 'absents') final int? absents,
+      @JsonKey(name: 'permits') @JsonStringToInt() final int? permits,
+      @JsonKey(name: 'sicks') @JsonStringToInt() final int? sicks,
+      @JsonKey(name: 'absents') @JsonStringToInt() final int? absents,
       @JsonKey(name: 'classroom') final Classroom? classroom,
       @JsonKey(name: 'attendance_alfa')
       final List<JournalAttendance>? absentsAttendance,
@@ -559,12 +565,15 @@ abstract class _Journal implements Journal {
   DateTime? get updatedAt;
   @override
   @JsonKey(name: 'permits')
+  @JsonStringToInt()
   int? get permits;
   @override
   @JsonKey(name: 'sicks')
+  @JsonStringToInt()
   int? get sicks;
   @override
   @JsonKey(name: 'absents')
+  @JsonStringToInt()
   int? get absents;
   @override
   @JsonKey(name: 'classroom')
@@ -591,10 +600,12 @@ JournalAttendance _$JournalAttendanceFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$JournalAttendance {
   @JsonKey(name: 'id')
+  @JsonStringToInt()
   int? get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'journal_id')
   String? get journalId => throw _privateConstructorUsedError;
   @JsonKey(name: 'student_classroom_id')
+  @JsonStringToInt()
   int? get studentClassroomId => throw _privateConstructorUsedError;
   @JsonKey(name: 'attendance')
   AttendanceType? get attendance => throw _privateConstructorUsedError;
@@ -616,9 +627,11 @@ abstract class $JournalAttendanceCopyWith<$Res> {
       _$JournalAttendanceCopyWithImpl<$Res, JournalAttendance>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
+      {@JsonKey(name: 'id') @JsonStringToInt() int? id,
       @JsonKey(name: 'journal_id') String? journalId,
-      @JsonKey(name: 'student_classroom_id') int? studentClassroomId,
+      @JsonKey(name: 'student_classroom_id')
+      @JsonStringToInt()
+      int? studentClassroomId,
       @JsonKey(name: 'attendance') AttendanceType? attendance,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
@@ -682,9 +695,11 @@ abstract class _$$JournalAttendanceImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'id') int? id,
+      {@JsonKey(name: 'id') @JsonStringToInt() int? id,
       @JsonKey(name: 'journal_id') String? journalId,
-      @JsonKey(name: 'student_classroom_id') int? studentClassroomId,
+      @JsonKey(name: 'student_classroom_id')
+      @JsonStringToInt()
+      int? studentClassroomId,
       @JsonKey(name: 'attendance') AttendanceType? attendance,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
@@ -741,9 +756,11 @@ class __$$JournalAttendanceImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$JournalAttendanceImpl implements _JournalAttendance {
   _$JournalAttendanceImpl(
-      {@JsonKey(name: 'id') this.id,
+      {@JsonKey(name: 'id') @JsonStringToInt() this.id,
       @JsonKey(name: 'journal_id') this.journalId,
-      @JsonKey(name: 'student_classroom_id') this.studentClassroomId,
+      @JsonKey(name: 'student_classroom_id')
+      @JsonStringToInt()
+      this.studentClassroomId,
       @JsonKey(name: 'attendance') this.attendance,
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt});
@@ -753,12 +770,14 @@ class _$JournalAttendanceImpl implements _JournalAttendance {
 
   @override
   @JsonKey(name: 'id')
+  @JsonStringToInt()
   final int? id;
   @override
   @JsonKey(name: 'journal_id')
   final String? journalId;
   @override
   @JsonKey(name: 'student_classroom_id')
+  @JsonStringToInt()
   final int? studentClassroomId;
   @override
   @JsonKey(name: 'attendance')
@@ -815,9 +834,11 @@ class _$JournalAttendanceImpl implements _JournalAttendance {
 
 abstract class _JournalAttendance implements JournalAttendance {
   factory _JournalAttendance(
-          {@JsonKey(name: 'id') final int? id,
+          {@JsonKey(name: 'id') @JsonStringToInt() final int? id,
           @JsonKey(name: 'journal_id') final String? journalId,
-          @JsonKey(name: 'student_classroom_id') final int? studentClassroomId,
+          @JsonKey(name: 'student_classroom_id')
+          @JsonStringToInt()
+          final int? studentClassroomId,
           @JsonKey(name: 'attendance') final AttendanceType? attendance,
           @JsonKey(name: 'created_at') final DateTime? createdAt,
           @JsonKey(name: 'updated_at') final DateTime? updatedAt}) =
@@ -828,12 +849,14 @@ abstract class _JournalAttendance implements JournalAttendance {
 
   @override
   @JsonKey(name: 'id')
+  @JsonStringToInt()
   int? get id;
   @override
   @JsonKey(name: 'journal_id')
   String? get journalId;
   @override
   @JsonKey(name: 'student_classroom_id')
+  @JsonStringToInt()
   int? get studentClassroomId;
   @override
   @JsonKey(name: 'attendance')

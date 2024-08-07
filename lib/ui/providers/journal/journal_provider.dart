@@ -19,7 +19,7 @@ Future<Journal> journal(JournalRef ref, String? id) async {
   final result = await repository.getJournal(id);
 
   return result.fold(
-    (failure) => throw failure,
+    (failure) => Future.error(failure),
     (success) => success,
   );
 }

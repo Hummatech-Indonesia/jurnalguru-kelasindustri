@@ -54,6 +54,8 @@ Dio dio(DioRef ref) {
       ref
           .read(responseMessageProvider.notifier)
           .setFailure(NetworkFailure.fromDioException(error));
+
+      return handler.next(error);
     },
   ));
 

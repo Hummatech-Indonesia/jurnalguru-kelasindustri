@@ -1,5 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../utilities/json_converters.dart';
+
 part 'student.freezed.dart';
 part 'student.g.dart';
 
@@ -44,8 +46,8 @@ class StudentDetail with _$StudentDetail {
     @JsonKey(name: 'photo') String? photo,
     @JsonKey(name: 'bank') String? bank,
     @JsonKey(name: 'account_number') String? accountNumber,
-    @JsonKey(name: 'headmaster') int? headmaster,
-    @JsonKey(name: 'point') int? point,
+    // @JsonKey(name: 'headmaster') int? headmaster,
+    @JsonKey(name: 'point') @JsonStringToInt() int? point,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,
   }) = _StudentDetail;
@@ -57,8 +59,8 @@ class StudentDetail with _$StudentDetail {
 @freezed
 class StudentClassroom with _$StudentClassroom {
   factory StudentClassroom({
-    @JsonKey(name: 'id') int? id,
-    @JsonKey(name: 'student_school_id') int? studentchoolId,
+    @JsonKey(name: 'id') @JsonStringToInt() int? id,
+    @JsonKey(name: 'student_school_id') String? studentchoolId,
     @JsonKey(name: 'classroom_id') String? classroomId,
     @JsonKey(name: 'created_at') DateTime? createdAt,
     @JsonKey(name: 'updated_at') DateTime? updatedAt,

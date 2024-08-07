@@ -43,14 +43,12 @@ mixin _$User {
   @JsonKey(name: 'motivation')
   String? get motivation => throw _privateConstructorUsedError;
   @JsonKey(name: 'photo')
-  String? get photo => throw _privateConstructorUsedError;
-  @JsonKey(name: 'bank')
-  String? get bank => throw _privateConstructorUsedError;
-  @JsonKey(name: 'account_number')
-  String? get accountNumber => throw _privateConstructorUsedError;
-  @JsonKey(name: 'headmaster')
-  User? get headmaster => throw _privateConstructorUsedError;
+  String? get photo =>
+      throw _privateConstructorUsedError; // @JsonKey(name: 'bank') String? bank,
+// @JsonKey(name: 'account_number') String? accountNumber,
+// @JsonKey(name: 'headmaster') User? headmaster,
   @JsonKey(name: 'point')
+  @JsonStringToInt()
   int? get point => throw _privateConstructorUsedError;
   @JsonKey(name: 'created_at')
   DateTime? get createdAt => throw _privateConstructorUsedError;
@@ -80,14 +78,9 @@ abstract class $UserCopyWith<$Res> {
       @JsonKey(name: 'status') String? status,
       @JsonKey(name: 'motivation') String? motivation,
       @JsonKey(name: 'photo') String? photo,
-      @JsonKey(name: 'bank') String? bank,
-      @JsonKey(name: 'account_number') String? accountNumber,
-      @JsonKey(name: 'headmaster') User? headmaster,
-      @JsonKey(name: 'point') int? point,
+      @JsonKey(name: 'point') @JsonStringToInt() int? point,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
-
-  $UserCopyWith<$Res>? get headmaster;
 }
 
 /// @nodoc
@@ -115,9 +108,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
     Object? status = freezed,
     Object? motivation = freezed,
     Object? photo = freezed,
-    Object? bank = freezed,
-    Object? accountNumber = freezed,
-    Object? headmaster = freezed,
     Object? point = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -171,18 +161,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
               as String?,
-      bank: freezed == bank
-          ? _value.bank
-          : bank // ignore: cast_nullable_to_non_nullable
-              as String?,
-      accountNumber: freezed == accountNumber
-          ? _value.accountNumber
-          : accountNumber // ignore: cast_nullable_to_non_nullable
-              as String?,
-      headmaster: freezed == headmaster
-          ? _value.headmaster
-          : headmaster // ignore: cast_nullable_to_non_nullable
-              as User?,
       point: freezed == point
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
@@ -196,18 +174,6 @@ class _$UserCopyWithImpl<$Res, $Val extends User>
           : updatedAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
     ) as $Val);
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $UserCopyWith<$Res>? get headmaster {
-    if (_value.headmaster == null) {
-      return null;
-    }
-
-    return $UserCopyWith<$Res>(_value.headmaster!, (value) {
-      return _then(_value.copyWith(headmaster: value) as $Val);
-    });
   }
 }
 
@@ -231,15 +197,9 @@ abstract class _$$UserImplCopyWith<$Res> implements $UserCopyWith<$Res> {
       @JsonKey(name: 'status') String? status,
       @JsonKey(name: 'motivation') String? motivation,
       @JsonKey(name: 'photo') String? photo,
-      @JsonKey(name: 'bank') String? bank,
-      @JsonKey(name: 'account_number') String? accountNumber,
-      @JsonKey(name: 'headmaster') User? headmaster,
-      @JsonKey(name: 'point') int? point,
+      @JsonKey(name: 'point') @JsonStringToInt() int? point,
       @JsonKey(name: 'created_at') DateTime? createdAt,
       @JsonKey(name: 'updated_at') DateTime? updatedAt});
-
-  @override
-  $UserCopyWith<$Res>? get headmaster;
 }
 
 /// @nodoc
@@ -264,9 +224,6 @@ class __$$UserImplCopyWithImpl<$Res>
     Object? status = freezed,
     Object? motivation = freezed,
     Object? photo = freezed,
-    Object? bank = freezed,
-    Object? accountNumber = freezed,
-    Object? headmaster = freezed,
     Object? point = freezed,
     Object? createdAt = freezed,
     Object? updatedAt = freezed,
@@ -320,18 +277,6 @@ class __$$UserImplCopyWithImpl<$Res>
           ? _value.photo
           : photo // ignore: cast_nullable_to_non_nullable
               as String?,
-      bank: freezed == bank
-          ? _value.bank
-          : bank // ignore: cast_nullable_to_non_nullable
-              as String?,
-      accountNumber: freezed == accountNumber
-          ? _value.accountNumber
-          : accountNumber // ignore: cast_nullable_to_non_nullable
-              as String?,
-      headmaster: freezed == headmaster
-          ? _value.headmaster
-          : headmaster // ignore: cast_nullable_to_non_nullable
-              as User?,
       point: freezed == point
           ? _value.point
           : point // ignore: cast_nullable_to_non_nullable
@@ -364,10 +309,7 @@ class _$UserImpl implements _User {
       @JsonKey(name: 'status') this.status,
       @JsonKey(name: 'motivation') this.motivation,
       @JsonKey(name: 'photo') this.photo,
-      @JsonKey(name: 'bank') this.bank,
-      @JsonKey(name: 'account_number') this.accountNumber,
-      @JsonKey(name: 'headmaster') this.headmaster,
-      @JsonKey(name: 'point') this.point,
+      @JsonKey(name: 'point') @JsonStringToInt() this.point,
       @JsonKey(name: 'created_at') this.createdAt,
       @JsonKey(name: 'updated_at') this.updatedAt});
 
@@ -410,17 +352,12 @@ class _$UserImpl implements _User {
   @override
   @JsonKey(name: 'photo')
   final String? photo;
-  @override
-  @JsonKey(name: 'bank')
-  final String? bank;
-  @override
-  @JsonKey(name: 'account_number')
-  final String? accountNumber;
-  @override
-  @JsonKey(name: 'headmaster')
-  final User? headmaster;
+// @JsonKey(name: 'bank') String? bank,
+// @JsonKey(name: 'account_number') String? accountNumber,
+// @JsonKey(name: 'headmaster') User? headmaster,
   @override
   @JsonKey(name: 'point')
+  @JsonStringToInt()
   final int? point;
   @override
   @JsonKey(name: 'created_at')
@@ -431,7 +368,7 @@ class _$UserImpl implements _User {
 
   @override
   String toString() {
-    return 'User(id: $id, name: $name, email: $email, emailVerifiedAt: $emailVerifiedAt, phoneNumber: $phoneNumber, address: $address, gender: $gender, dateBirth: $dateBirth, nationalStudentId: $nationalStudentId, status: $status, motivation: $motivation, photo: $photo, bank: $bank, accountNumber: $accountNumber, headmaster: $headmaster, point: $point, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'User(id: $id, name: $name, email: $email, emailVerifiedAt: $emailVerifiedAt, phoneNumber: $phoneNumber, address: $address, gender: $gender, dateBirth: $dateBirth, nationalStudentId: $nationalStudentId, status: $status, motivation: $motivation, photo: $photo, point: $point, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -456,11 +393,6 @@ class _$UserImpl implements _User {
             (identical(other.motivation, motivation) ||
                 other.motivation == motivation) &&
             (identical(other.photo, photo) || other.photo == photo) &&
-            (identical(other.bank, bank) || other.bank == bank) &&
-            (identical(other.accountNumber, accountNumber) ||
-                other.accountNumber == accountNumber) &&
-            (identical(other.headmaster, headmaster) ||
-                other.headmaster == headmaster) &&
             (identical(other.point, point) || other.point == point) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
@@ -484,9 +416,6 @@ class _$UserImpl implements _User {
       status,
       motivation,
       photo,
-      bank,
-      accountNumber,
-      headmaster,
       point,
       createdAt,
       updatedAt);
@@ -519,10 +448,7 @@ abstract class _User implements User {
       @JsonKey(name: 'status') final String? status,
       @JsonKey(name: 'motivation') final String? motivation,
       @JsonKey(name: 'photo') final String? photo,
-      @JsonKey(name: 'bank') final String? bank,
-      @JsonKey(name: 'account_number') final String? accountNumber,
-      @JsonKey(name: 'headmaster') final User? headmaster,
-      @JsonKey(name: 'point') final int? point,
+      @JsonKey(name: 'point') @JsonStringToInt() final int? point,
       @JsonKey(name: 'created_at') final DateTime? createdAt,
       @JsonKey(name: 'updated_at') final DateTime? updatedAt}) = _$UserImpl;
 
@@ -564,17 +490,11 @@ abstract class _User implements User {
   @override
   @JsonKey(name: 'photo')
   String? get photo;
-  @override
-  @JsonKey(name: 'bank')
-  String? get bank;
-  @override
-  @JsonKey(name: 'account_number')
-  String? get accountNumber;
-  @override
-  @JsonKey(name: 'headmaster')
-  User? get headmaster;
-  @override
+  @override // @JsonKey(name: 'bank') String? bank,
+// @JsonKey(name: 'account_number') String? accountNumber,
+// @JsonKey(name: 'headmaster') User? headmaster,
   @JsonKey(name: 'point')
+  @JsonStringToInt()
   int? get point;
   @override
   @JsonKey(name: 'created_at')
