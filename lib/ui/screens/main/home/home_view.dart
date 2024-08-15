@@ -159,7 +159,8 @@ class HomeView extends ConsumerWidget {
           _buildStatisticItem(context, 1, "Kelas", Colors.red),
           const Spacer(),
           Consumer(builder: (context, ref, child) {
-            final journals = ref.watch(journalsProvider).value?.length ?? 0;
+            final journals =
+                ref.watch(journalsProvider).valueOrNull?.length ?? 0;
 
             return _buildStatisticItem(
                 context, journals, "Jurnal", Colors.green);
@@ -167,7 +168,8 @@ class HomeView extends ConsumerWidget {
           const Spacer(),
           Consumer(builder: (context, ref, child) {
             final students = ref.watch(
-              studentsProvider.select((value) => value.value?.length ?? 0),
+              studentsProvider
+                  .select((value) => value.valueOrNull?.length ?? 0),
             );
 
             return _buildStatisticItem(context, students, "Siswa", Colors.blue);

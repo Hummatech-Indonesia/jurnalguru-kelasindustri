@@ -163,10 +163,12 @@ extension AsyncValueX<T> on AsyncValue<T> {
             color: Colors.red,
           ),
           8.widthBox,
-          Text(
-            failure.toString(),
-            style: const TextStyle(
-              color: Colors.red,
+          Expanded(
+            child: Text(
+              failure is Failure ? failure.message : failure.toString(),
+              style: const TextStyle(
+                color: Colors.red,
+              ),
             ),
           ),
         ],

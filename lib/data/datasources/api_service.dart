@@ -27,8 +27,8 @@ class ApiService {
       }
 
       return Right(ResponseModel.fromJson(response.data!, fromJsonT));
-    } on Exception catch (e) {
-      return Left(ValidationFailure(e.toString()));
+    } on DioException catch (e) {
+      return Left(Failure.fromDioException(e));
     } catch (e) {
       return Left(ParsingFailure());
     }
@@ -48,17 +48,12 @@ class ApiService {
       );
 
       if (response.data == null) {
-        return Left(EmptyResponseFailure('Data is null'));
+        return Left(ResponseFailure.dio(response));
       }
 
       return Right(ResponseModel.fromJson(response.data!, fromJsonT));
     } on DioException catch (e) {
-      if (e.response?.data != null) {
-        final response = ResponseModel.fromJson(e.response!.data!, fromJsonT);
-        return Left(ValidationFailure(response.message ?? '-'));
-      }
-
-      return Left(Failure(e.toString()));
+      return Left(Failure.fromDioException(e));
     } catch (e) {
       return Left(ParsingFailure());
     }
@@ -83,17 +78,12 @@ class ApiService {
       final response = await _dio.delete<Map<String, dynamic>>(path);
 
       if (response.data == null) {
-        return Left(EmptyResponseFailure('Data is null'));
+        return Left(ResponseFailure.dio(response));
       }
 
       return Right(ResponseModel.fromJson(response.data!, fromJsonT));
     } on DioException catch (e) {
-      if (e.response?.data != null) {
-        final response = ResponseModel.fromJson(e.response!.data!, fromJsonT);
-        return Left(ValidationFailure(response.message ?? '-'));
-      }
-
-      return Left(Failure(e.toString()));
+      return Left(Failure.fromDioException(e));
     } catch (e) {
       return Left(ParsingFailure());
     }

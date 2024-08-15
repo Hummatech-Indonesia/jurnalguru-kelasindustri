@@ -53,7 +53,7 @@ Dio dio(DioRef ref) {
     onError: (error, handler) async {
       ref
           .read(responseMessageProvider.notifier)
-          .setFailure(NetworkFailure.fromDioException(error));
+          .setFailure(Failure.fromDioException(error));
 
       return handler.next(error);
     },
