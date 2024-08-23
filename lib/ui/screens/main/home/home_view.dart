@@ -45,6 +45,7 @@ class HomeView extends ConsumerWidget {
                 ),
                 8.widthBox,
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(user?.name ?? '-',
                         style: context.text.titleMedium
@@ -163,13 +164,18 @@ class HomeView extends ConsumerWidget {
                 ref.watch(journalsProvider).valueOrNull?.length ?? 0;
 
             return _buildStatisticItem(
-                context, journals, "Jurnal", Colors.green);
+              context,
+              journals,
+              "Jurnal",
+              Colors.green,
+            );
           }),
           const Spacer(),
           Consumer(builder: (context, ref, child) {
             final students = ref.watch(
-              studentsProvider
-                  .select((value) => value.valueOrNull?.length ?? 0),
+              studentsProvider.select(
+                (value) => value.valueOrNull?.length ?? 0,
+              ),
             );
 
             return _buildStatisticItem(context, students, "Siswa", Colors.blue);
@@ -188,18 +194,23 @@ class HomeView extends ConsumerWidget {
     return Expanded(
       child: Column(
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: color.withOpacity(0.25),
-              borderRadius: ThemeConstants.smallRadius,
-            ),
-            padding: ThemeConstants.defaultPadding / 2,
-            alignment: Alignment.center,
-            child: Text(
-              value.toString(),
-              style: context.text.headlineLarge
-                  ?.weight(Weight.semiBold)
-                  .withColor(color),
+          AspectRatio(
+            aspectRatio: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                color: color.withOpacity(0.25),
+                borderRadius: ThemeConstants.smallRadius,
+              ),
+              padding: ThemeConstants.defaultPadding / 2,
+              alignment: Alignment.center,
+              child: FittedBox(
+                child: Text(
+                  value.toString(),
+                  style: context.text.headlineLarge
+                      ?.weight(Weight.semiBold)
+                      .withColor(color),
+                ),
+              ),
             ),
           ),
           10.heightBox,
