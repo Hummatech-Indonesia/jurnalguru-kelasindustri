@@ -42,7 +42,8 @@ Dio dio(DioRef ref) {
     onResponse: (response, handler) async {
       if (response.requestOptions.method == 'POST' &&
           response.data is Map &&
-          response.data['message'] != null) {
+          response.data['message'] != null &&
+          response.data['message'] != 'Welcome to the API') {
         ref
             .read(responseMessageProvider.notifier)
             .setMessage(response.data['message']);
