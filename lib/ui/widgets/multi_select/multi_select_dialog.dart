@@ -85,32 +85,34 @@ class _MultiSelectDialogState<T> extends State<MultiSelectDialog<T>> {
 
     return SizedBox(
       width: double.maxFinite,
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: widget.options.length,
-        itemBuilder: (context, index) {
-          return CheckboxListTile(
-            value: selectedValues.contains(widget.options[index].value),
-            onChanged: (value) {
-              final List<DropdownMenuItem<T>> selectedValues;
+      child: SingleChildScrollView(
+        child: ListView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          itemCount: widget.options.length,
+          itemBuilder: (context, index) {
+            return CheckboxListTile(
+              value: selectedValues.contains(widget.options[index].value),
+              onChanged: (value) {
+                final List<DropdownMenuItem<T>> selectedValues;
 
-              if (value == true) {
-                selectedValues = [..._selectedValues, widget.options[index]];
-              } else {
-                selectedValues = [
-                  for (final e in _selectedValues)
-                    if (e.value != widget.options[index].value) e
-                ];
-              }
+                if (value == true) {
+                  selectedValues = [..._selectedValues, widget.options[index]];
+                } else {
+                  selectedValues = [
+                    for (final e in _selectedValues)
+                      if (e.value != widget.options[index].value) e
+                  ];
+                }
 
-              setState(() {
-                _selectedValues = selectedValues;
-              });
-            },
-            title: widget.options[index].child,
-          );
-        },
+                setState(() {
+                  _selectedValues = selectedValues;
+                });
+              },
+              title: widget.options[index].child,
+            );
+          },
+        ),
       ),
     );
   }
